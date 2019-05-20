@@ -5,14 +5,7 @@ import 'style-loader!leaflet/dist/leaflet.css';
 @Component({
     selector: 'ngx-mapa',
     styleUrls: ['./mapa.component.scss'],
-    template: `
-      <nb-card>
-        <nb-card-header>Mapa Przewoźników</nb-card-header>
-        <nb-card-body>
-          <div leaflet [leafletOptions]="options"></div>
-        </nb-card-body>
-      </nb-card>
-    `,
+    templateUrl: './mapa.component.html', 
   })
 export class MapaComponent {
 

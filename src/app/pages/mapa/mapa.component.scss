@@ -6,12 +6,29 @@
     padding: 0;
   }
 
+  .divider {
+    
+  }
+  .actions {
+    margin-top: 15px;
+  }
+
+  #icon {
+    width: 155px;
+  }
+
   /deep/ .leaflet-top, /deep/ .leaflet-bottom {
     z-index: 997;
   }
 
   /deep/ .leaflet-container {
-    width: 100%;
+    padding-right: 20px;
     height: nb-theme(card-height-large);
+    margin: 20px 20px 20px 20px;
   }
+  
+  nb-actions {
+    font-size: 2.5rem;
+  }
+
 }

@@ -5,10 +5,14 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { MapaComponent } from './mapa.component'
 
 import { ThemeModule } from '../../@theme/theme.module';
+import { NbButtonModule, NbSelectModule, NbActionsModule } from '@nebular/theme';
 
 @NgModule({
   imports: [
     ThemeModule,
+    NbButtonModule,
+    NbSelectModule,
+    NbActionsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCpVhQiwAllg1RAFaxMWSpQruuGARy0Y1k',
       libraries: ['places'],

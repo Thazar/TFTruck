@@ -1,24 +1,24 @@
-<h1 id="title" class="title">Login</h1>
-<p class="sub-title">Hello! Log in with your email.</p>
+<h1 id="title" class="title">Logowanie</h1>
+<p class="sub-title">Witaj! Zaloguj się swoim E-mailem.</p>
 
 <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
-  <p class="alert-title"><b>Oh snap!</b></p>
+  <p class="alert-title"><b>Oh Nie!</b></p>
   <ul class="alert-message-list">
-    <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+    <li *ngFor="let error of errors" class="alert-message">Nieprawidłowa kombinacja Email / Hasło</li>
   </ul>
 </nb-alert>
 
 <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
-  <p class="alert-title"><b>Hooray!</b></p>
+  <p class="alert-title"><b>Hurra!</b></p>
   <ul class="alert-message-list">
-    <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+    <li *ngFor="let message of messages" class="alert-message">Udane Logowanie!</li>
   </ul>
 </nb-alert>
 
 <form (ngSubmit)="login()" #form="ngForm" aria-labelledby="title">
 
   <div class="form-control-group">
-    <label class="label" for="input-email">Email address:</label>
+    <label class="label" for="input-email">Adress Email:</label>
     <input nbInput
            fullWidth
            [(ngModel)]="user.email"
@@ -33,16 +33,16 @@
            [attr.aria-invalid]="email.invalid && email.touched ? true : null">
     <ng-container *ngIf="email.invalid && email.touched">
       <p class="error-message" *ngIf="email.errors?.required">
-        Email is required!
+        Email jest wymagany!
       </p>
       <p class="error-message" *ngIf="email.errors?.pattern">
-        Email should be the real one!
+        Email musi być prawdziwy!
       </p>
     </ng-container>
   </div>
 
   <div class="form-control-group">
-    <label class="label" for="input-password">Password:</label>
+    <label class="label" for="input-password">Hasło:</label>
     <input nbInput
            fullWidth
            [(ngModel)]="user.password"
@@ -58,13 +58,13 @@
            [attr.aria-invalid]="password.invalid && password.touched ? true : null">
     <ng-container *ngIf="password.invalid && password.touched ">
       <p class="error-message" *ngIf="password.errors?.required">
-        Password is required!
+        Hasło jest wymagane!
       </p>
       <p class="error-message" *ngIf="password.errors?.minlength || password.errors?.maxlength">
-        Password should contains
-        from {{ getConfigValue('forms.validation.password.minLength') }}
-        to {{ getConfigValue('forms.validation.password.maxLength') }}
-        characters
+        Hasło powinno zawierać
+        od {{ getConfigValue('forms.validation.password.minLength') }}
+        do {{ getConfigValue('forms.validation.password.maxLength') }}
+        znaków
       </p>
     </ng-container>
   </div>
