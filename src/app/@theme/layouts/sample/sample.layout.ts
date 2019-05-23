@@ -55,6 +55,7 @@ import { StateService } from '../../../@core/utils';
                    fixed
                    [end]="sidebar.id !== 'end'">
         <ngx-theme-settings></ngx-theme-settings>
+        
       </nb-sidebar>
     </nb-layout>
     <ngx-toggle-settings-button></ngx-toggle-settings-button>

@@ -30,6 +30,9 @@ import { StateService } from '../../../@core/utils';
       <div class="switcher">
         <ngx-layout-direction-switcher></ngx-layout-direction-switcher>
       </div>
+      <div  class="switcher-theme">
+      <ngx-theme-switcher></ngx-theme-switcher>
+      </div>
     </div>
   `,
 })
