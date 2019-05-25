@@ -6,14 +6,23 @@
                 <nb-actions class="actions" size="medium">
                         <nb-action nbTooltip="Dodaj Auto" nbTooltipIcon="nb-plus"  icon="nb-plus" (click)="openWindowWithoutBackdrop()"></nb-action>
                         <ng-template #disabledEsc>
-                          <input nbInput>
+                          <mat-form-field class="example-form-field">
+                            <input matInput type="text" placeholder="Lokalizacja" [(ngModel)]="value">
+                            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                              <mat-icon>close</mat-icon>
+                            </button>
+                          </mat-form-field>
                           </ng-template>
                         <nb-action nbTooltip="Szukaj Auta" nbTooltipIcon="nb-search" icon="nb-search"></nb-action>
                         <nb-action icon="nb-trash"></nb-action>
                         
                       </nb-actions>
         <hr>
-        <div leaflet [leafletOptions]="options"></div>
+        <div class="map-container">
+          <agm-map [latitude]="lat" [longitude]="lng">
+            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+          </agm-map>
+        </div>
         </nb-card-body>
       </nb-card>
     

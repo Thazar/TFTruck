@@ -26,14 +26,18 @@
     width: 155px;
   }
 
-  /deep/ .leaflet-top, /deep/ .leaflet-bottom {
-    z-index: 997;
+
+  /deep/ agm-map {
+    
+    height: nb-theme(card-height-large);
+   
+  }
+  .example-form-field {
+    width: 200px;
   }
 
-  /deep/ .leaflet-container {
-    padding-right: 20px;
-    height: nb-theme(card-height-large);
-    margin: 20px 20px 20px 20px;
+  .map-container {
+    margin: -5px 10px 10px 10px;
   }
   
   nb-actions {

@@ -1,5 +1,4 @@
-import { Component, TemplateRef, ViewChild} from '@angular/core';
-import * as L from 'leaflet';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import 'style-loader!leaflet/dist/leaflet.css';
 import { NbWindowService } from '@nebular/theme';
 
@@ -19,11 +18,4 @@ export class MapaComponent {
       { title: 'Wolne Auto', hasBackdrop: false, closeOnEsc: false },
     );
   }
-      options = {
-      layers: [
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' }),
-      ],
-      zoom: 5,
-      center: L.latLng({ lat: 38.991709, lng: -76.886109 }),
-    };
   }
