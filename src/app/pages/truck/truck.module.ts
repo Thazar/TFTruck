@@ -6,10 +6,11 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
 import { ThemeModule } from '../../@theme/theme.module';
 import { TruckRoutingModule, routedComponents } from './truck-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
     imports: [
-      MatIconModule, MatInputModule, MatButtonModule, MatGoogleMapsAutocompleteModule.forRoot() , ReactiveFormsModule,
+      MatIconModule, MatInputModule, MatButtonModule, MatGoogleMapsAutocompleteModule.forRoot() , ReactiveFormsModule,AngularFontAwesomeModule,
       ThemeModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyCl_eRT8a-rXEmSZzHcXYKi7zNI0XlGb-w',

@@ -5,7 +5,7 @@ import { link } from 'fs';
 export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Główna',
-    icon: 'nb-home',
+    icon: 'fa fa-th',
     link: '/pages/home',
     data: {
       permission: 'view',
@@ -14,7 +14,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Truck',
-    icon: 'nb-location',
+    icon: 'fa fa-truck',
     data: {
       permission: 'view',
       resource: 'admin'

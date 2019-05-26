@@ -1,10 +1,12 @@
 
       
       <nb-card >
-        <nb-card-header class="main-card">Mapa Przewoźników</nb-card-header>
+        <nb-card-header class="main-card">
+          <fa name="europe-globe"></fa>
+          Mapa Przewoźników</nb-card-header>
         <nb-card-body>
                 <nb-actions class="actions" size="medium">
-                        <nb-action nbTooltip="Dodaj Auto" nbTooltipIcon="nb-plus"  icon="nb-plus" (click)="openWindowWithoutBackdrop()"></nb-action>
+                        <nb-action nbTooltip="Dodaj Auto" nbTooltipIcon="fa fa-plus"  icon="nb-plus" (click)="openWindowWithoutBackdrop()"></nb-action>
                         <ng-template #disabledEsc>
                           <mat-form-field class="example-form-field">
                             <input matInput type="text" placeholder="Lokalizacja" [(ngModel)]="value">

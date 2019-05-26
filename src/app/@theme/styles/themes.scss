@@ -17,14 +17,14 @@ $nb-themes: nb-register-theme((
 
   switcher-background: #ebeff5,
   switcher-background-percentage: 50%,
-  drops-icon-line-gadient: -webkit-linear-gradient(#01dbb5, #0bbb79),
+  drops-icon-line-gadient: -webkit-linear-gradient(#0081ba, #0081ba),
 
   list-item-border-width: 1px,
 
   slide-out-container-width: 30%,
   slide-out-background: linear-gradient(270deg, #f7fafb 0%, #ecf2f5 100%),
-  slide-out-shadow-color: 0 4px 14px 0 #a2d2c8,
-  slide-out-shadow-color-rtl: 0 4px 14px 0 #a2d2c8,
+  slide-out-shadow-color: 0 4px 14px 0 #0081ba,
+  slide-out-shadow-color-rtl: 0 4px 14px 0 #0081ba,
 
   chart-panel-summary-box-shadow: none,
   chart-panel-summary-background-color: #ecf2f5,
@@ -33,7 +33,17 @@ $nb-themes: nb-register-theme((
 
   ecommerce-card-border-width: 1px,
 
-  progress-bar-background: linear-gradient(90deg, #3edd81 0%, #3bddaf 100%),
+  progress-bar-background: linear-gradient(90deg, #0081ba 0%, #0081ba 100%),
+
+  menu-icon-font-size: 1.8rem,
+  menu-icon-margin: 0 1.3rem 0, 
+  menu-submenu-active-border-color: #0081ba,
+  menu-icon-active-color: #0081ba,
+
+  popover-border: #0081ba,
+  popover-shadow: 0 8px 20px 0 rgba(40, 37, 89, 0.6),
+
+  
 ), default, default);
 
 $nb-themes: nb-register-theme((
@@ -64,6 +74,9 @@ $nb-themes: nb-register-theme((
   ecommerce-card-border-width: 1px,
 
   progress-bar-background: linear-gradient(90deg, #00c7c7 0%, #00d977 100%),
+
+  menu-icon-font-size: 1.8rem,
+  menu-icon-margin: 0 1.3rem 0, 
 ), cosmic, cosmic);
 
 $nb-themes: nb-register-theme((
@@ -94,4 +107,7 @@ $nb-themes: nb-register-theme((
   ecommerce-card-border-width: 1px,
 
   progress-bar-background: linear-gradient(90deg, #ff9f6f 0%, #ff8b97 100%),
+
+  menu-icon-font-size: 1.8rem,
+  menu-icon-margin: 0 1.3rem 0, 
 ), corporate, corporate);
