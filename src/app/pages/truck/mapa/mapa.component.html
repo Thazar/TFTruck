@@ -1,0 +1,22 @@
+<nb-card>
+    <nb-card-header class="header">
+      Mapa Przewoźników</nb-card-header>
+    <nb-card-body>
+        <nb-actions class="actions" size="medium">
+            <nb-action nbTooltip="Dodaj Auto" nbTooltipIcon="nb-plus" nbTooltipTrigger="hint"  icon="nb-plus" (click)="openWindowWithoutBackdrop()" ></nb-action>
+            <ng-template  #disabledEsc>
+                <form class="new-truck-form">
+              <ngx-search></ngx-search>             
+             </form>
+              </ng-template>
+            <nb-action nbTooltip="Szukaj Auta" nbTooltipIcon="nb-search" icon="nb-search"></nb-action>
+            <nb-action icon="nb-trash"></nb-action>
+            
+          </nb-actions>
+<hr>
+<div class="map-container">
+      
+      <ngx-map ></ngx-map>
+</div>
+    </nb-card-body>
+  </nb-card>

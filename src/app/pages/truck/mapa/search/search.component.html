@@ -1,0 +1,14 @@
+<mat-form-field>
+        <mat-label>adres</mat-label>
+        <input matInput
+        [(ngModel)]="value"
+             matGoogleMapsAutocomplete
+             type="(cities)"
+             [country]="de"
+             (onAutocompleteSelected)="onAutocompleteSelected($event)"
+             (onLocationSelected)="onLocationSelected($event)">
+
+             <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                        <mat-icon>close</mat-icon>
+                      </button>
+      </mat-form-field>

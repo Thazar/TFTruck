@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+@import '~@angular/material/theming';
+
+
+.header {
+  font-family: Roboto !important;
+}
+.new-truck-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
