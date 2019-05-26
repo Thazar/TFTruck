@@ -8,6 +8,10 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+.pac-container {
+  z-index: 1051 !important;
+}
+
 // ...
 
 // global app font size

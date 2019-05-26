@@ -2,8 +2,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MapaComponent } from "./mapa/mapa.component";
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import { TruckComponent } from './truck/truck.component';
 
 const routes: Routes = [{
   path: '',
@@ -12,8 +12,8 @@ const routes: Routes = [{
     path: 'home',
     component: DashboardComponent,
   }, {
-    path: 'mapa',
-    component: MapaComponent,
+    path: 'truck',
+    loadChildren: './truck/truck.module#TruckModule'
   }, {
     path: '',
     redirectTo: 'home',

@@ -1,4 +1,6 @@
 import { NbMenuItem } from '@nebular/theme';
+import { Title } from '@angular/platform-browser';
+import { link } from 'fs';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
@@ -11,13 +13,18 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
   },
   {
-    title: 'Mapa',
+    title: 'Truck',
     icon: 'nb-location',
-    link: '/pages/mapa',
     data: {
       permission: 'view',
       resource: 'admin'
     },
+    children: [
+      {
+      title: 'Mapa',
+      link: '/pages/truck/mapa'
+      }
+    ],
   },
   {
     title: 'Auth',
