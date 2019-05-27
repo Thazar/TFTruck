@@ -1,14 +1,23 @@
+<mat-form-field class="input">
+    <input [(ngModel)]="value" matInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+        <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
+        <span>{{state.name}}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 <mat-form-field>
-        <mat-label>adres</mat-label>
+        <mat-label>Adres</mat-label>
         <input matInput
-        [(ngModel)]="value"
-             matGoogleMapsAutocomplete
-             type="(cities)"
-             [country]="de"
-             (onAutocompleteSelected)="onAutocompleteSelected($event)"
-             (onLocationSelected)="onLocationSelected($event)">
-
-             <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        [(ngModel)]="adresValue"
+        matGoogleMapsAutocomplete
+        type="(cities)">
+             <button mat-button *ngIf="adresValue" matSuffix mat-icon-button aria-label="Clear" (click)="adresValue=''">
                         <mat-icon>close</mat-icon>
                       </button>
       </mat-form-field>
+     
