@@ -1,3 +1,21 @@
+<h5>Adres i Termin</h5>
+<div>
+    <mat-form-field  class="input-block">
+        <mat-label>Wolny od</mat-label>
+        <input [(ngModel)]="valueOd" autocomplete="off" matInput [nbDatepicker]="datepickerOd">
+        <button mat-button *ngIf="valueOd" matSuffix mat-icon-button aria-label="Clear" (click)="valueOd=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        <nb-datepicker #datepickerOd></nb-datepicker>
+  </mat-form-field>
+  <mat-form-field class="second-input">
+      <mat-label>Wolny do</mat-label>
+      <input [(ngModel)]="valueDo" matInput  [nbDatepicker]="datepickerDo">
+      <button mat-button *ngIf="valueDo" matSuffix mat-icon-button aria-label="Clear" (click)="valueDo=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      <nb-datepicker #datepickerDo></nb-datepicker>
+</mat-form-field>
 <mat-form-field class="input">
     <input [(ngModel)]="value" matInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
     <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
@@ -10,7 +28,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-<mat-form-field>
+<mat-form-field class="input">
         <mat-label>Adres</mat-label>
         <input matInput
         [(ngModel)]="adresValue"
@@ -21,3 +39,15 @@
                       </button>
       </mat-form-field>
      
+</div>
+<h5 class="h5">Opis Pojazdu</h5>
+<div > 
+  <mat-form-field  class="input-block">   
+      <mat-label>Typ zabudowy</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let food of foods" [value]="food.value">
+      {{food.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>  
+</div>

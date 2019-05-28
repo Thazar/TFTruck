@@ -7,6 +7,10 @@ export interface State {
   flag: string;
   name: string;
 }
+export interface typ {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'ngx-search',
@@ -41,6 +45,14 @@ export class SearchComponent {
   ];
   value = '';
   adresValue= '';
+  valueOd='';
+  valueDo='';
+  foods: typ[] = [
+    {value: 'firanka-0', viewValue: 'Firanka'},
+    {value: 'plandeka-1', viewValue: 'Plandeka'},
+    {value: 'chłodnia-2', viewValue: 'Chłodnia'},
+    {value: 'izoterma-3', viewValue: 'Izoterma'},
+  ];
   constructor() {
     this.filteredStates = this.stateCtrl.valueChanges
       .pipe(
