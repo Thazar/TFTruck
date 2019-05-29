@@ -13,11 +13,11 @@ export interface typ {
 }
 
 @Component({
-  selector: 'ngx-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
+  selector: 'ngx-add-truck',
+  templateUrl: './add-truck.component.html',
+  styleUrls: ['./add-truck.component.scss'],
 })
-export class SearchComponent {
+export class AddTruckComponent {
   stateCtrl = new FormControl();
   filteredStates: Observable<State[]>;
 
