@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TruckComponent } from './truck.component'
 import { MapaComponent } from './mapa/mapa.component'
 import { MapComponent } from './mapa/map/map.component';
-import { SearchComponent } from './mapa/search/search.component';
+import { AddTruckComponent } from './mapa/add-truck/add-truck.component';
 
 const routes: Routes = [{
     path: '',
@@ -25,6 +25,6 @@ const routes: Routes = [{
     TruckComponent,
     MapaComponent,
     MapComponent,
-    SearchComponent,
+    AddTruckComponent,
   ];
   

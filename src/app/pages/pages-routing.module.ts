@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
-import { TruckComponent } from './truck/truck.component';
+
 
 const routes: Routes = [{
   path: '',

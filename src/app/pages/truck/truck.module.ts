@@ -24,6 +24,7 @@ import { NbDatepickerModule, NbSelectModule } from '@nebular/theme';
     exports: [],
     declarations: [
       ...routedComponents,
+  
     ],
   })
 
