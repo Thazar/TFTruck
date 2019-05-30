@@ -4,6 +4,7 @@ import { TruckComponent } from './truck.component'
 import { MapaComponent } from './mapa/mapa.component'
 import { MapComponent } from './mapa/map/map.component';
 import { AddTruckComponent } from './mapa/add-truck/add-truck.component';
+import { CreateTruckComponent } from './mapa/add-truck/create-truck/create-truck.component';
 
 const routes: Routes = [{
     path: '',
@@ -26,5 +27,6 @@ const routes: Routes = [{
     MapaComponent,
     MapComponent,
     AddTruckComponent,
+    CreateTruckComponent,
   ];
   

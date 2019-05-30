@@ -9,11 +9,13 @@ import { TruckRoutingModule, routedComponents } from './truck-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NbDatepickerModule, NbSelectModule } from '@nebular/theme';
+import { CreateTruckComponent } from './mapa/add-truck/create-truck/create-truck.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     imports: [
       MatIconModule, MatInputModule, MatButtonModule, MatGoogleMapsAutocompleteModule.forRoot() , ReactiveFormsModule,AngularFontAwesomeModule, ReactiveFormsModule, MatAutocompleteModule, 
-      NbDatepickerModule.forRoot(), NbDatepickerModule, NbSelectModule, MatSelectModule,
+      NbDatepickerModule.forRoot(), NbDatepickerModule, NbSelectModule, MatSelectModule, HttpClientModule,
       ThemeModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyCl_eRT8a-rXEmSZzHcXYKi7zNI0XlGb-w',
@@ -24,6 +26,7 @@ import { NbDatepickerModule, NbSelectModule } from '@nebular/theme';
     exports: [],
     declarations: [
       ...routedComponents,
+      CreateTruckComponent,
   
     ],
   })

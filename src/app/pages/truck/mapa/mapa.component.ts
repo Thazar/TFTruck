@@ -7,6 +7,7 @@ import { NbWindowService } from '@nebular/theme';
   styleUrls: ['./mapa.component.scss']
 })
 export class MapaComponent {
+   
 
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
 
