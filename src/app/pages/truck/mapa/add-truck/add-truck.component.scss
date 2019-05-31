@@ -2,7 +2,7 @@
 
 
 
-  div {
+  .div {
     
     width: 500px;
     border-width: 2px;
@@ -52,6 +52,11 @@
     background-color: #0081ba !important;
     text-shadow: #0081ba !important;
     border-color: #0081ba;
+  }
+  
+  .dodaj-button {
+    display: flex; 
+    justify-content: flex-end;
   }
 
   

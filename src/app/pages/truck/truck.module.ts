@@ -9,7 +9,6 @@ import { TruckRoutingModule, routedComponents } from './truck-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NbDatepickerModule, NbSelectModule } from '@nebular/theme';
-import { CreateTruckComponent } from './mapa/add-truck/create-truck/create-truck.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { HttpClientModule } from '@angular/common/http';
     exports: [],
     declarations: [
       ...routedComponents,
-      CreateTruckComponent,
   
     ],
   })

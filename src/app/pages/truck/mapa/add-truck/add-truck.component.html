@@ -1,5 +1,5 @@
 <h5>Adres i Termin:</h5>
-<div>
+<div class="div">
     <mat-form-field  class="input-block">
         <mat-label>Wolny od</mat-label>
         <input [(ngModel)]="valueOd" autocomplete="off" matInput [nbDatepicker]="datepickerOd">
@@ -17,31 +17,40 @@
       <nb-datepicker #datepickerDo></nb-datepicker>
 </mat-form-field>
 <mat-form-field class="input">
-    <input [(ngModel)]="value" matInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
-    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+    <input [(ngModel)]="value" matInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" (click)="clear()" >
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="clear()" >
         <mat-icon>close</mat-icon>
       </button>
-    <mat-autocomplete #auto="matAutocomplete">
+    <mat-autocomplete (optionSelected)="countrySelected($event)" #auto="matAutocomplete">
       <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
         <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
         <span>{{state.name}}</span>
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-<mat-form-field class="input">
+ 
+<mat-form-field class="input" *ngIf="countryShortSelected; else falseInput" >
         <mat-label>Adres</mat-label>
-        <input matInput
-        [(ngModel)]="adresValue"
+        <input  autocomplete="off" matInput
+        [(ngModel)]="truck.adres"
+        id="adres"
         matGoogleMapsAutocomplete
-        type="(cities)">
-             <button mat-button *ngIf="adresValue" matSuffix mat-icon-button aria-label="Clear" (click)="adresValue=''">
+        country="{{countryShort}}"
+        (onLocationSelected)="onLocationSelected($event)"
+        >
+             <button mat-button *ngIf="truck.adres" matSuffix mat-icon-button aria-label="Clear" (click)="truck.adres=''">
                         <mat-icon>close</mat-icon>
                       </button>
+      </mat-form-field>  
+    <ng-template #falseInput>
+      <mat-form-field class="input">
+          <mat-label>Adres</mat-label>
+        <input matInput [disabled]="countryNotSelected" >
       </mat-form-field>
-     
+    </ng-template>
 </div>
 <h5 class="h5">Opis Pojazdu:</h5>
-<div > 
+<div class="div"> 
   <mat-form-field  class="input-block">   
       <mat-label>Typ zabudowy</mat-label>
   <mat-select>
@@ -51,5 +60,8 @@
   </mat-select>
 </mat-form-field>  
 </div>
-<ngx-create-truck></ngx-create-truck>
+<div class="dodaj-button">
+  <button nbButton (click)="onSubmit()">Dodaj</button>
+</div>
+
 
