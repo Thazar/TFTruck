@@ -14,4 +14,7 @@ export class AddTruckService {
   createTruck(truck: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}` + `/create`, truck);
   }
+  getAllTrucks(): Observable<any> {
+    return this.http.get(`${this.baseUrl}`);
+  }
 }

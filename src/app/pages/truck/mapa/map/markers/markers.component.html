@@ -1,0 +1,7 @@
+<div *ngFor="let truck of trucks | async">
+<agm-marker 
+      [latitude]="truck.latitude"
+      [longitude]="truck.longitude"
+      [iconUrl]="icon">
+    </agm-marker>
+  </div>

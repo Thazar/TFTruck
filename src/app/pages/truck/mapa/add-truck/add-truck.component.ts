@@ -7,6 +7,7 @@ import { AddTruckService } from './add-truck.service';
 import {Location, Appearance} from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
 import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { MarkersComponent } from '../map/markers/markers.component';
 
 export interface State {
   flag: string;
@@ -19,6 +20,7 @@ export interface typ {
 }
 
 @Component({
+  providers:[ MarkersComponent ],
   selector: 'ngx-add-truck',
   templateUrl: './add-truck.component.html',
   styleUrls: ['./add-truck.component.scss'],
@@ -71,7 +73,7 @@ export class AddTruckComponent {
     {value: 'izoterma-3', viewValue: 'Izoterma'},
   ];
 
-  constructor(private addTruckService: AddTruckService) {
+  constructor(private addTruckService: AddTruckService, private markers: MarkersComponent) {
     this.filteredStates = this.stateCtrl.valueChanges
       .pipe(
         startWith(''),

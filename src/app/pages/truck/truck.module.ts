@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NbDatepickerModule, NbSelectModule } from '@nebular/theme';
 import { HttpClientModule } from '@angular/common/http';
+import { MarkersComponent } from './mapa/map/markers/markers.component';
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     exports: [],
     declarations: [
       ...routedComponents,
+      MarkersComponent,
   
     ],
   })
