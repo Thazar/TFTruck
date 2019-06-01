@@ -12,12 +12,12 @@ export class AddTruckService {
   email: string;
 
   public connect() {
-    let socket = new SockJs(`https://tftruck.herokuapp.com/socket`)
+    let socket = new SockJs(`https://tft-logic.herokuapp.com/socket`)
     let stompClient = Stomp.over(socket);
     return stompClient;
   }
 
-  private baseUrl = 'https://tftruck.herokuapp.com/trucks';
+  private baseUrl = 'https://tft-logic.herokuapp.com/trucks';
 
   constructor(private http: HttpClient) { }
 
