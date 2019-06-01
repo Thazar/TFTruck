@@ -51,7 +51,7 @@ export class MarkersComponent implements OnInit {
 
   reloadData() {
     this.trucks = this.addTruckService.getAllTrucks();
-    this.icon ={ url: "/assets/images/bigTruck.png", scaledSize: {height: 35, width: 70} }
+    this.icon ={ url: "assets/images/bigTruck.png", scaledSize: {height: 35, width: 70} }
   }
 
   updateTruck() {
