@@ -9,7 +9,7 @@ var Stomp = require("stompjs")
   providedIn: 'root'
 })
 export class AddTruckService {
-  count: number;
+  email: string;
 
   public connect() {
     let socket = new SockJs(`http://localhost:8080/socket`)

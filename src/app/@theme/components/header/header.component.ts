@@ -6,6 +6,7 @@ import { AnalyticsService } from '../../../@core/utils';
 import { LayoutService } from '../../../@core/utils';
 import { NbAuthJWTToken, NbAuthService , NbTokenService} from '@nebular/auth';
 import { User } from '../../../models/User';
+import { AddTruckService } from '../../../pages/truck/mapa/add-truck/add-truck.service';
 
 @Component({
   selector: 'ngx-header',
@@ -26,7 +27,8 @@ export class HeaderComponent implements OnInit {
               private analyticsService: AnalyticsService,
               private layoutService: LayoutService , 
               private tokenService: NbTokenService,
-              private authService: NbAuthService) {
+              private authService: NbAuthService,
+              private truckService: AddTruckService) {
 
          
   }
@@ -37,6 +39,7 @@ export class HeaderComponent implements OnInit {
       if (token.isValid()) {
           this.user = token.getPayload();
           this.user.displayName = this.user.firstName + " " + this.user.lastName;
+          this.truckService.email = this.user.email;
       }
    });
   }

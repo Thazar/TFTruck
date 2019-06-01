@@ -9,6 +9,7 @@ import PlaceResult = google.maps.places.PlaceResult;
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { MarkersComponent } from '../map/markers/markers.component';
 
+
 export interface State {
   flag: string;
   name: string;
@@ -81,13 +82,12 @@ export class AddTruckComponent {
         map(state => state ? this._filterStates(state) : this.states.slice())
       );
   }
-
   newTruck(): void {
     this.truck = new Truck();
-    this.truck.countryShort = 'pl';
   }
 
   save() {
+    this.truck.email = this.addTruckService.email;
     this.addTruckService.createTruck(this.truck)
     .subscribe(data => console.log(data), error => console.log(error));
   }

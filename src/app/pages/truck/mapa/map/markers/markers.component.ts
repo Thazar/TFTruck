@@ -8,6 +8,7 @@ import { count } from 'rxjs/operators';
 interface Marker {
   lat: number;
   lng: number;
+  email: string;
 }
 
 
@@ -62,13 +63,12 @@ export class MarkersComponent implements OnInit {
      this.markerArray.push({
        lat: this.newTruck.latitude,
        lng: this.newTruck.longitude,
+       email: this.newTruck.email
      });
    });
     }
 
-    makeTrue() {
-      console.log("making madafakatrue aeeee")
-    }
+    
 
   }
 

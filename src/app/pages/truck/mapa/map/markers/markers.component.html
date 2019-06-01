@@ -2,16 +2,28 @@
 <agm-marker 
       [latitude]="truck.latitude"
       [longitude]="truck.longitude"
-      [iconUrl]="icon"
-      (markerClick)="makeTrue()">
+      [iconUrl]="icon">
       <agm-info-window>
-        <button nbButton></button>
+        <div>
+          <h5>Kontakt:</h5>
+          <div style="border-left-style: solid;">
+            <h6 style="display: inline-block; margin-left: 10px">Email:</h6>
+          <a style="display: inline-block; margin-left: 10px;" href="mailto:{{truck.email}}?Subject=Wolne%20Auto">{{truck.email}}</a>
+          <div></div>
+          <h6 style="display: inline-block; margin-left: 10px">Lat:</h6>
+          <p style="display: inline-block; margin-left: 10px;">{{truck.latitude}}</p>
+        </div>
+        </div>
       </agm-info-window>
     </agm-marker>
     <agm-marker *ngFor="let mark of markerArray; let i = index"
     [latitude]="mark.lat"
     [longitude]="mark.lng"
     [iconUrl]="icon">   
+    <agm-info-window>
+      <h5>Kontakt:</h5>
+        {{mark.email}}
+      </agm-info-window>
     </agm-marker>
   </div>
  

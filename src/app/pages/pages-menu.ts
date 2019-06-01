@@ -13,7 +13,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
   },
   {
-    title: 'SYSTEM',
+    title: 'Truck & Cargo',
     group: true,
     data: {
       permission: 'view',
@@ -43,8 +43,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
   },
   {
+    title: 'System',
+    group: true,
+    data: {
+      permission: 'view',
+      resource: 'admin'
+    },
+  },
+  {
     title: 'Auth',
     icon: 'nb-locked',
+    data: {
+      permission: 'view',
+      resource: 'admin'
+    },
     children: [
       {
         title: 'Login',
@@ -52,7 +64,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Register',
-        link: '/auth/register',
+        link: '/auth/sign-up',
       },
       {
         title: 'Request Password',

@@ -14,6 +14,7 @@ import {
   NbCheckboxModule,
   NbInputModule
 } from '@nebular/theme';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {
     NbAuthModule,
   ],
   declarations: [
-    NgxLoginComponent, 
+    NgxLoginComponent,
+    RegisterComponent, 
   ],
 })
 export class NgxAuthModule {
