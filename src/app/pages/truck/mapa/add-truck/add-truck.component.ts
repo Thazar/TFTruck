@@ -65,6 +65,7 @@ export class AddTruckComponent {
   countryShort;
   countryShortSelected= false;
   countryNotSelected= true;
+  tracking: Truck;
   
   foods: typ[] = [
     {value: 'firanka-0', viewValue: 'Firanka'},
@@ -89,7 +90,6 @@ export class AddTruckComponent {
   save() {
     this.addTruckService.createTruck(this.truck)
     .subscribe(data => console.log(data), error => console.log(error));
-    this.truck = new Truck();
   }
 
   onSubmit() {

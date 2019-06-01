@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AddTruckService } from '../add-truck/add-truck.service';
+
+
 
 
 @Component({
@@ -7,7 +10,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent {
+
   
-  constructor(){   
-  }
 }

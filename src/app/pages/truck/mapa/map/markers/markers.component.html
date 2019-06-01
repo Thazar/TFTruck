@@ -2,6 +2,16 @@
 <agm-marker 
       [latitude]="truck.latitude"
       [longitude]="truck.longitude"
-      [iconUrl]="icon">
+      [iconUrl]="icon"
+      (markerClick)="makeTrue()">
+      <agm-info-window>
+        <button nbButton></button>
+      </agm-info-window>
+    </agm-marker>
+    <agm-marker *ngFor="let mark of markerArray; let i = index"
+    [latitude]="mark.lat"
+    [longitude]="mark.lng"
+    [iconUrl]="icon">   
     </agm-marker>
   </div>
+ 
