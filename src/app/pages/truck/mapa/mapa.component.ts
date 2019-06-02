@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
-import { NbWindowService } from '@nebular/theme';
+import { NbWindowService, NbWindowRef } from '@nebular/theme';
+import { MapaService } from './mapa.service';
 
 @Component({
   selector: 'mapa',
@@ -11,12 +12,25 @@ export class MapaComponent {
 
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
 
-  constructor(private windowService: NbWindowService) {};
+  constructor(private windowService: NbWindowService, private mapaService: MapaService) {};
+  ref: NbWindowRef;
 
   openWindowWithoutBackdrop() {
-    this.windowService.open(
+    if (this.mapaService.windowOpened == true) {
+      return;
+    }
+    this.mapaService.windowOpened = true;
+    
+    this.mapaService.ref = this.windowService.open(
       this.disabledEscTemplate,
       { title: 'Dodawanie Pojazdu', hasBackdrop: false, closeOnEsc: false },
     );
+   this.mapaService.ref.onClose.subscribe(frames => {
+     this.mapaService.windowOpened = false;
+   })
+  }
+
+  close() {
+    this.mapaService.ref.close;
   }
 }

@@ -8,6 +8,8 @@ import {Location, Appearance} from '@angular-material-extensions/google-maps-aut
 import PlaceResult = google.maps.places.PlaceResult;
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { MarkersComponent } from '../map/markers/markers.component';
+import { NbWindowService } from '@nebular/theme';
+import { MapaService } from '../mapa.service';
 
 
 export interface State {
@@ -75,7 +77,7 @@ export class AddTruckComponent {
     {value: 'izoterma-3', viewValue: 'Izoterma'},
   ];
 
-  constructor(private addTruckService: AddTruckService, private markers: MarkersComponent) {
+  constructor(private addTruckService: AddTruckService, private mapaService: MapaService) {
     this.filteredStates = this.stateCtrl.valueChanges
       .pipe(
         startWith(''),
@@ -94,6 +96,7 @@ export class AddTruckComponent {
 
   onSubmit() {
     this.save();
+    this.mapaService.ref.close();
   }
 
   onLocationSelected(location: Location) {
