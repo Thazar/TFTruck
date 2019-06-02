@@ -8,7 +8,7 @@ import {Location, Appearance} from '@angular-material-extensions/google-maps-aut
 import PlaceResult = google.maps.places.PlaceResult;
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { MarkersComponent } from '../map/markers/markers.component';
-import { NbWindowService } from '@nebular/theme';
+
 import { MapaService } from '../mapa.service';
 
 
@@ -18,6 +18,11 @@ export interface State {
   short: string;
 }
 export interface typ {
+  value: string;
+  viewValue: string;
+}
+
+export interface spec {
   value: string;
   viewValue: string;
 }
@@ -70,11 +75,17 @@ export class AddTruckComponent {
   countryNotSelected= true;
   tracking: Truck;
   
-  foods: typ[] = [
+  types: typ[] = [
     {value: 'firanka-0', viewValue: 'Firanka'},
     {value: 'plandeka-1', viewValue: 'Plandeka'},
     {value: 'chłodnia-2', viewValue: 'Chłodnia'},
     {value: 'izoterma-3', viewValue: 'Izoterma'},
+  ];
+
+  specs: spec[] = [
+    {value: '3500', viewValue: 'Bus | 3.5t'},
+    {value: 'plandeka-1', viewValue: 'Ciężarowy | 7.5-12t'},
+    {value: 'chłodnia-2', viewValue: 'Full | 40t'},
   ];
 
   constructor(private addTruckService: AddTruckService, private mapaService: MapaService) {
@@ -96,6 +107,9 @@ export class AddTruckComponent {
 
   onSubmit() {
     this.save();
+    this.mapaService.ref.close();
+  }
+  windowClose() {
     this.mapaService.ref.close();
   }
 

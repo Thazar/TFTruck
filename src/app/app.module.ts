@@ -18,6 +18,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AuthGuard} from './auth.guard';
+import { NbWindowService } from '@nebular/theme';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import {AuthGuard} from './auth.guard';
     HttpClientModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
+    ReactiveFormsModule,
+  
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
@@ -35,6 +39,7 @@ import {AuthGuard} from './auth.guard';
   ],
   bootstrap: [AppComponent],
   providers: [
+    NbWindowService,
     { provide: APP_BASE_HREF, useValue: '/' },
     {
       provide: HTTP_INTERCEPTORS,

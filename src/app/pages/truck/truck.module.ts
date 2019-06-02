@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
-import { MatIconModule, MatInputModule, MatButtonModule, MatAutocompleteModule, MatSelectModule,} from '@angular/material';
+import { MatIconModule, MatInputModule, MatButtonModule, MatAutocompleteModule, MatSelectModule, MatExpansionModule, MatCheckboxModule, MatDividerModule,} from '@angular/material';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 
@@ -8,15 +8,16 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { TruckRoutingModule, routedComponents } from './truck-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { NbDatepickerModule, NbSelectModule } from '@nebular/theme';
+import { NbDatepickerModule, NbSelectModule, } from '@nebular/theme';
 import { HttpClientModule } from '@angular/common/http';
 import { MarkersComponent } from './mapa/map/markers/markers.component';
 import { MarkerInfoComponent } from './mapa/map/markers/marker-info/marker-info.component';
 
+
 @NgModule({
     imports: [
       MatIconModule, MatInputModule, MatButtonModule, MatGoogleMapsAutocompleteModule.forRoot() , ReactiveFormsModule,AngularFontAwesomeModule, ReactiveFormsModule, MatAutocompleteModule, 
-      NbDatepickerModule.forRoot(), NbDatepickerModule, NbSelectModule, MatSelectModule, HttpClientModule,
+      NbDatepickerModule.forRoot(), NbDatepickerModule, NbSelectModule, MatSelectModule, HttpClientModule, MatExpansionModule, MatCheckboxModule, MatDividerModule,
       ThemeModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyCl_eRT8a-rXEmSZzHcXYKi7zNI0XlGb-w',

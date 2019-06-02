@@ -1,3 +1,4 @@
+
 <h5>Adres i Termin:</h5>
 <div class="div">
     <mat-form-field  class="input-block">
@@ -49,19 +50,61 @@
       </mat-form-field>
     </ng-template>
 </div>
+
 <h5 class="h5">Opis Pojazdu:</h5>
 <div class="div"> 
   <mat-form-field  class="input-block">   
       <mat-label>Typ zabudowy</mat-label>
   <mat-select>
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{food.viewValue}}
+    <mat-option *ngFor="let type of types" [value]="type.value">
+      {{type.viewValue}}
     </mat-option>
   </mat-select>
-</mat-form-field>  
+</mat-form-field> 
+<mat-form-field  class="input-block">   
+  <mat-label>Rodzaj</mat-label>
+<mat-select>
+<mat-option *ngFor="let spec of specs" [value]="spec.value">
+  {{spec.viewValue}}
+</mat-option>
+</mat-select>
+</mat-form-field> 
+<mat-expansion-panel style=
+"margin-left: 20px;
+ margin-top: 10px;
+ margin-bottom: 20px;
+ margin-right: 20px;"
+ class="mat-elevation-z0">
+    <mat-expansion-panel-header style="margin-left: -5px;">
+      <mat-panel-title style="display: flex;
+      align-items: center;">
+        Specyfikacje
+        <mat-icon style="margin-left:8px;">info</mat-icon>
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div >
+    <div >
+    <mat-checkbox >Adr</mat-checkbox>
+    <textarea style="display: inline-block; float: right; margin-right: 17px; " nbinput placeholder="Uwagi dodatkowe"></textarea>
+    </div>
+    <div>
+    <mat-checkbox >Winda</mat-checkbox>
+    </div>
+    <div>
+    <mat-checkbox >Edscha</mat-checkbox>
+    </div>
+    <div>
+    <mat-checkbox >Cer. XL</mat-checkbox>
+    </div>
+  </div> 
+  </mat-expansion-panel>  
 </div>
 <div class="dodaj-button">
+  <button  style="margin-right: 5px;" nbButton  outline status="danger" (click)="closeWindow()">Anuluj</button>
   <button type="button" nbButton (click)="onSubmit()">Dodaj</button>
 </div>
+
 
 
