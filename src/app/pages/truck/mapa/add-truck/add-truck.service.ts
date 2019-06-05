@@ -12,12 +12,12 @@ export class AddTruckService {
   email: string;
 
   public connect() {
-    let socket = new SockJs(`http://localhost:8080/socket`)
+    let socket = new SockJs(`http://localhost:8888/nebular/socket`)
     let stompClient = Stomp.over(socket);
     return stompClient;
   }
 
-  private baseUrl = 'http://localhost:8080/api/trucks';
+  private baseUrl = 'http://localhost:8888/nebular/api/trucks';
 
   constructor(private http: HttpClient) { }
 

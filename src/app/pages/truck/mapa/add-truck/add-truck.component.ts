@@ -33,12 +33,19 @@ export interface spec {
   templateUrl: './add-truck.component.html',
   styleUrls: ['./add-truck.component.scss'],
 })
-export class AddTruckComponent {
+export class AddTruckComponent  {
   stateCtrl = new FormControl();
   filteredStates: Observable<State[]>;
   truck: Truck = new Truck();
   public selectedAddress: PlaceResult;
   public appearance = Appearance;
+  value = '';
+  adresValue= '';
+  valueOd='';
+  valueDo='';
+  countryShort;
+  countryShortSelected= false;
+  countryNotSelected= true;
 
   states: State[] = [
     {
@@ -66,14 +73,6 @@ export class AddTruckComponent {
       short: 'it'
     }
   ];
-  value = '';
-  adresValue= '';
-  valueOd='';
-  valueDo='';
-  countryShort;
-  countryShortSelected= false;
-  countryNotSelected= true;
-  tracking: Truck;
   
   types: typ[] = [
     {value: 'firanka-0', viewValue: 'Firanka'},
@@ -100,7 +99,7 @@ export class AddTruckComponent {
   }
 
   save() {
-    this.truck.email = this.addTruckService.email;
+    this.truck.truckEmail = this.addTruckService.email;
     this.addTruckService.createTruck(this.truck)
     .subscribe(data => console.log(data), error => console.log(error));
   }

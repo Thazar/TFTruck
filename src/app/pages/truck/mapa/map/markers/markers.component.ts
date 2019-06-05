@@ -8,7 +8,12 @@ import { count } from 'rxjs/operators';
 interface Marker {
   lat: number;
   lng: number;
+  firstName: string;
+  lastName: string;
+  companyName: string;
   email: string;
+  tel: string;
+  transId: string;
 }
 
 
@@ -23,12 +28,11 @@ export class MarkersComponent implements OnInit {
   trucks: Observable<Truck[]>;
   count: number;
   markerArray: Marker[] = [];
-  openPopUp = false;  
-
   icon: {
     url: string, scaledSize: {height: number, width: number}
   }
-  public notifications = 0; 
+public notifications = 0; 
+
   constructor(private addTruckService: AddTruckService){  
     let stompClient = this.addTruckService.connect();
     stompClient.connect({}, frame => {
@@ -57,13 +61,18 @@ export class MarkersComponent implements OnInit {
   updateTruck() {
    this.truck = this.addTruckService.getTruckById(this.notifications)
    this.truck.subscribe(data => {
-     this.newTruck = data as Truck;
+   this.newTruck = data as Truck;
      console.log("wiec kurwa id to: "+this.newTruck.id+"latitude to: " + this.newTruck.latitude + "Longitude to :" + this.newTruck.longitude)
      
      this.markerArray.push({
        lat: this.newTruck.latitude,
        lng: this.newTruck.longitude,
-       email: this.newTruck.email
+       firstName: this.newTruck.truckFirstName,
+       lastName: this.newTruck.truckLastName,
+       companyName: this.newTruck.truckCompanyName,
+       email: this.newTruck.truckEmail,
+       tel: this.newTruck.truckTel,
+       transId: this.newTruck.truckTransId,
      });
    });
     }

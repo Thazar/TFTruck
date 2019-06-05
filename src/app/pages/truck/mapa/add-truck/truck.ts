@@ -1,6 +1,12 @@
 export class Truck {
-  id: number;
-  latitude: number;
   longitude: number;
-  email: string;
+  latitude: number;
+  truckEmail: string;
+  id: number;
+  truckFirstName: string;
+  truckLastName: string;
+  truckTel: string;
+  truckTransId: string;
+  truckCompanyName: string;
+  truckCompanyNip: string;
 }

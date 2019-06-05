@@ -7,6 +7,8 @@ import { LayoutService } from '../../../@core/utils';
 import { NbAuthJWTToken, NbAuthService , NbTokenService} from '@nebular/auth';
 import { User } from '../../../models/User';
 import { AddTruckService } from '../../../pages/truck/mapa/add-truck/add-truck.service';
+import { MapaService } from '../../../pages/truck/mapa/mapa.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-header',
@@ -18,8 +20,10 @@ export class HeaderComponent implements OnInit {
   @Input() position = 'normal';
 
   user: User;
+  
 
   userMenu = [{ title: 'Profil' }, { title: 'Wyloguj', link : '/auth/logout'}];
+  tag = 'my-context-menu'
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
@@ -28,9 +32,26 @@ export class HeaderComponent implements OnInit {
               private layoutService: LayoutService , 
               private tokenService: NbTokenService,
               private authService: NbAuthService,
-              private truckService: AddTruckService) {
+              private truckService: AddTruckService,
+              private mapaService: MapaService) {
+               
+                menuService.onItemClick()
+                .pipe(filter(({ tag }) => tag === this.tag))
+                .subscribe(bag => {
+                  if (bag.item.title === 'Wyloguj') {
+                    if (this.mapaService.windowOpened == true) {
+                      this.mapaService.loggedOfWithOpenedWindow = true;
+                    }
+                  }
+                });
+  }
 
-         
+  onItemSelection( title ) {
+    if (title == 'Wyloguj') {
+      console.log("logout clicked")
+      this.mapaService.ref.close;
+      this.mapaService.windowOpened = false;
+    }
   }
 
   ngOnInit() {

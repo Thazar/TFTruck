@@ -7,7 +7,15 @@ import { MapaService } from './mapa.service';
   templateUrl: './mapa.component.html',
   styleUrls: ['./mapa.component.scss']
 })
-export class MapaComponent {
+export class MapaComponent implements OnInit {
+  
+
+  ngOnInit() {
+  console.log("czy okno jest otwarte? " + this.mapaService.loggedOfWithOpenedWindow)
+  if (this.mapaService.loggedOfWithOpenedWindow == true) {
+    window.location.reload();
+  }
+  }
    
 
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
@@ -27,7 +35,7 @@ export class MapaComponent {
     );
    this.mapaService.ref.onClose.subscribe(frames => {
      this.mapaService.windowOpened = false;
-   })
+   });
   }
 
   close() {
