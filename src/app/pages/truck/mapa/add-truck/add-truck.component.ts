@@ -41,6 +41,8 @@ export class AddTruckComponent  {
   public appearance = Appearance;
   value = '';
   adresValue= '';
+  typValue='';
+  rodzajValue='';
   countryShort;
   countryShortSelected= false;
   countryNotSelected= true;
@@ -148,6 +150,9 @@ export class AddTruckComponent  {
     this.value = '';
     this.countryShortSelected = false;
     this.countryNotSelected = true;
+  }
+  clearAdres() {
+    this.adresValue = '';
   }
 
   

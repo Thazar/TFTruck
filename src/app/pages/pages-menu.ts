@@ -5,7 +5,7 @@ import { link } from 'fs';
 export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Główna',
-    icon: 'fa fa-home',
+    icon: 'fas fa-home',
     link: '/pages/home',
     data: {
       permission: 'view',
@@ -22,7 +22,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Truck',
-    icon: 'fa fa-truck',
+    icon: 'fas fa-truck',
     data: {
       permission: 'view',
       resource: 'admin'
@@ -36,7 +36,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Cargo',
-    icon: 'fa fa-truck-loading',
+    icon: 'fas fa-truck-loading',
     data: {
       permission: 'view',
       resource: 'admin'
@@ -52,7 +52,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Auth',
-    icon: 'nb-locked',
+    icon: 'fas fa-user-lock',
     data: {
       permission: 'view',
       resource: 'admin'

@@ -1,77 +1,83 @@
 
-<h5>Adres i Termin:</h5>
+<h5 style="padding-bottom: 10px">Adres i Termin:</h5>
 <div class="div">
-    <mat-form-field  class="input-block">
-        <input matInput [matDatepicker]="picker1" placeholder="Wolny do" [value]="dateOd.value">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+  <div class="input">
+        <input style="min-height: 42.5px; min-width: 200px;" nbInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value">
+        <mat-datepicker-toggle style="margin-left: -45px;" matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field class="second-input">
-      <input matInput [matDatepicker]="picker2" placeholder="Wolny do" [value]="dateDo.value">
-      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      </div>
+  <div class="second-input">
+      <input nbInput style="min-height: 42.5px; min-width: 200px;" [matDatepicker]="picker2" placeholder="Wolny do">
+      <mat-datepicker-toggle style="margin-left: -45px;" matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
-</mat-form-field>
-<mat-form-field class="input">
-    <input [(ngModel)]="value" matInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" (click)="clear()" >
-    <button mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="clear()" >
-        <mat-icon>close</mat-icon>
-      </button>
+  </div>
+<div></div>
+<div class="input">
+    <input style="min-height: 42.5px; min-width: 200px;" [(ngModel)]="value" nbInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" (click)="clear()" >
     <mat-autocomplete (optionSelected)="countrySelected($event)" #auto="matAutocomplete">
       <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
         <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
         <span>{{state.name}}</span>
       </mat-option>
     </mat-autocomplete>
-  </mat-form-field>
- 
-<mat-form-field class="input" *ngIf="countryShortSelected; else falseInput" >
-        <mat-label>Adres</mat-label>
-        <input  autocomplete="off" matInput
-        [(ngModel)]="truck.adres"
+  </div> 
+<div class="second-input" *ngIf="countryShortSelected; else falseInput" >
+        <input style="min-height: 42.5px; min-width: 200px;" autocomplete="off" nbInput    (click)="clearAdres()"
+        [(ngModel)]="adresValue"
         id="adres"
         matGoogleMapsAutocomplete
         country="{{countryShort}}"
         (onLocationSelected)="onLocationSelected($event)"
         >
-             <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="truck.adres=''">
-                        <mat-icon>close</mat-icon>
-                      </button>
-      </mat-form-field>  
+                    </div>  
     <ng-template #falseInput>
-      <mat-form-field class="input">
-          <mat-label>Adres</mat-label>
-        <input matInput [disabled]="countryNotSelected" >
-      </mat-form-field>
+      <div class="second-input">
+        <input placeholder="Wybierz Kraj" style="min-width: 200px; min-height: 42.5px" nbInput [disabled]="countryNotSelected" >
+      </div>
     </ng-template>
 </div>
 
-<h5 class="h5">Opis Pojazdu:</h5>
+<h5 class="h5" style="padding-bottom: 10px;">Opis Pojazdu:</h5>
 <div class="div"> 
-  <mat-form-field  class="input-block">   
-      <mat-label>Typ zabudowy</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let type of types" [value]="type.value">
+  <div class="input">   
+      <input style="min-width: 200px; min-height: 42.5px;" nbInput [disabled]="true">
+</div> 
+<div class="second-input"> 
+   <mat-select style="margin-left: -205px; min-width: 170px; min-height: 42.5px;"  [(ngModel)]="typValue">  
+    <mat-option  *ngFor="let type of types" [value]="type.value" >
       {{type.viewValue}}
     </mat-option>
   </mat-select>
-</mat-form-field> 
-<mat-form-field  class="input-block">   
-  <mat-label>Rodzaj</mat-label>
-<mat-select>
+  <mat-label *ngIf="!typValue; else mat2" style="margin-left: -170px;">Typ Pojazdu</mat-label>
+  <ng-template #mat2>
+      <mat-label style=" margin-left: 48.5px; min-width: 200px;"></mat-label>
+    </ng-template>
+</div>
+
+<div  class="second-input">  
+    
+</div>
+<div class="second-input" style="margin-left:-20px">
+    <input style="min-width: 200px; min-height: 42.5px; margin-left: -50px;" nbInput [disabled]="true">
+</div>
+<div class="second-input" style="margin-left:-20px">
+<mat-select style="margin-left: -165px; min-width: 170px; min-height: 42.5px;"  [(ngModel)]="rodzajValue">
 <mat-option *ngFor="let spec of specs" [value]="spec.value">
-  {{spec.viewValue}}
+  {{spec.viewValue}} 
 </mat-option>
 </mat-select>
-</mat-form-field> 
+<mat-label *ngIf="!rodzajValue;" style="margin-left: -170px;">Rodzaj</mat-label>
+
+</div>
 <mat-expansion-panel style=
-"margin-left: 20px;
- margin-top: 10px;
+"margin-left: 22px;
  margin-bottom: 20px;
- margin-right: 20px;"
+ margin-right: 20px;
+ max-width: 457px;"
  class="mat-elevation-z0">
     <mat-expansion-panel-header style="margin-left: -5px;">
       <mat-panel-title style="display: flex;
-      align-items: center;">
+      align-items: center; width: 200px;">
         Specyfikacje
         <mat-icon style="margin-left:8px;">info</mat-icon>
       </mat-panel-title>

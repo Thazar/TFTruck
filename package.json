@@ -51,7 +51,7 @@
     "@nebular/auth": "3.1.0",
     "@nebular/bootstrap": "3.1.0",
     "@nebular/security": "3.1.0",
-    "@nebular/theme": "3.1.0",
+    "@nebular/theme": "^3.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
     "@swimlane/ngx-charts": "^10.0.0",
     "angular-font-awesome": "^3.1.2",
