@@ -20,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AuthGuard} from './auth.guard';
 import { NbWindowService } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   providers: [
     NbWindowService,
     { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: MAT_DATE_LOCALE, useValue: 'pl' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AddTokenInterceptor,

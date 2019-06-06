@@ -41,11 +41,12 @@ export class AddTruckComponent  {
   public appearance = Appearance;
   value = '';
   adresValue= '';
-  valueOd='';
-  valueDo='';
   countryShort;
   countryShortSelected= false;
   countryNotSelected= true;
+  dateOd = new FormControl(new Date());
+  dateDo = new FormControl(new Date());
+  
 
   states: State[] = [
     {

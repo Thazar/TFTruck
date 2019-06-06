@@ -2,24 +2,18 @@
 <h5>Adres i Termin:</h5>
 <div class="div">
     <mat-form-field  class="input-block">
-        <mat-label>Wolny od</mat-label>
-        <input [(ngModel)]="valueOd" autocomplete="off" matInput [nbDatepicker]="datepickerOd">
-        <button mat-button *ngIf="valueOd" matSuffix mat-icon-button aria-label="Clear" (click)="valueOd=''">
-            <mat-icon>close</mat-icon>
-          </button>
-        <nb-datepicker #datepickerOd></nb-datepicker>
+        <input matInput [matDatepicker]="picker1" placeholder="Wolny do" [value]="dateOd.value">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
   </mat-form-field>
   <mat-form-field class="second-input">
-      <mat-label>Wolny do</mat-label>
-      <input [(ngModel)]="valueDo" matInput  [nbDatepicker]="datepickerDo">
-      <button mat-button *ngIf="valueDo" matSuffix mat-icon-button aria-label="Clear" (click)="valueDo=''">
-          <mat-icon>close</mat-icon>
-        </button>
-      <nb-datepicker #datepickerDo></nb-datepicker>
+      <input matInput [matDatepicker]="picker2" placeholder="Wolny do" [value]="dateDo.value">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
 </mat-form-field>
 <mat-form-field class="input">
     <input [(ngModel)]="value" matInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" (click)="clear()" >
-    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="clear()" >
+    <button mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="clear()" >
         <mat-icon>close</mat-icon>
       </button>
     <mat-autocomplete (optionSelected)="countrySelected($event)" #auto="matAutocomplete">
@@ -39,7 +33,7 @@
         country="{{countryShort}}"
         (onLocationSelected)="onLocationSelected($event)"
         >
-             <button mat-button *ngIf="truck.adres" matSuffix mat-icon-button aria-label="Clear" (click)="truck.adres=''">
+             <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="truck.adres=''">
                         <mat-icon>close</mat-icon>
                       </button>
       </mat-form-field>  
