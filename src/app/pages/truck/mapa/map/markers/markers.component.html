@@ -6,31 +6,42 @@
       <agm-info-window>
         <div>
           <div class="marker-header">
-          <mat-icon>person</mat-icon>
+          <mat-icon style="color: #0081ba;">person</mat-icon>
           <h4 style="margin-left: 5px;">{{truck.truckFirstName}} {{truck.truckLastName}}</h4>
         </div>
-        <h6 style="margin-left: 5px;" >Kontakt</h6>  
-          <div style="background-color: #ebeff5; border-style: solid; border-color: #a4b0c3; margin-left: 5px; margin-top:-7px; padding: 10px 10px 0px 0px;"> 
-              <div class="marker-header">  
-              <mat-icon style=" margin-left: 10px; font-size: 135%;">account_balance</mat-icon>
-           <h6 style="display: inline-block;">{{truck.truckCompanyName}}</h6>
+        <nb-tabset>
+          <nb-tab tabTitle="Info" tabIcon="fas fa-truck-moving">
+
+          </nb-tab>
+          <nb-tab tabTitle="Kontakt" tabIcon="far fa-id-card">
+            
+                <div style="background-color: #ebeff5; border-style: solid; border-color: #0081ba; margin-left: 5px; margin-top:5px; padding: 10px 10px 0px 0px;"> 
+                    <div class="marker-header">  
+                    <mat-icon style=" margin-left: 10px; font-size: 135%; color: #0081ba;">account_balance</mat-icon>
+                 <h6 style="display: inline-block;">{{truck.truckCompanyName}}</h6>
+                    </div>
+                 <div></div>
+                  <div class="marker-header">
+                    <mat-icon style=" margin-left: 10px; font-size: 135%; color: #0081ba;">email</mat-icon>
+                    <a style="" href="mailto:{{truck.email}}?Subject=Wolne%20Auto">{{truck.truckEmail}}</a>
+                  </div>
+                  <div></div>
+                  <div class="marker-header">
+                      <mat-icon style=" margin-left: 10px; font-size: 135%; color: #0081ba;">phone_android</mat-icon>
+                      <span>{{truck.truckTel}}</span>
+                  </div>
+                  <div></div>
+                  <div class="marker-header" style="margin-top:-7.3px;">
+                      <img src="assets/images/trans2.png" style=" margin-left: 5px; padding-bottom:-50px!important; width: 11%; height: 11%; ">
+                      <span style="margin-top: 7.3px">{{truck.truckTransId}}</span>
+                  </div>
               </div>
-           <div></div>
-            <div class="marker-header">
-              <mat-icon style=" margin-left: 10px; font-size: 135%;">email</mat-icon>
-              <a style="" href="mailto:{{truck.email}}?Subject=Wolne%20Auto">{{truck.truckEmail}}</a>
-            </div>
-            <div></div>
-            <div class="marker-header">
-                <mat-icon style=" margin-left: 10px; font-size: 135%;">phone_android</mat-icon>
-                <span>{{truck.truckTel}}</span>
-            </div>
-            <div></div>
-            <div class="marker-header" style="margin-top:-7.3px;">
-                <img src="assets/images/trans.png" style=" margin-left: 5px; padding-bottom:-50px!important; width: 11%; height: 11%;">
-                <span style="margin-top: 7.3px">{{truck.truckTransId}}</span>
-            </div>
-        </div>
+          
+          </nb-tab>
+          <nb-tab tabTitle="Ustawienia" tabIcon="fas fa-cog">
+
+          </nb-tab>
+        </nb-tabset> 
         </div>
       </agm-info-window>
     </agm-marker>
@@ -46,7 +57,7 @@
             <mat-icon>person</mat-icon>
             <h4 style="margin-left: 5px;">{{mark.firstName}} {{mark.lastName}}</h4>
           </div>
-          <h6 style="margin-left: 5px;" >Kontakt</h6>  
+          <h5 style="margin-left: 5px;" >Kontakt</h5>  
             <div style="background-color: #ebeff5; border-style: solid; border-color: #a4b0c3; margin-left: 5px; margin-top:-7px; padding: 10px 10px 0px 0px;">   
                 <div class="marker-header">  
                     <mat-icon style=" margin-left: 10px; font-size: 135%;">account_balance</mat-icon>

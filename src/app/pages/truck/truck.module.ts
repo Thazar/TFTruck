@@ -8,7 +8,7 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { TruckRoutingModule, routedComponents } from './truck-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { NbDatepickerModule, NbSelectModule, } from '@nebular/theme';
+import { NbDatepickerModule, NbSelectModule, NbTabsetModule, } from '@nebular/theme';
 import { HttpClientModule } from '@angular/common/http';
 import { MarkersComponent } from './mapa/map/markers/markers.component';
 import { MarkerInfoComponent } from './mapa/map/markers/marker-info/marker-info.component';
@@ -17,7 +17,7 @@ import { MarkerInfoComponent } from './mapa/map/markers/marker-info/marker-info.
 @NgModule({
     imports: [
       MatIconModule, MatInputModule, MatButtonModule, MatGoogleMapsAutocompleteModule.forRoot() , ReactiveFormsModule,AngularFontAwesomeModule, ReactiveFormsModule, MatAutocompleteModule, 
-      NbDatepickerModule.forRoot(), NbDatepickerModule, NbSelectModule, MatSelectModule, HttpClientModule, MatExpansionModule, MatCheckboxModule, MatDividerModule,
+      NbDatepickerModule.forRoot(), NbDatepickerModule, NbSelectModule, MatSelectModule, HttpClientModule, MatExpansionModule, MatCheckboxModule, MatDividerModule, NbTabsetModule,
       ThemeModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyCl_eRT8a-rXEmSZzHcXYKi7zNI0XlGb-w',
