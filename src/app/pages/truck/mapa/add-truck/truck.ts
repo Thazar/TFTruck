@@ -9,4 +9,14 @@ export class Truck {
   truckTransId: string;
   truckCompanyName: string;
   truckCompanyNip: string;
+  truckWolnyOd: string;
+  truckWolnyDo: string;
+  truckAdres: string;
+  truckTyp: string;
+  truckRodzaj: string;
+  truckAdr: boolean;
+  truckWinda: boolean;
+  truckEdscha: boolean;
+  truckCerXl: boolean;
+  truckUwagi: string;
 }

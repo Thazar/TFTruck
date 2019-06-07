@@ -103,11 +103,15 @@ export class AddTruckComponent  {
 
   save() {
     this.truck.truckEmail = this.addTruckService.email;
+    this.truck.truckWolnyOd = this.dateOd.value;
     this.addTruckService.createTruck(this.truck)
     .subscribe(data => console.log(data), error => console.log(error));
   }
 
   onSubmit() {
+    if (!this.truck.latitude  || !this.truck.longitude ) {
+      return
+    }
     this.save();
     this.mapaService.ref.close();
   }
@@ -119,6 +123,7 @@ export class AddTruckComponent  {
     console.log('onLocationSelected: ', location);
     this.truck.latitude = location.latitude;
     this.truck.longitude = location.longitude;
+    this.truck.truckAdr = true;
     console.log(this.truck.latitude, this.truck.longitude)
   }
 
