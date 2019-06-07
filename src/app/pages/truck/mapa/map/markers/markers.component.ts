@@ -19,10 +19,10 @@ interface Marker {
   adres: string;
   typ: string;
   rodzaj: string;
-  adr: string;
-  winda: string;
-  edscha: string;
-  cerXl: string;
+  adr: boolean;
+  winda: boolean;
+  edscha: boolean;
+  cerXl: boolean;
   uwagi: string;
 }
 
@@ -83,6 +83,16 @@ public notifications = 0;
        email: this.newTruck.truckEmail,
        tel: this.newTruck.truckTel,
        transId: this.newTruck.truckTransId,
+       wolnyOd: this.newTruck.truckWolnyOd,
+       wolnyDo: this.newTruck.truckWolnyDo,
+       adres: this.newTruck.truckAdres,
+       typ: this.newTruck.truckTyp,
+       rodzaj: this.newTruck.truckRodzaj,
+       adr: this.newTruck.truckAdr,
+       winda: this.newTruck.truckWinda,
+       edscha: this.newTruck.truckEdscha,
+       cerXl: this.newTruck.truckCerXl,
+       uwagi: this.newTruck.truckUwagi,
      });
    });
     }
