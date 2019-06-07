@@ -4,6 +4,7 @@ import { Truck } from '../../add-truck/truck';
 import { AddTruckService } from '../../add-truck/add-truck.service';
 import { MiscellaneousComponent } from '../../../../miscellaneous/miscellaneous.component';
 import { count } from 'rxjs/operators';
+import { strictEqual } from 'assert';
 
 interface Marker {
   lat: number;
@@ -19,10 +20,10 @@ interface Marker {
   adres: string;
   typ: string;
   rodzaj: string;
-  adr: boolean;
-  winda: boolean;
-  edscha: boolean;
-  cerXl: boolean;
+  adr: string;
+  winda: string;
+  edscha: string;
+  cerXl: string;
   uwagi: string;
 }
 
@@ -64,7 +65,49 @@ public notifications = 0;
   
 
   reloadData() {
-    this.trucks = this.addTruckService.getAllTrucks();
+    this.addTruckService.getAllTrucks().subscribe(snapshots=>{
+      snapshots.forEach(snapshot => {
+        this.newTruck = snapshot as Truck
+        var adrString = "";
+        var edschaString = "";
+        var windaString = "";
+        var cerXlString = "";
+        if (this.newTruck.truckAdr == true) {
+          adrString = "Adr"   
+        } else adrString=""
+        if (this.newTruck.truckEdscha == true) {
+          edschaString = "Zaladunek Górą"   
+        } else edschaString=""
+        if (this.newTruck.truckWinda == true) {
+          windaString = "Winda"   
+        } else windaString=""
+        if (this.newTruck.truckCerXl == true) {
+          cerXlString = "Cer. XL"   
+        } else cerXlString=""
+      
+        this.markerArray.push({
+          lat: this.newTruck.latitude,
+          lng: this.newTruck.longitude,
+          firstName: this.newTruck.truckFirstName,
+          lastName: this.newTruck.truckLastName,
+          companyName: this.newTruck.truckCompanyName,
+          email: this.newTruck.truckEmail,
+          tel: this.newTruck.truckTel,
+          transId: this.newTruck.truckTransId,
+          wolnyOd: this.newTruck.truckWolnyOd,
+          wolnyDo: this.newTruck.truckWolnyDo,
+          adres: this.newTruck.truckAdres,
+          typ: this.newTruck.truckTyp,
+          rodzaj: this.newTruck.truckRodzaj,
+          adr: adrString,
+          winda: windaString,
+          edscha: edschaString,
+          cerXl: cerXlString,
+          uwagi: this.newTruck.truckUwagi,
+        });
+      })
+    })
+    
     this.icon ={ url: "assets/images/bigTruck.png", scaledSize: {height: 35, width: 70} }
   }
 
@@ -72,8 +115,22 @@ public notifications = 0;
    this.truck = this.addTruckService.getTruckById(this.notifications)
    this.truck.subscribe(data => {
    this.newTruck = data as Truck;
-     console.log("wiec kurwa id to: "+this.newTruck.id+"latitude to: " + this.newTruck.latitude + "Longitude to :" + this.newTruck.longitude)
-     
+   var adrString = "";
+   var edschaString = "";
+   var windaString = "";
+   var cerXlString = "";
+   if (this.newTruck.truckAdr == true) {
+     adrString = "Adr"   
+   } else adrString=""
+   if (this.newTruck.truckEdscha == true) {
+     edschaString = "Zaladunek Górą"   
+   } else edschaString=""
+   if (this.newTruck.truckWinda == true) {
+     windaString = "Winda"   
+   } else windaString=""
+   if (this.newTruck.truckCerXl == true) {
+     cerXlString = "Cer. XL"   
+   } else cerXlString=""
      this.markerArray.push({
        lat: this.newTruck.latitude,
        lng: this.newTruck.longitude,
@@ -88,10 +145,10 @@ public notifications = 0;
        adres: this.newTruck.truckAdres,
        typ: this.newTruck.truckTyp,
        rodzaj: this.newTruck.truckRodzaj,
-       adr: this.newTruck.truckAdr,
-       winda: this.newTruck.truckWinda,
-       edscha: this.newTruck.truckEdscha,
-       cerXl: this.newTruck.truckCerXl,
+       adr: adrString,
+       winda: windaString,
+       edscha: edschaString,
+       cerXl: cerXlString,
        uwagi: this.newTruck.truckUwagi,
      });
    });
