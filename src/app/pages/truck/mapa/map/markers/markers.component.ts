@@ -14,6 +14,16 @@ interface Marker {
   email: string;
   tel: string;
   transId: string;
+  wolnyOd: string;
+  wolnyDo: string;
+  adres: string;
+  typ: string;
+  rodzaj: string;
+  adr: string;
+  winda: string;
+  edscha: string;
+  cerXl: string;
+  uwagi: string;
 }
 
 

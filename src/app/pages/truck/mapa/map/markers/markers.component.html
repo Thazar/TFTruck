@@ -15,6 +15,33 @@
              <i class="fas fa-truck-moving fa-lg" style="margin-right: 15px"></i>
                 Pojazd
             </ng-template>
+            <div style="background-color: #ebeff5; border-style: solid; border-color: #0081ba; margin-left: 5px; margin-top:5px; padding: 10px 10px 0px 0px; max-width: 320px"> 
+                <div class="marker-header">  
+                <mat-icon style="margin-top: -1px; margin-left: 10px; font-size: 150%; color: #0081ba;">location_on</mat-icon>
+             <h6 style="display: inline-block;">{{truck.truckAdres}}</h6>
+                </div>
+             <div></div>
+              <div class="marker-header">
+                <mat-icon style="margin-top: -1px; margin-left: 10px; font-size: 150%; color: #0081ba;">date_range</mat-icon>
+                <h6 style="margin-top: 2px;">Wolny od: {{truck.truckWolnyOd}} do: {{truck.truckWolnyDo}}</h6>
+              </div>
+              <div></div>
+              <div class="marker-header">
+                  <mat-icon style="margin-top: -1px; margin-left: 10px; font-size: 150%; color: #0081ba;">rv_hookup</mat-icon>
+                  <h6 style="margin-top: 2px;">Nadwozie: {{truck.truckTyp}} {{truck.truckRodzaj}}</h6>
+              </div>
+              <div></div>
+              <div class="marker-header" >
+                  <mat-icon style="margin-top: -1px; margin-left: 10px; font-size: 150%; color: #0081ba;">build</mat-icon>
+                  <h6 style="margin-top: 2px">Specyfikacje: <h6 style="display: inline-block" *ngIf="truck.truckAdr">Adr</h6></h6>
+              </div>
+              <div></div>
+              <div class="marker-header">
+                  <mat-icon style="margin-top: -1px; margin-left: 10px; font-size: 150%; color: #0081ba;">info</mat-icon>
+                  <h6 style="">Uwagi: {{truck.truckUwagi}}</h6>
+              </div>
+              <div></div>
+          </div> 
             </mat-tab>
           <mat-tab>
              <ng-template mat-tab-label>
