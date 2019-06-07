@@ -48,6 +48,11 @@ export class AddTruckComponent  {
   countryNotSelected= true;
   dateOd = new FormControl(new Date());
   dateDo = new FormControl(new Date());
+  truckAdr: false;
+  truckWinda: false;
+  truckEdscha: false;
+  truckCerXl: false;
+  truckUwagi: '';
   
 
   states: State[] = [
@@ -78,16 +83,16 @@ export class AddTruckComponent  {
   ];
   
   types: typ[] = [
-    {value: 'firanka-0', viewValue: 'Firanka'},
-    {value: 'plandeka-1', viewValue: 'Plandeka'},
-    {value: 'chłodnia-2', viewValue: 'Chłodnia'},
-    {value: 'izoterma-3', viewValue: 'Izoterma'},
+    {value: 'Firanka', viewValue: 'Firanka'},
+    {value: 'Plandeka', viewValue: 'Plandeka'},
+    {value: 'Chłodnia', viewValue: 'Chłodnia'},
+    {value: 'Izoterma', viewValue: 'Izoterma'},
   ];
 
   specs: spec[] = [
-    {value: '3500', viewValue: 'Bus | 3.5t'},
-    {value: 'plandeka-1', viewValue: 'Ciężarowy | 7.5-12t'},
-    {value: 'chłodnia-2', viewValue: 'Full | 40t'},
+    {value: 'Bus | 3.5t', viewValue: 'Bus | 3.5t'},
+    {value: 'Ciężarowy | 7.5-12t', viewValue: 'Ciężarowy | 7.5-12t'},
+    {value: 'Full | 40t', viewValue: 'Full | 40t'},
   ];
 
   constructor(private addTruckService: AddTruckService, private mapaService: MapaService) {
@@ -102,8 +107,19 @@ export class AddTruckComponent  {
   }
 
   save() {
+    console.log("truck adr bla bla bla to : " + this.truckAdr)
     this.truck.truckEmail = this.addTruckService.email;
     this.truck.truckWolnyOd = this.dateOd.value;
+    this.truck.truckWolnyDo = this.dateDo.value;
+    this.truck.truckTyp = this.typValue;
+    this.truck.truckRodzaj = this.rodzajValue;
+    this.truck.truckAdr = this.truckAdr;
+    this.truck.truckWinda = this.truckWinda;
+    this.truck.truckEdscha = this.truckEdscha;
+    this.truck.truckCerXl = this.truckCerXl;
+    this.truck.truckUwagi = this.truckUwagi;
+    
+    console.log("adresValue to :" + this.adresValue);
     this.addTruckService.createTruck(this.truck)
     .subscribe(data => console.log(data), error => console.log(error));
   }
@@ -123,12 +139,13 @@ export class AddTruckComponent  {
     console.log('onLocationSelected: ', location);
     this.truck.latitude = location.latitude;
     this.truck.longitude = location.longitude;
-    this.truck.truckAdr = true;
     console.log(this.truck.latitude, this.truck.longitude)
   }
+  
 
   onAutocompleteSelected(result: PlaceResult) {
     console.log('onAutocompleteSelected: ', result);
+    this.truck.truckAdres = result.formatted_address;
   }
 
   countrySelected(event: MatAutocompleteSelectedEvent) {

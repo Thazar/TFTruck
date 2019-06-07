@@ -1,13 +1,15 @@
 
 <h5 style="padding-bottom: 10px">Adres i Termin:</h5>
 <div class="div">
-  <div class="input">
-        <input style="min-height: 42.5px; min-width: 200px;" nbInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value">
+  <div class="second-input" style="margin-left: 40px;">
+    <label >Wolny od</label>
+        <input style="min-height: 42.5px; min-width: 200px; display: inline-block;" nbInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value">
         <mat-datepicker-toggle style="margin-left: -45px;" matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </div>
-  <div class="second-input">
-      <input nbInput style="min-height: 42.5px; min-width: 200px;" [matDatepicker]="picker2" placeholder="Wolny do">
+  <div  class="second-input" style=" margin-bottom: 20px; margin-left: -34px;">
+    <label style="">Wolny do</label>
+      <input nbInput style="min-height: 42.5px; min-width: 200px; display: inline-block" [matDatepicker]="picker2" placeholder="Wolny do" [value]="dateDo.value">
       <mat-datepicker-toggle style="margin-left: -45px;" matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
   </div>
@@ -27,7 +29,9 @@
         id="adres"
         matGoogleMapsAutocomplete
         country="{{countryShort}}"
+        type="cities"
         (onLocationSelected)="onLocationSelected($event)"
+        (onAutocompleteSelected)="onAutocompleteSelected($event)"
         >
                     </div>  
     <ng-template #falseInput>
@@ -86,17 +90,17 @@
     </mat-expansion-panel-header>
     <div >
     <div >
-    <mat-checkbox >Adr</mat-checkbox>
-    <textarea style="display: inline-block; float: right; margin-right: 17px; " nbinput placeholder="Uwagi dodatkowe"></textarea>
+    <mat-checkbox [(ngModel)]="truckAdr">Adr</mat-checkbox>
+    <textarea [(ngModel)]="truckUwagi" style="display: inline-block; float: right; margin-right: 17px; " nbinput placeholder="Uwagi dodatkowe"></textarea>
     </div>
     <div>
-    <mat-checkbox >Winda</mat-checkbox>
+    <mat-checkbox [(ngModel)]="truckWinda" >Winda</mat-checkbox>
     </div>
     <div>
-    <mat-checkbox >Edscha</mat-checkbox>
+    <mat-checkbox [(ngModel)]="truckEdscha">Edscha</mat-checkbox>
     </div>
     <div>
-    <mat-checkbox >Cer. XL</mat-checkbox>
+    <mat-checkbox [(ngModel)]="truckCerXl">Cer. XL</mat-checkbox>
     </div>
   </div> 
   </mat-expansion-panel>  
