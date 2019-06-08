@@ -6,6 +6,7 @@ import { MiscellaneousComponent } from '../../../../miscellaneous/miscellaneous.
 import { count } from 'rxjs/operators';
 import { strictEqual } from 'assert';
 import { element } from '@angular/core/src/render3';
+import { Notifications } from '../../add-truck/notifications';
 
 interface Marker {
   lat: number;
@@ -43,17 +44,18 @@ export class MarkersComponent implements OnInit {
   icon: {
     url: string, scaledSize: {height: number, width: number}
   }
-public notifications = 0; 
+  notifications: Notifications;
 
   constructor(private addTruckService: AddTruckService){  
     let stompClient = this.addTruckService.connect();
     stompClient.connect({}, frame => {
       stompClient.subscribe('/topic/notification', notifications => {
-        this.notifications = JSON.parse(notifications.body).count;
-        if (this.notifications > 0) {
+        this.notifications = JSON.parse(notifications.body);
+        if (this.notifications.msg === "create") {
           this.updateTruck();
         }
-        this.notifications = 0;
+        this.notifications.count =0;
+        this.notifications.msg = '';
       })
     }); 
     
@@ -113,7 +115,7 @@ public notifications = 0;
   }
 
   updateTruck() {
-   this.truck = this.addTruckService.getTruckById(this.notifications)
+   this.truck = this.addTruckService.getTruckById(this.notifications.count)
    this.truck.subscribe(data => {
    this.newTruck = data as Truck;
    var adrString = "";
@@ -155,6 +157,7 @@ public notifications = 0;
    });
     }
     deleteTruck(msg: Marker) {
+      
       const index: number = this.markerArray.indexOf(msg);
       this.markerArray.splice(index, 1)
     }
