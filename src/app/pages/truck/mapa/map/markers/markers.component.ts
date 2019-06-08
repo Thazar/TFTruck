@@ -13,6 +13,7 @@ interface Marker {
   lng: number;
   firstName: string;
   lastName: string;
+  id: number;
   companyName: string;
   email: string;
   tel: string;
@@ -27,6 +28,9 @@ interface Marker {
   edscha: string;
   cerXl: string;
   uwagi: string;
+  icon: {
+    url: string, scaledSize: {height: number, width: number}
+  }
 }
 
 
@@ -51,13 +55,19 @@ export class MarkersComponent implements OnInit {
     stompClient.connect({}, frame => {
       stompClient.subscribe('/topic/notification', notifications => {
         this.notifications = JSON.parse(notifications.body);
-        if (this.notifications.msg === "create") {
-          this.updateTruck();
+        if (this.notifications.msg === "createTruck") {
+          this.updateTruck(this.notifications.count);
+        }
+        if (this.notifications.msg === "deleteTruck") {
+          this.deleteTruck(this.notifications.count);
         }
         this.notifications.count =0;
         this.notifications.msg = '';
       })
     }); 
+
+    
+ 
     
   }
 
@@ -87,12 +97,28 @@ export class MarkersComponent implements OnInit {
         if (this.newTruck.truckCerXl == true) {
           cerXlString = "Cer. XL"   
         } else cerXlString=""
+
+        if (this.newTruck.truckRodzaj === "Full | 40t") {
+          if ((this.newTruck.truckTyp === "Firanka") || (this.newTruck.truckTyp === "Plandeka")) {
+            this.icon ={ url: "assets/images/bigTruckBlue.png", scaledSize: {height: 30, width: 104.1} }
+          } else this.icon ={ url: "assets/images/bigTruckWhite.png", scaledSize: {height: 30, width: 104.1} }
+        }
+        if (this.newTruck.truckRodzaj === "Ciężarowy | 7.5-12t") {
+          if ((this.newTruck.truckTyp === "Firanka") || (this.newTruck.truckTyp === "Plandeka")) {
+            this.icon ={ url: "assets/images/soloTruckBlue.png", scaledSize: {height: 30, width: 104.1} }
+          } else this.icon ={ url: "assets/images/soloTruckWhite.png", scaledSize: {height: 30, width: 104.1} }
+        }
+        if (this.newTruck.truckRodzaj === "Bus | 3.5t") {
+           this.icon ={ url: "assets/images/bus.png", scaledSize: {height: 30, width: 104.1} }
+        }
+        
       
         this.markerArray.push({
           lat: this.newTruck.latitude,
           lng: this.newTruck.longitude,
           firstName: this.newTruck.truckFirstName,
           lastName: this.newTruck.truckLastName,
+          id: this.newTruck.id,
           companyName: this.newTruck.truckCompanyName,
           email: this.newTruck.truckEmail,
           tel: this.newTruck.truckTel,
@@ -107,15 +133,16 @@ export class MarkersComponent implements OnInit {
           edscha: edschaString,
           cerXl: cerXlString,
           uwagi: this.newTruck.truckUwagi,
+          icon: this.icon,
         });
       })
     })
     
-    this.icon ={ url: "assets/images/bigTruck.png", scaledSize: {height: 35, width: 70} }
+    
   }
 
-  updateTruck() {
-   this.truck = this.addTruckService.getTruckById(this.notifications.count)
+  updateTruck(id: number) {
+   this.truck = this.addTruckService.getTruckById(id)
    this.truck.subscribe(data => {
    this.newTruck = data as Truck;
    var adrString = "";
@@ -134,11 +161,28 @@ export class MarkersComponent implements OnInit {
    if (this.newTruck.truckCerXl == true) {
      cerXlString = "Cer. XL"   
    } else cerXlString=""
+
+   if (this.newTruck.truckRodzaj === "Full | 40t") {
+    if ((this.newTruck.truckTyp === "Firanka") || (this.newTruck.truckTyp === "Plandeka")) {
+      this.icon ={ url: "assets/images/bigTruckBlue.png", scaledSize: {height: 30, width: 104.1} }
+    } else this.icon ={ url: "assets/images/bigTruckWhite.png", scaledSize: {height: 30, width: 104.1} }
+  }
+  if (this.newTruck.truckRodzaj === "Ciężarowy | 7.5-12t") {
+    if ((this.newTruck.truckTyp === "Firanka") || (this.newTruck.truckTyp === "Plandeka")) {
+      this.icon ={ url: "assets/images/soloTruckBlue.png", scaledSize: {height: 30, width: 104.1} }
+    } else this.icon ={ url: "assets/images/soloTruckWhite.png", scaledSize: {height: 30, width: 104.1} }
+  }
+  if (this.newTruck.truckRodzaj === "Bus | 3.5t") {
+     this.icon ={ url: "assets/images/bus.png", scaledSize: {height: 30, width: 104.1} }
+  }
+  
+
      this.markerArray.push({
        lat: this.newTruck.latitude,
        lng: this.newTruck.longitude,
        firstName: this.newTruck.truckFirstName,
        lastName: this.newTruck.truckLastName,
+       id: this.newTruck.id,
        companyName: this.newTruck.truckCompanyName,
        email: this.newTruck.truckEmail,
        tel: this.newTruck.truckTel,
@@ -153,15 +197,19 @@ export class MarkersComponent implements OnInit {
        edscha: edschaString,
        cerXl: cerXlString,
        uwagi: this.newTruck.truckUwagi,
+       icon: this.icon,
      });
    });
     }
-    deleteTruck(msg: Marker) {
-      
-      const index: number = this.markerArray.indexOf(msg);
+    initiateDeleteTruck(msg: Marker) {
+      this.addTruckService.deleteTruckById(msg.id)
+      .subscribe(data => console.log(data), error => console.log(error));
+    }
+    deleteTruck(id: number) {
+      const index = this.markerArray.findIndex(marker => marker.id === id);
       this.markerArray.splice(index, 1)
     }
-    
+  
 
   }
 

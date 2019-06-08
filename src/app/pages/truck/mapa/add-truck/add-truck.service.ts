@@ -30,4 +30,7 @@ export class AddTruckService {
   getTruckById(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
+  deleteTruckById(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete/${id}`);
+  }
 }
