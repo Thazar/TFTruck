@@ -70,6 +70,9 @@
               </div> 
           </mat-tab>
         </mat-tab-group>
+        <mat-divider style="margin-top: 5px;"></mat-divider>
+        <button style=" margin-top: 5px; float: right;" mat-button color="blue" ><mat-icon>edit </mat-icon> Edytuj</button>
+        <button style=" margin-top: 5px; float: right" mat-button color="warn" (click)="deleteTruck(mark)"><mat-icon>delete_forever </mat-icon> Usuń</button>
         </div>
       </agm-info-window>
     </agm-marker>

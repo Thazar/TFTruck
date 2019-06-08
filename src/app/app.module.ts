@@ -20,7 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AuthGuard} from './auth.guard';
 import { NbWindowService } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MAT_DATE_LOCALE } from '@angular/material';
+import { MAT_DATE_LOCALE, MatButtonModule } from '@angular/material';
 
 
 @NgModule({
@@ -32,6 +32,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     AppRoutingModule,
     AngularFontAwesomeModule,
     ReactiveFormsModule,
+    MatButtonModule,
   
 
     NgbModule.forRoot(),

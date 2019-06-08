@@ -5,6 +5,7 @@ import { AddTruckService } from '../../add-truck/add-truck.service';
 import { MiscellaneousComponent } from '../../../../miscellaneous/miscellaneous.component';
 import { count } from 'rxjs/operators';
 import { strictEqual } from 'assert';
+import { element } from '@angular/core/src/render3';
 
 interface Marker {
   lat: number;
@@ -153,7 +154,10 @@ public notifications = 0;
      });
    });
     }
-
+    deleteTruck(msg: Marker) {
+      const index: number = this.markerArray.indexOf(msg);
+      this.markerArray.splice(index, 1)
+    }
     
 
   }

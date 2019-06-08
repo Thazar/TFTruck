@@ -7,3 +7,11 @@
     ::ng-deep  .mat-tab-label-active {
         color: #0081ba !important;
     } 
+
+      .mat-button.mat-blue {
+        color: #0081ba;
+     }
+     
+     .mat-raised-button.mat-blue, .mat-flat-button.mat-blue{
+        color: #0081ba;
+     }
