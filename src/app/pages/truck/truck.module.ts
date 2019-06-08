@@ -11,7 +11,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NbDatepickerModule, NbSelectModule, NbTabsetModule, } from '@nebular/theme';
 import { HttpClientModule } from '@angular/common/http';
 import { MarkersComponent } from './mapa/map/markers/markers.component';
-import { MarkerInfoComponent } from './mapa/map/markers/marker-info/marker-info.component';
+
 
 
 @NgModule({
@@ -29,7 +29,7 @@ import { MarkerInfoComponent } from './mapa/map/markers/marker-info/marker-info.
     declarations: [
       ...routedComponents,
       MarkersComponent,
-      MarkerInfoComponent,
+   
   
     ],
   })
