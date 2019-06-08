@@ -47,12 +47,13 @@ export class AddTruckComponent  {
   countryShortSelected= false;
   countryNotSelected= true;
   dateOd = new FormControl(new Date());
-  dateDo = new FormControl(new Date());
+  dateDo = new FormControl(new Date((new Date).getTime()+ 86400000));
   truckAdr: false;
   truckWinda: false;
   truckEdscha: false;
   truckCerXl: false;
   truckUwagi: '';
+ 
   
 
   states: State[] = [
@@ -125,7 +126,7 @@ export class AddTruckComponent  {
   }
 
   onSubmit() {
-    if (!this.truck.latitude  || !this.truck.longitude ) {
+    if (!this.truck.latitude  || !this.truck.longitude || !this.adresValue || !this.typValue || !this.rodzajValue || !this.dateOd.value || !this.dateDo.value ) {
       return
     }
     this.save();

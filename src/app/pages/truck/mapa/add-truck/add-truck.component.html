@@ -3,13 +3,13 @@
 <div class="div">
   <div class="second-input" style="margin-left: 40px;">
     <label >Wolny od</label>
-        <input style="min-height: 42.5px; min-width: 200px; display: inline-block;" nbInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value">
+        <input style="min-height: 42.5px; min-width: 200px; display: inline-block;" nbInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value" [(ngModel)]=dateOd.value>
         <mat-datepicker-toggle style="margin-left: -45px;" matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </div>
   <div  class="second-input" style=" margin-bottom: 20px; margin-left: -34px;">
     <label style="">Wolny do</label>
-      <input nbInput style="min-height: 42.5px; min-width: 200px; display: inline-block" [matDatepicker]="picker2" placeholder="Wolny do" [value]="dateDo.value">
+      <input nbInput style="min-height: 42.5px; min-width: 200px; display: inline-block" [matDatepicker]="picker2" placeholder="Wolny do" [value]="dateDo.value" [(ngModel)]=dateDo.value>
       <mat-datepicker-toggle style="margin-left: -45px;" matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
   </div>
