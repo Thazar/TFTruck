@@ -48,6 +48,8 @@ export class AddTruckComponent  {
   countryNotSelected= true;
   dateOd = new FormControl(new Date());
   dateDo = new FormControl(new Date((new Date).getTime()+ 86400000));
+  dateOdValue;
+  dateDoValue;
   truckAdr: false;
   truckWinda: false;
   truckEdscha: false;
@@ -97,6 +99,8 @@ export class AddTruckComponent  {
   ];
 
   constructor(private addTruckService: AddTruckService, private mapaService: MapaService) {
+    this.dateDoValue = this.dateDo.value;
+    this.dateOdValue = this.dateOd.value;
     this.filteredStates = this.stateCtrl.valueChanges
       .pipe(
         startWith(''),
@@ -110,8 +114,8 @@ export class AddTruckComponent  {
   save() {
     console.log("truck adr bla bla bla to : " + this.truckAdr)
     this.truck.truckEmail = this.addTruckService.email;
-    this.truck.truckWolnyOd = this.dateOd.value;
-    this.truck.truckWolnyDo = this.dateDo.value;
+    this.truck.truckWolnyOd = this.dateOdValue;
+    this.truck.truckWolnyDo = this.dateDoValue;
     this.truck.truckTyp = this.typValue;
     this.truck.truckRodzaj = this.rodzajValue;
     this.truck.truckAdr = this.truckAdr;
