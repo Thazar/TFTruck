@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
 import { NbWindowService, NbWindowRef } from '@nebular/theme';
 import { MapaService } from './mapa.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'mapa',
@@ -8,7 +9,8 @@ import { MapaService } from './mapa.service';
   styleUrls: ['./mapa.component.scss']
 })
 export class MapaComponent implements OnInit {
-  
+  tabs = ['first',]
+  selected = new FormControl(0);
 
   ngOnInit() {
   console.log("czy okno jest otwarte? " + this.mapaService.loggedOfWithOpenedWindow)
@@ -40,5 +42,13 @@ export class MapaComponent implements OnInit {
 
   close() {
     this.mapaService.ref.close;
+  }
+  addTab() {
+    this.tabs.push('New');
+    this.selected.setValue(this.tabs.length - 1);
+  }
+  removeTab(index: number) {
+    this.tabs.splice(index, 1)
+    this.selected.setValue(this.tabs.length - 1)
   }
 }

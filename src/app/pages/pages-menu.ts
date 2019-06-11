@@ -23,20 +23,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Truck',
     icon: 'fas fa-truck',
+    link: '/pages/truck/mapa',
     data: {
       permission: 'view',
       resource: 'admin'
     },
-    children: [
-      {
-      title: 'Mapa',
-      link: '/pages/truck/mapa'
-      }
-    ],
   },
   {
     title: 'Cargo',
     icon: 'fas fa-truck-loading',
+    link: '#',
     data: {
       permission: 'view',
       resource: 'admin'

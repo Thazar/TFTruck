@@ -1,8 +1,17 @@
 <nb-card>
     <nb-card-header class="header">
-        <fa style="margin-right: 5px; font-size: 1.4rem;" name="fas fa-globe"></fa>
-      Mapa Przewoźników</nb-card-header>
+        <i style="margin-right: 5px; font-size: 1.7rem;" class="fas fa-truck-moving"></i>
+      Truck</nb-card-header>
     <nb-card-body>
+      <mat-tab-group [selectedIndex]="selected.value" style="margin-top: -15px;" [backgroundColor]="accent">
+        <mat-tab *ngFor="let tab of tabs; let index = index"> 
+          <ng-template mat-tab-label>
+            <div >
+             <span style="margin-right: 20px;">Wszystkie</span>
+           
+          </div>
+          <button [disabled]="tabs.length === 1" [disableRipple]="true" style="margin-right: -60px; margin-top: -30px;" mat-icon-button (click)="removeTab(index)"><mat-icon style="font-size: 90%">close</mat-icon></button>
+          </ng-template>
         <nb-actions class="actions" size="medium">
             <nb-action nbPopover="Dodaj Auto" nbPopoverPlacement="top" nbPopoverMode="hint"  icon="nb-plus" (click)="openWindowWithoutBackdrop()" ></nb-action>
             <ng-template  #disabledEsc>
@@ -15,9 +24,17 @@
             
           </nb-actions>
 <hr>
+
 <div class="map-container">
       
       <ngx-map ></ngx-map>
 </div>
+</mat-tab>
+<mat-tab disabled>
+  <ng-template mat-tab-label>
+    <button style="margin-left: -120px;" color="primary" mat-icon-button (click)="addTab()"><mat-icon>add</mat-icon></button>
+  </ng-template>
+</mat-tab>
+</mat-tab-group>
     </nb-card-body>
   </nb-card>
