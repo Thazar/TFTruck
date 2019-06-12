@@ -10,7 +10,7 @@
              <span style="margin-right: 20px;">Wszystkie</span>
            
           </div>
-          <button [disabled]="tabs.length === 1" [disableRipple]="true" style="margin-right: -60px; margin-top: -30px;" mat-icon-button (click)="removeTab(index)"><mat-icon style="font-size: 90%">close</mat-icon></button>
+          <button [disabled]="tabs.length === 1" [disableRipple]="true" style="margin-right: -30px; margin-top: -60px; width: 0.1px; height: 0.1px;" mat-icon-button (click)="removeTab(index)"><mat-icon style="font-size: 90%; width: 1px; height: 1px; margin-top: -30px; margin-right: -15px;">close</mat-icon></button>
           </ng-template>
         <nb-actions class="actions" size="medium">
             <nb-action nbPopover="Dodaj Auto" nbPopoverPlacement="top" nbPopoverMode="hint"  icon="nb-plus" (click)="openWindowWithoutBackdrop()" ></nb-action>
