@@ -33,7 +33,11 @@
            
           <mat-accordion>
             <mat-expansion-panel [expanded]="panelOpened" style="width: 100%">
-              <mat-expansion-panel-header [collapsedHeight]="'0px'"></mat-expansion-panel-header>
+              <mat-expansion-panel-header [collapsedHeight]="'0px'" [expandedHeight]="'15px'"></mat-expansion-panel-header>
+              <div style="background-color: #ebeff5; border-style: solid; border-color: #9e9e9e; border-width: 0.1px; padding: 10px 10px 10px 10px; max-width: 195px;">
+                <input nbInput placeholder="Kraj" style="height: 5px; margin-bottom: 5px;">
+                <input nbInput placeholder="adres" style="height: 5px;">
+               </div>
             </mat-expansion-panel>
           </mat-accordion>
 
