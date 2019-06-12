@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
-import { MatIconModule, MatInputModule, MatButtonModule, MatAutocompleteModule, MatSelectModule, MatExpansionModule, MatCheckboxModule, MatDividerModule, MatDatepickerModule, MatNativeDateModule, MatTabsModule, MatSlideToggle, MatSlideToggleModule,} from '@angular/material';
+import { MatIconModule, MatInputModule, MatButtonModule, MatAutocompleteModule, MatSelectModule, MatExpansionModule, MatCheckboxModule, MatDividerModule, MatDatepickerModule, MatNativeDateModule, MatTabsModule, MatSlideToggle, MatSlideToggleModule, MatToolbarModule,} from '@angular/material';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 
@@ -18,7 +18,7 @@ import { MarkersComponent } from './mapa/map/markers/markers.component';
     imports: [
       MatIconModule, MatInputModule, MatButtonModule, MatGoogleMapsAutocompleteModule.forRoot() , ReactiveFormsModule,AngularFontAwesomeModule, ReactiveFormsModule, MatAutocompleteModule, 
       NbDatepickerModule.forRoot(), NbDatepickerModule, NbSelectModule, MatSelectModule, HttpClientModule, MatExpansionModule, MatCheckboxModule, MatDividerModule, NbTabsetModule, MatDatepickerModule, MatNativeDateModule,
-      ThemeModule, MatTabsModule, MatSlideToggleModule,
+      ThemeModule, MatTabsModule, MatSlideToggleModule, MatToolbarModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyCl_eRT8a-rXEmSZzHcXYKi7zNI0XlGb-w',
         libraries: ['places'],
