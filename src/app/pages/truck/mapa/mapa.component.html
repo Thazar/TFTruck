@@ -14,14 +14,29 @@
           </ng-template>
 
          
-          <mat-toolbar class="z-depth-5" style="background-color: white; height: 50px;">    
-          <button mat-button  color="" (click)="openWindowWithoutBackdrop()" style=" height: 45px;"><img style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/addTruck.png">Dodaj Pojazd</button>
-          <mat-divider [vertical]="true" style="height: 68%;"></mat-divider>
-          <button mat-button  color=""  style=" height: 45px;"><img class="icon" style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/searchTruck.png">Szukaj Pojazdu</button>
-          <mat-divider [vertical]="true" style="height: 68%;"></mat-divider>
-          <button mat-button  color="" style=" height: 45px;"><i class="fas fa-map-marked-alt" style="font-size: 2rem;  margin-right: 8px;"></i>Wyswietl Moje</button>
-        </mat-toolbar>
-         
+          <mat-toolbar style="background-color: white; height: 50px;">    
+            
+          <div style=" flex: 1; display: inline-block;">
+          <button mat-button  color="" (click)="openWindowWithoutBackdrop()" style="display: inline-block;"><img style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/addTruck.png">Dodaj Pojazd</button>
+          <mat-divider [vertical]="true" style="height: 68%; display: inline-block; "></mat-divider>
+          <button (click)="togglePanel()" mat-button  color=""  style=" height: 45px; display: inline-block;"><img class="icon" style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/searchTruck.png">Szukaj Pojazdu</button>
+          <mat-divider [vertical]="true" style="height: 68%; display: inline-block;"></mat-divider>
+          <button mat-button  color="" style=" height: 45px; display: inline-block;"><i class="fas fa-map-marked-alt" style="font-size: 2rem;  margin-right: 8px;"></i>Wyswietl Moje</button>
+        </div>
+          <div style="">
+         <mat-label  style="font-size: 18px; margin-right: 5px;">Mapa</mat-label>
+           <mat-slide-toggle color="primary">
+           </mat-slide-toggle>
+          <mat-label style="font-size: 18px; margin-left: 5px">Lista</mat-label>
+        </div>
+          </mat-toolbar>
+           
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="panelOpened" style="width: 100%">
+              <mat-expansion-panel-header [collapsedHeight]="'0px'"></mat-expansion-panel-header>
+            </mat-expansion-panel>
+          </mat-accordion>
+
             <ng-template  #disabledEsc>
                 <form class="new-truck-form">
               <ngx-add-truck></ngx-add-truck>             

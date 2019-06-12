@@ -11,6 +11,7 @@ import {FormControl} from '@angular/forms';
 export class MapaComponent implements OnInit {
   tabs = ['first',]
   selected = new FormControl(0);
+  panelOpened = false;
 
   ngOnInit() {
   console.log("czy okno jest otwarte? " + this.mapaService.loggedOfWithOpenedWindow)
@@ -50,5 +51,10 @@ export class MapaComponent implements OnInit {
   removeTab(index: number) {
     this.tabs.splice(index, 1)
     this.selected.setValue(this.tabs.length - 1)
+  }
+  togglePanel() {
+    if (this.panelOpened === false ) {
+    this.panelOpened = true;
+    } else this.panelOpened = false;
   }
 }
