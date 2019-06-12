@@ -2,6 +2,14 @@
 
 @import '~@angular/material/theming';
 
+nb-card-body {
+  padding: 0;
+}
+
+/deep/ agm-map {
+  width: 100%;
+  height: nb-theme(card-height-large);
+}
 
 .header {
   font-family: Roboto !important;
@@ -40,6 +48,10 @@ color: #0081ba;
 
  .icon{
    color: red;
+ }
+ 
+ .fa-map-marked-alt {
+   color: #0081ba;
  }
 
   

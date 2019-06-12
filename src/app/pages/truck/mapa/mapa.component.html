@@ -1,11 +1,11 @@
 <nb-card>
-    <nb-card-header class="header">
+    <nb-card-header class="header" >
        
-      Truck</nb-card-header>
+      Truck</nb-card-header >
     <nb-card-body>
-      <mat-tab-group [selectedIndex]="selected.value" style="margin-top: -18px;" [backgroundColor]="accent">
+      <mat-tab-group [selectedIndex]="selected.value" style="" [backgroundColor]="accent" >
         <mat-tab *ngFor="let tab of tabs; let index = index"> 
-          <ng-template mat-tab-label>
+          <ng-template mat-tab-label >
             <div >
              <span style="margin-right: 20px;">Wszystkie</span>
            
@@ -13,13 +13,13 @@
           <button [disabled]="tabs.length === 1" [disableRipple]="true" style="  width: 0.01px; height: 0.01px; margin-top: -70px; margin-left: -15px; ;" mat-icon-button (click)="removeTab(index)"><mat-icon style="font-size: 90%;">close</mat-icon></button>
           </ng-template>
 
-          <mat-divider style="margin-bottom: -15px; margin-top: 15px;"></mat-divider>
-          <mat-toolbar style="margin-bottom: -15px; margin-top: 15px;">    
-          <button mat-button  color="blue" (click)="openWindowWithoutBackdrop()" style=" height: 45px;"><img style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/addTruck.png">Dodaj Pojazd</button>
+         
+          <mat-toolbar class="z-depth-5" style="background-color: white; height: 50px;">    
+          <button mat-button  color="" (click)="openWindowWithoutBackdrop()" style=" height: 45px;"><img style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/addTruck.png">Dodaj Pojazd</button>
           <mat-divider [vertical]="true" style="height: 68%;"></mat-divider>
-          <button mat-button  color="blue" (click)="openWindowWithoutBackdrop()" style=" height: 45px;"><img class="icon" style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/searchTruck.png">Szukaj Pojazdu</button>
+          <button mat-button  color=""  style=" height: 45px;"><img class="icon" style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/searchTruck.png">Szukaj Pojazdu</button>
           <mat-divider [vertical]="true" style="height: 68%;"></mat-divider>
-          <button mat-button  color="blue" (click)="openWindowWithoutBackdrop()" style=" height: 45px;"><img class="icon" style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/addTruck.png">Wyswietl Moje</button>
+          <button mat-button  color="" style=" height: 45px;"><i class="fas fa-map-marked-alt" style="font-size: 2rem;  margin-right: 8px;"></i>Wyswietl Moje</button>
         </mat-toolbar>
          
             <ng-template  #disabledEsc>
@@ -28,9 +28,9 @@
              </form>
               </ng-template>
               
-<hr>
+<mat-divider></mat-divider>
 
-<div class="map-container">
+<div class="map-container" style="">
       
       <ngx-map ></ngx-map>
 </div>
