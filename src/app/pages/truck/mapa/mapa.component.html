@@ -37,18 +37,45 @@
               <mat-toolbar style="background-color: white; height: 50px;">    
             
                    <div style="display: inline-block; margin-left: -10px;">
-                    <mat-form-field style="font-size: 14px; margin-top: 10px;">
-                      <input matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off" placeholder="Kraj"  />
+                    <mat-form-field style="font-size: 14px; margin-top: 10px; width: 180px;">
+                      <input type="text" name="somethingAutofillDoesntKnow" autocomplete="off" [(ngModel)]="value" matInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" >
+                      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="clearKraj()">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      <mat-autocomplete (optionSelected)="countrySelected($event)" #auto="matAutocomplete">
+                        <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                          <img class="example-option-img" aria-hidden [src]="state.flag" height="25" style="margin-right: 10px;">
+                          <span>{{state.name}}</span>
+                        </mat-option>
+                      </mat-autocomplete>
                     </mat-form-field>
                    </div>
                     <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
-                   <div style="display: inline-block;">
-                    <mat-form-field style="font-size: 14px; margin-top: 10px;">
-                      <input matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off" placeholder="Adres" />
+                   <div style="display: inline-block;"  *ngIf="countryShortSelected; else falseInput">
+                    <mat-form-field style="font-size: 14px; margin-top: 10px; width: 220px;">
+                      <input placeholder="Adres" autocomplete="off" matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off"
+        [(ngModel)]="adresValue"
+        id="adres"
+        matGoogleMapsAutocomplete
+        country="{{countryShort}}"
+        type="cities"
+        (onLocationSelected)="onLocationSelected($event)"
+        (onAutocompleteSelected)="onAutocompleteSelected($event)"
+        >
+        <button mat-button *ngIf="adresValue" matSuffix mat-icon-button aria-label="Clear" (click)="clearAdres()">
+            <mat-icon>close</mat-icon>
+          </button>
                     </mat-form-field>
                    </div>
+                   <ng-template #falseInput>
+                      <div style="display: inline-block;">
+                          <mat-form-field style="font-size: 14px; margin-top: 10px; width: 220px;">
+                        <input placeholder="Wybierz Kraj" style="min-width: 200px;" matInput disabled >
+                        </mat-form-field>
+                      </div>
+                    </ng-template>
                     <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
-                   <div style="display: inline-block;">
+                   <div style="display: inline-block;" *ngIf="adressSelected; else falseRange">
                     <mat-form-field style="font-size: 14px; margin-top: 10px; width: 100px;">
                       <mat-label>Promień</mat-label>
                       <mat-select>
@@ -57,6 +84,16 @@
                       </mat-select>
                     </mat-form-field> 
                    </div>
+                   <ng-template #falseRange>
+                      <div style="display: inline-block;">
+                          <mat-form-field style="font-size: 14px; margin-top: 10px; width: 100px;" >
+                            <mat-label>Promień</mat-label>
+                            <mat-select disabled>
+                              <mat-option>Brak</mat-option>
+                            </mat-select>
+                          </mat-form-field> 
+                         </div>
+                   </ng-template>
                    <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
                     <button (click)="toggleAddationalPanel()" mat-button  style=" height: 45px; display: inline-block;"><mat-icon style="margin-right: 5px;">playlist_add</mat-icon>Dodatkowe filtry<mat-icon *ngIf="addationalPanelOpened">arrow_drop_down</mat-icon></button>
                   </mat-toolbar>
@@ -75,26 +112,42 @@
                      <div style="display: inline-block; margin-left: -10px;">
                       <mat-form-field style="font-size: 14px; margin-top: 10px;">
                           <input  matInput [matDatepicker]="picker1" placeholder="Wolny w dniu" [value]="freeOn.value" [(ngModel)]="freeOnValue" >
-                          <mat-datepicker-toggle style="font-size: 150%" matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <button mat-button *ngIf="freeOnValue" matSuffix mat-icon-button aria-label="Clear" (click)="clearFreeOn()">
+                              <mat-icon>close</mat-icon>
+                            </button>
+                          <mat-datepicker-toggle *ngIf="!freeOnValue" style="font-size: 150%" matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                       </mat-form-field>
                      </div>
                       <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
                      <div style="display: inline-block;">
                       <mat-form-field style="font-size: 14px; margin-top: 10px;">
-                        <input matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off" placeholder="Nadwozie" />
+                          <mat-select [(ngModel)]="typValue">  
+                              <mat-option  *ngFor="let type of types" [value]="type.value" >
+                                {{type.viewValue}}
+                              </mat-option>
+                            </mat-select>
+                            <mat-label>Nadwozie</mat-label>
                       </mat-form-field>
                      </div>
                       <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
                       <div style="display: inline-block;">
                           <mat-form-field style="font-size: 14px; margin-top: 10px;">
-                            <input matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off" placeholder="Typ pojazdu" />
+                              <mat-select [(ngModel)]="rodzajValue">
+                                  <mat-option *ngFor="let spec of specs" [value]="spec.value">
+                                    {{spec.viewValue}} 
+                                  </mat-option>
+                                  </mat-select>
+                                  <mat-label>Typ pojazdu</mat-label>
                           </mat-form-field>
                          </div>
                          <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
                       <div style="display: inline-block;">
-                          <mat-form-field style="font-size: 14px; margin-top: 10px;">
-                            <input matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off" placeholder="Specyfikacje" />
+                          <mat-form-field style="font-size: 14px; margin-top: 10px; width: 200px;">
+                              <mat-label>Specyfikacje</mat-label>
+                              <mat-select [formControl]="specyfikacje" multiple>
+                                <mat-option *ngFor="let specyfikacja of listaSpecyfikacji" [value]="specyfikacja">{{specyfikacja}}</mat-option>
+                              </mat-select>
                           </mat-form-field>
                          </div>
  

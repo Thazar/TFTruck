@@ -40,12 +40,12 @@ export class AddTruckComponent  {
   public selectedAddress: PlaceResult;
   public appearance = Appearance;
   value = '';
+  countryShortSelected= false;
+  countryNotSelected= true;
   adresValue= '';
   typValue='';
   rodzajValue='';
   countryShort;
-  countryShortSelected= false;
-  countryNotSelected= true;
   dateOd = new FormControl(new Date());
   dateDo = new FormControl(new Date((new Date).getTime()+ 86400000));
   dateOdValue;
