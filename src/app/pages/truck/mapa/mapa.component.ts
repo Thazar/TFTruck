@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NbWindowService, NbWindowRef } from '@nebular/theme';
 import { MapaService } from './mapa.service';
 import {FormControl} from '@angular/forms';
@@ -9,9 +9,15 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./mapa.component.scss']
 })
 export class MapaComponent implements OnInit {
-  tabs = ['first',]
+
   selected = new FormControl(0);
   panelOpened = false;
+  addationalPanelOpened = false;
+  ranges: string[] = [
+    '10km', '25km', '50km', '75km', '100km', '150km', '200km', '300km', '500km'
+  ];
+  freeOn = new FormControl(new Date())
+
 
   ngOnInit() {
   console.log("czy okno jest otwarte? " + this.mapaService.loggedOfWithOpenedWindow)
@@ -40,21 +46,23 @@ export class MapaComponent implements OnInit {
      this.mapaService.windowOpened = false;
    });
   }
-
+f
   close() {
     this.mapaService.ref.close;
-  }
-  addTab() {
-    this.tabs.push('New');
-    this.selected.setValue(this.tabs.length - 1);
-  }
-  removeTab(index: number) {
-    this.tabs.splice(index, 1)
-    this.selected.setValue(this.tabs.length - 1)
   }
   togglePanel() {
     if (this.panelOpened === false ) {
     this.panelOpened = true;
-    } else this.panelOpened = false;
+    } else  {
+      this.panelOpened = false;
+      this.addationalPanelOpened = false;
+    }
+  }
+  toggleAddationalPanel() {
+    if (this.addationalPanelOpened === false) {
+      this.addationalPanelOpened = true;
+    } else  {
+      this.addationalPanelOpened = false; 
+    }
   }
 }

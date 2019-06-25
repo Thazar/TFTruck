@@ -3,62 +3,107 @@
        
       Truck</nb-card-header >
     <nb-card-body>
-      <mat-tab-group [selectedIndex]="selected.value" style="" [backgroundColor]="accent" >
-        <mat-tab *ngFor="let tab of tabs; let index = index"> 
-          <ng-template mat-tab-label >
-            <div >
-             <span style="margin-right: 20px;">Wszystkie</span>
-           
-          </div>
-          <button [disabled]="tabs.length === 1" [disableRipple]="true" style="  width: 0.01px; height: 0.01px; margin-top: -70px; margin-left: -15px; ;" mat-icon-button (click)="removeTab(index)"><mat-icon style="font-size: 90%;">close</mat-icon></button>
-          </ng-template>
-
-         
+  
           <mat-toolbar style="background-color: white; height: 50px;">    
             
-          <div style=" flex: 1; display: inline-block;">
-          <button mat-button  color="" (click)="openWindowWithoutBackdrop()" style="display: inline-block;"><img style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/addTruck.png">Dodaj Pojazd</button>
-          <mat-divider [vertical]="true" style="height: 68%; display: inline-block; "></mat-divider>
-          <button (click)="togglePanel()" mat-button  color=""  style=" height: 45px; display: inline-block;"><img class="icon" style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/searchTruck.png">Szukaj Pojazdu</button>
-          <mat-divider [vertical]="true" style="height: 68%; display: inline-block;"></mat-divider>
+          <div style="display: inline-block;">
+          <button mat-button  color="" (click)="openWindowWithoutBackdrop()" style="display: inline-block; height: 45px;"><img style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/addTruck.png">Dodaj Pojazd</button>
+          </div>
+          <mat-divider [vertical]="true" style="height: 68%; margin-left: 5px; margin-right: 5px;"></mat-divider>
+           <div style="display: inline-block;">
+          <button (click)="togglePanel()" mat-button  style=" height: 45px; display: inline-block;"><img class="icon" style="height: 32px; width: 32px; margin-right: 6px;" src="assets/images/searchTruck.png">Szukaj Pojazdu<mat-icon *ngIf="panelOpened">arrow_drop_down</mat-icon></button>
+           </div>
+           <mat-divider [vertical]="true" style="height: 68%; margin-left: 5px; margin-right: 5px;"></mat-divider>
+          <div style="display: inline-block; flex: 1;">
           <button mat-button  color="" style=" height: 45px; display: inline-block;"><i class="fas fa-map-marked-alt" style="font-size: 2rem;  margin-right: 8px;"></i>Wyswietl Moje</button>
         </div>
-          <div style="">
-         <mat-label  style="font-size: 18px; margin-right: 5px;">Mapa</mat-label>
-           <mat-slide-toggle color="primary">
-           </mat-slide-toggle>
-          <mat-label style="font-size: 18px; margin-left: 5px">Lista</mat-label>
+        <div style="display: inline-block;">
+          <mat-button-toggle-group #group="matButtonToggleGroup">
+            <mat-button-toggle value="temporary">
+              mapa
+              <mat-icon style="-webkit-text-fill-color:#0081ba">place</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="temporary">  
+              <mat-icon style="-webkit-text-fill-color:#0081ba">view_list</mat-icon>
+              lista
+            </mat-button-toggle>
+          </mat-button-toggle-group>
         </div>
           </mat-toolbar>
-           
-          <mat-accordion>
-            <mat-expansion-panel  [expanded]="panelOpened" style="width: 100%;">
-              <mat-expansion-panel-header [collapsedHeight]="'0px'" [expandedHeight]="'15px'"></mat-expansion-panel-header>
-              <div style="display: inline-block; background-color: #ebeff5; border-style: solid; border-color: #9e9e9e; border-width: 0.1px; padding: 10px 10px 10px 10px; max-width: 195px; max-height: 120px;">
-                <input nbInput placeholder="Kraj" style="height: 5px; margin-bottom: 5px;">
-                <input nbInput placeholder="adres" style="height: 5px;">
-                <label style="margin-left: 48px; margin-top:5px; height: 5px;">promień:</label><input style="margin-top: 5px; display:inline-block; width:50px; height: 4px; margin-left: 5px;" nbInput placeholder="km">
-               </div>
-               <div style="display: inline-block; margin-left: 20px; margin-bottom: -20px; background-color: #ebeff5; border-style: solid; border-color: #9e9e9e; border-width: 0.1px; padding: 10px 10px 10px 10px; max-width: 195px; max-height: 120px;">
-                <input nbInput placeholder="Nadwozie" style="height: 5px; margin-bottom: 5px;">
-                <input nbInput placeholder="Typ pojazdu" style="height: 5px; margin-bottom: 5px;">
-                <input nbInput placeholder="Wolny w dniu" style="height: 5px;">
-               </div>
-               <div style=" display: inline-block; margin-left: 20px; background-color: #ebeff5; border-style: solid; border-color: #9e9e9e; border-width: 0.1px; padding: 10px 10px 10px 10px; max-width: 195px; max-height: 120px;"> 
-                <input nbInput placeholder="Zgłoszony w ciągu" style="height: 5px;">
-                <input nbInput placeholder="Zgłoszony przez" style="height: 5px; margin-top: 5px;">
-               </div>
-               <div style="display: inline-block; margin-left: 20px; background-color: #ebeff5; border-style: solid; border-color: #9e9e9e; border-width: 0.1px; padding: 10px 10px 10px 10px; max-width: 195px; max-height: 120px;"> 
-               <label>Akcesoria:</label>
-               <div></div>
-                <mat-checkbox style="margin-left: 5px;" [(ngModel)]="truckAdr">Adr</mat-checkbox>
-                <mat-checkbox style="margin-left: 5px;" [(ngModel)]="truckCerXl">Cer. XL</mat-checkbox>
-                <mat-checkbox style="margin-left: 5px;" [(ngModel)]="truckWinda" >Winda</mat-checkbox>
-                <mat-checkbox style="margin-left: 5px;" [(ngModel)]="truckEdscha">Edscha</mat-checkbox>
-               </div>
+          <mat-divider *ngIf="panelOpened"></mat-divider>
+          <mat-accordion >
+            <mat-expansion-panel  [expanded]="panelOpened" style="width: 100%; max-height: 50px;" class="mat-elevation-z0">
+              <mat-expansion-panel-header [collapsedHeight]="'0px'" [expandedHeight]="'0'"></mat-expansion-panel-header>
+              <mat-toolbar style="background-color: white; height: 50px;">    
             
+                   <div style="display: inline-block; margin-left: -10px;">
+                    <mat-form-field style="font-size: 14px; margin-top: 10px;">
+                      <input matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off" placeholder="Kraj"  />
+                    </mat-form-field>
+                   </div>
+                    <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                   <div style="display: inline-block;">
+                    <mat-form-field style="font-size: 14px; margin-top: 10px;">
+                      <input matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off" placeholder="Adres" />
+                    </mat-form-field>
+                   </div>
+                    <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                   <div style="display: inline-block;">
+                    <mat-form-field style="font-size: 14px; margin-top: 10px; width: 100px;">
+                      <mat-label>Promień</mat-label>
+                      <mat-select>
+                        <mat-option>Brak</mat-option>
+                        <mat-option *ngFor="let range of ranges" [value]="range">{{range}}</mat-option>
+                      </mat-select>
+                    </mat-form-field> 
+                   </div>
+                   <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                    <button (click)="toggleAddationalPanel()" mat-button  style=" height: 45px; display: inline-block;"><mat-icon style="margin-right: 5px;">playlist_add</mat-icon>Dodatkowe filtry<mat-icon *ngIf="addationalPanelOpened">arrow_drop_down</mat-icon></button>
+                  </mat-toolbar>
+
+                 
+           
             </mat-expansion-panel>
           </mat-accordion>
+          <mat-divider *ngIf="addationalPanelOpened"></mat-divider> 
+          <mat-accordion >
+              <mat-expansion-panel  [expanded]="addationalPanelOpened" style="width: 100%; max-height: 50px;" class="mat-elevation-z0">
+                <mat-expansion-panel-header [collapsedHeight]="'0px'" [expandedHeight]="'0'"></mat-expansion-panel-header>
+                <mat-toolbar style="background-color: white; height: 50px;">  
+                   
+              
+                     <div style="display: inline-block; margin-left: -10px;">
+                      <mat-form-field style="font-size: 14px; margin-top: 10px;">
+                          <input  matInput [matDatepicker]="picker1" placeholder="Wolny w dniu" [value]="freeOn.value" [(ngModel)]="freeOnValue" >
+                          <mat-datepicker-toggle style="font-size: 150%" matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                     </div>
+                      <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                     <div style="display: inline-block;">
+                      <mat-form-field style="font-size: 14px; margin-top: 10px;">
+                        <input matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off" placeholder="Nadwozie" />
+                      </mat-form-field>
+                     </div>
+                      <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                      <div style="display: inline-block;">
+                          <mat-form-field style="font-size: 14px; margin-top: 10px;">
+                            <input matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off" placeholder="Typ pojazdu" />
+                          </mat-form-field>
+                         </div>
+                         <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                      <div style="display: inline-block;">
+                          <mat-form-field style="font-size: 14px; margin-top: 10px;">
+                            <input matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off" placeholder="Specyfikacje" />
+                          </mat-form-field>
+                         </div>
+ 
+                    </mat-toolbar>
+  
+                    
+             
+              </mat-expansion-panel>
+            </mat-accordion>
 
             <ng-template  #disabledEsc>
                 <form class="new-truck-form">
@@ -72,12 +117,8 @@
       
       <ngx-map ></ngx-map>
 </div>
-</mat-tab>
-<mat-tab disabled>
-  <ng-template mat-tab-label>
-    <button style="margin-left: -85px;" color="primary" mat-icon-button (click)="addTab()"><mat-icon>add</mat-icon></button>
-  </ng-template>
-</mat-tab>
-</mat-tab-group>
+
+
+
     </nb-card-body>
   </nb-card>
