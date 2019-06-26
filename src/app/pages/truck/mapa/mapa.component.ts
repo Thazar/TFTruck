@@ -5,6 +5,7 @@ import {FormControl} from '@angular/forms';
 import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { HostListener } from '@angular/core';
 import PlaceResult = google.maps.places.PlaceResult;
 
 
@@ -31,6 +32,9 @@ export interface spec {
   styleUrls: ['./mapa.component.scss']
 })
 export class MapaComponent implements OnInit {
+
+  screenHeight:any;
+  screenWidth:any;
 
   selected = new FormControl(0);
   panelOpened = false;
@@ -75,7 +79,7 @@ export class MapaComponent implements OnInit {
     },
     {
       name: 'Włochy',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Italy.svg
+      // https://commons.wikimedia.org/wiki/Fisle:Flag_of_Italy.svg
       flag: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg',
       short: 'it'
     }
@@ -109,7 +113,16 @@ export class MapaComponent implements OnInit {
       startWith(''),
       map(state => state ? this._filterStates(state) : this.states.slice())
     );
+    this.getScreenSize();
   };
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    
+  }
+
   ref: NbWindowRef;
 
   openWindowWithoutBackdrop() {
