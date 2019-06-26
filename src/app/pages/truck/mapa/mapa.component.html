@@ -136,6 +136,7 @@
                      <div style="display: inline-block;">
                       <mat-form-field style="font-size: 14px; margin-top: 10px; margin-left: 20px;">
                           <mat-select [(ngModel)]="typValue">  
+                              <mat-option>Brak</mat-option>
                               <mat-option  *ngFor="let type of types" [value]="type.value" >
                                 {{type.viewValue}}
                               </mat-option>
@@ -147,6 +148,7 @@
                       <div style="display: inline-block;">
                           <mat-form-field style="font-size: 14px; margin-top: 10px; margin-left: 20px;">
                               <mat-select [(ngModel)]="rodzajValue">
+                                  <mat-option>Brak</mat-option>
                                   <mat-option *ngFor="let spec of specs" [value]="spec.value">
                                     {{spec.viewValue}} 
                                   </mat-option>
