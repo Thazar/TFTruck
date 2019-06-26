@@ -3,19 +3,19 @@
 <div class="div">
   <div class="second-input" style="margin-left: 40px;">
     <label >Wolny od</label>
-        <input style="min-height: 42.5px; min-width: 200px; display: inline-block;" nbInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value" [(ngModel)]="dateOdValue" >
+        <input style="height: 37px; min-width: 200px; display: inline-block;" nbInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value" [(ngModel)]="dateOdValue" >
         <mat-datepicker-toggle style="margin-left: -45px;" matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </div>
-  <div  class="second-input" style=" margin-bottom: 20px; margin-left: -34px;">
+  <div  class="second-input" style=" margin-bottom: 15px; margin-left: -34px;">
     <label style="">Wolny do</label>
-      <input nbInput style="min-height: 42.5px; min-width: 200px; display: inline-block" [matDatepicker]="picker2" placeholder="Wolny do" [value]="dateDo.value" [(ngModel)]="dateDoValue">
+      <input nbInput style="height: 37px; min-width: 200px; display: inline-block" [matDatepicker]="picker2" placeholder="Wolny do" [value]="dateDo.value" [(ngModel)]="dateDoValue">
       <mat-datepicker-toggle style="margin-left: -45px;" matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
   </div>
 <div></div>
 <div class="input">
-    <input style="min-height: 42.5px; min-width: 200px;" [(ngModel)]="value" nbInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" (click)="clear()" >
+    <input style="height: 37px; min-width: 200px;" [(ngModel)]="value" nbInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" (click)="clear()" >
     <mat-autocomplete (optionSelected)="countrySelected($event)" #auto="matAutocomplete">
       <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
         <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
@@ -24,7 +24,7 @@
     </mat-autocomplete>
   </div> 
 <div class="second-input" *ngIf="countryShortSelected; else falseInput" >
-        <input style="min-height: 42.5px; min-width: 200px;" autocomplete="off" nbInput    (click)="clearAdres()"
+        <input style="height: 37px; min-width: 200px;" autocomplete="off" nbInput    (click)="clearAdres()"
         [(ngModel)]="adresValue"
         id="adres"
         matGoogleMapsAutocomplete
@@ -36,15 +36,15 @@
                     </div>  
     <ng-template #falseInput>
       <div class="second-input">
-        <input placeholder="Wybierz Kraj" style="min-width: 200px; min-height: 42.5px" nbInput [disabled]="countryNotSelected" >
+        <input placeholder="Wybierz Kraj" style="min-width: 200px; height: 37px;" nbInput [disabled]="countryNotSelected" >
       </div>
     </ng-template>
 </div>
 
-<h5 class="h5" style="padding-bottom: 10px;">Opis Pojazdu:</h5>
+<h5 class="h5" style="padding-bottom: 10px; margin-top: -5px;">Opis Pojazdu:</h5>
 <div class="div"> 
   <div class="input">   
-      <input style="min-width: 200px; min-height: 42.5px;" nbInput [disabled]="true">
+      <input style="min-width: 200px; height: 37px;" nbInput [disabled]="true">
 </div> 
 <div class="second-input"> 
    <mat-select style="margin-left: -205px; min-width: 170px; min-height: 42.5px;"  [(ngModel)]="typValue">  
@@ -62,7 +62,7 @@
     
 </div>
 <div class="second-input" style="margin-left:-20px">
-    <input style="min-width: 200px; min-height: 42.5px; margin-left: -50px;" nbInput [disabled]="true">
+    <input style="min-width: 200px; height: 37px; margin-left: -50px;" nbInput [disabled]="true">
 </div>
 <div class="second-input" style="margin-left:-20px">
 <mat-select style="margin-left: -165px; min-width: 170px; min-height: 42.5px;"  [(ngModel)]="rodzajValue">
@@ -106,10 +106,10 @@
   </mat-expansion-panel>  
 </div>
 <div class="dodaj-button">
-    <button style="display: flex;
-    align-items: center; "  nbButton  outline status="primary" (click)="onSubmit()"><mat-icon style="margin-left: -10px;">add</mat-icon>Dodaj</button>
-    <button  style="margin-left: 10px; display: flex;
-    align-items: center; " nbButton  outline status="danger" (click)="windowClose()"><mat-icon style="margin-left: -10px;">close</mat-icon>Anuluj</button>
+  <button style="display: flex;
+  align-items: center; "  mat-stroked-button  color="blue" (click)="onSubmit()"><mat-icon style="margin-left: -10px;">add</mat-icon>Dodaj</button>
+  <button  style="margin-left: 10px; display: flex;
+  align-items: center; " mat-stroked-button  color="warn" (click)="windowClose()"><mat-icon style="margin-left: -10px;">close</mat-icon>Anuluj</button>
 </div>
 <div class="dodaj-button">
 

@@ -13,7 +13,7 @@
   .input {
     display: inline-block;
     margin-left: 40px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     
   }
   .input-block {
@@ -61,6 +61,14 @@ mat-checkbox{
 textarea {
   width: 250px;
   min-height: 105px;
+}
+
+.mat-button.mat-blue {
+  color: #0081ba;
+}
+
+.mat-stroked-button.mat-blue, .mat-flat-button.mat-blue{
+  color: #0081ba;
 }
 
 
