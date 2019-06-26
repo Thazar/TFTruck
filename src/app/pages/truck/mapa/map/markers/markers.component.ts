@@ -48,9 +48,14 @@ export class MarkersComponent implements OnInit {
   icon: {
     url: string, scaledSize: {height: number, width: number}
   }
+  message: string;
   notifications: Notifications;
 
   constructor(private addTruckService: AddTruckService){  
+    this.addTruckService.currentMessage.subscribe(message => {
+      console.log(this.addTruckService.filter.kraj);  
+    } );
+    
     let stompClient = this.addTruckService.connect();
     stompClient.connect({}, frame => {
       stompClient.subscribe('/topic/notification', notifications => {
@@ -72,7 +77,7 @@ export class MarkersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reloadData()
+    this.reloadData();
   }
 
   

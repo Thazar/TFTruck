@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+
+export interface filter {
+  kraj: string;
+}
 
 var SockJs = require("sockjs-client")
 var Stomp = require("stompjs")
@@ -9,7 +14,11 @@ var Stomp = require("stompjs")
   providedIn: 'root'
 })
 export class AddTruckService {
+  filter: filter = {kraj: ''}
   email: string;
+  temp: string;
+  private messageSource = new BehaviorSubject('default message');
+  currentMessage = this.messageSource.asObservable();
 
   public connect() {
     let socket = new SockJs(`http://localhost:8888/nebular/socket`)
@@ -20,6 +29,10 @@ export class AddTruckService {
   private baseUrl = 'http://localhost:8888/nebular/api/trucks';
 
   constructor(private http: HttpClient) { }
+
+  changeMessage(message: string) {
+    this.messageSource.next(message)
+  }
 
   createTruck(truck: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}` + `/create`, truck);

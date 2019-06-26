@@ -7,6 +7,7 @@ import {map, startWith} from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { HostListener } from '@angular/core';
 import PlaceResult = google.maps.places.PlaceResult;
+import { AddTruckService } from './add-truck/add-truck.service';
 
 
 
@@ -55,6 +56,7 @@ export class MapaComponent implements OnInit {
   freeOnValue= '';
   typValue='';
   rodzajValue='';
+  message: string;
   listaSpecyfikacji: string[] = [
     'Adr', 'Winda', 'Edscha', 'Cer.XL'
   ];
@@ -98,6 +100,7 @@ export class MapaComponent implements OnInit {
 
 
   ngOnInit() {
+    
   console.log("czy okno jest otwarte? " + this.mapaService.loggedOfWithOpenedWindow)
   if (this.mapaService.loggedOfWithOpenedWindow == true) {
     window.location.reload();
@@ -107,7 +110,7 @@ export class MapaComponent implements OnInit {
 
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
 
-  constructor(private windowService: NbWindowService, private mapaService: MapaService) {
+  constructor(private windowService: NbWindowService, private mapaService: MapaService, private addTruckService: AddTruckService) {
     this.filteredStates = this.stateCtrl.valueChanges
     .pipe(
       startWith(''),
@@ -205,5 +208,10 @@ f
   }
   clearFreeOn() {
     this.freeOnValue = '';
+  }
+  search() {
+    console.log('clicked search')
+    this.addTruckService.filter.kraj = this.value;
+    this.addTruckService.changeMessage('search')
   }
 }
