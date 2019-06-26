@@ -32,12 +32,12 @@ export class AddTruckService {
   
 
   public connect() {
-    let socket = new SockJs(`http://localhost:8888/nebular/socket`)
+    let socket = new SockJs(`https://tftruck.herokuapp.com/nebular/socket`)
     let stompClient = Stomp.over(socket);
     return stompClient;
   }
 
-  private baseUrl = 'http://localhost:8888/nebular/api/trucks';
+  private baseUrl = 'https://tftruck.herokuapp.com/nebular/api/trucks';
 
   constructor(private http: HttpClient) { }
 
