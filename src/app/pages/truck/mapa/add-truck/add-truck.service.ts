@@ -2,9 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 export interface filter {
   kraj: string;
+  lat: number;
+  lng: number;
+  range: number;
+
 }
 
 var SockJs = require("sockjs-client")
@@ -14,11 +19,17 @@ var Stomp = require("stompjs")
   providedIn: 'root'
 })
 export class AddTruckService {
-  filter: filter = {kraj: ''}
+  filter: filter = {
+    kraj: '',
+    lat: 0,
+    lng: 0,
+    range: 5,
+  }
   email: string;
-  temp: string;
   private messageSource = new BehaviorSubject('default message');
   currentMessage = this.messageSource.asObservable();
+  countrySelected: boolean = false;
+  
 
   public connect() {
     let socket = new SockJs(`http://localhost:8888/nebular/socket`)

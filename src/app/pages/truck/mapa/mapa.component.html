@@ -38,7 +38,7 @@
             
                    <div style="display: inline-block; margin-left: -10px;">
                     <mat-form-field style="font-size: 14px; margin-top: 10px; width: 180px;">
-                      <input type="text" name="somethingAutofillDoesntKnow" autocomplete="off" [(ngModel)]="value" matInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" >
+                      <input #krajInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off" [(ngModel)]="value" matInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" >
                       <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="clearKraj()">
                           <mat-icon>close</mat-icon>
                         </button>
@@ -78,9 +78,9 @@
                    <div style="display: inline-block;" *ngIf="adressSelected; else falseRange">
                     <mat-form-field style="font-size: 14px; margin-top: 10px; width: 100px; margin-left: 20px;">
                       <mat-label>Promień</mat-label>
-                      <mat-select>
-                        <mat-option>Brak</mat-option>
-                        <mat-option *ngFor="let range of ranges" [value]="range">{{range}}</mat-option>
+                      <mat-select [(ngModel)]="rangeValue">
+                        <mat-option [value]="5">Brak</mat-option >
+                        <mat-option *ngFor="let range of ranges" [value]="range.value">{{range.viewValue}}</mat-option>
                       </mat-select>
                     </mat-form-field> 
                    </div>
@@ -88,7 +88,7 @@
                       <div style="display: inline-block;">
                           <mat-form-field style="font-size: 14px; margin-top: 10px; width: 100px; margin-left: 20px;" >
                             <mat-label>Promień</mat-label>
-                            <mat-select disabled>
+                            <mat-select disabled >
                               <mat-option>Brak</mat-option>
                             </mat-select>
                           </mat-form-field> 

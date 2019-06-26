@@ -85,5 +85,16 @@
       </agm-info-window>
     </agm-marker>
   </div>
+
+  <agm-circle *ngIf="circleShowed"
+  [latitude]="circleLat"
+  [longitude]="circleLng"
+  [radius]="circleRange"
+  [circleDraggable]="false"
+  [editable]="false"
+  [fillColor]="circleColor">
+  
+
+  </agm-circle>
   
  

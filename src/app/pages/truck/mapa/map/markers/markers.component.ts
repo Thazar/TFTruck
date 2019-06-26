@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, range } from 'rxjs';
 import { Truck } from '../../add-truck/truck';
 import { AddTruckService } from '../../add-truck/add-truck.service';
 import { MiscellaneousComponent } from '../../../../miscellaneous/miscellaneous.component';
@@ -7,6 +7,7 @@ import { count } from 'rxjs/operators';
 import { strictEqual } from 'assert';
 import { element } from '@angular/core/src/render3';
 import { Notifications } from '../../add-truck/notifications';
+import { MapsAPILoader } from '@agm/core';
 
 interface Marker {
   lat: number;
@@ -28,6 +29,7 @@ interface Marker {
   edscha: string;
   cerXl: string;
   uwagi: string;
+  kraj: string;
   icon: {
     url: string, scaledSize: {height: number, width: number}
   }
@@ -44,16 +46,61 @@ export class MarkersComponent implements OnInit {
   newTruck: Truck;
   trucks: Observable<Truck[]>;
   count: number;
+  circleLat: number;
+  circleLng: number;
+  circleColor:string;
+  circleRange:number;
   markerArray: Marker[] = [];
+  savedMarkers: Marker[] = [];
+  range: number = 5;
+  
   icon: {
     url: string, scaledSize: {height: number, width: number}
   }
   message: string;
   notifications: Notifications;
+  circleShowed: boolean = false;
 
-  constructor(private addTruckService: AddTruckService){  
+  constructor(private addTruckService: AddTruckService,  private mapsAPILoader: MapsAPILoader){  
+    var index;
     this.addTruckService.currentMessage.subscribe(message => {
-      console.log(this.addTruckService.filter.kraj);  
+      this.range = addTruckService.filter.range;
+      console.log(this.addTruckService.filter.range);
+      this.circleRange = addTruckService.filter.range * 1000;
+      this.circleColor = "red"
+      this.markerArray = [...this.savedMarkers];
+        this.circleLat = addTruckService.filter.lat;
+        this.circleLng = addTruckService.filter.lng;
+
+       if (this.addTruckService.countrySelected === true) {
+        this.circleShowed = true;
+       } else {
+         this.circleShowed = false;
+       }
+
+       if (this.addTruckService.countrySelected === true) {
+         for (index = this.markerArray.length -1; index >= 0; index -= 1) {
+        
+       const center = new google.maps.LatLng(addTruckService.filter.lat, addTruckService.filter.lng)
+       const markerLoc = new google.maps.LatLng(this.markerArray[index].lat, this.markerArray[index].lng)
+       const distanceInKm = google.maps.geometry.spherical.computeDistanceBetween(markerLoc, center) / 1000;
+       if (distanceInKm > this.range) {
+         this.markerArray.splice(index, 1);
+       } else this.circleColor = "#0081ba"
+      }
+      return
+    }
+   
+      for (index = this.markerArray.length -1; index >= 0; index -= 1) {
+        if (this.addTruckService.filter.kraj === '') {
+          return
+      }
+          if  (this.markerArray[index].kraj !== this.addTruckService.filter.kraj) {     
+          this.markerArray.splice(index, 1)
+        } 
+      }
+      
+     
     } );
     
     let stompClient = this.addTruckService.connect();
@@ -78,6 +125,7 @@ export class MarkersComponent implements OnInit {
 
   ngOnInit() {
     this.reloadData();
+    
   }
 
   
@@ -139,7 +187,10 @@ export class MarkersComponent implements OnInit {
           cerXl: cerXlString,
           uwagi: this.newTruck.truckUwagi,
           icon: this.icon,
+          kraj: this.newTruck.truckKraj,
         });
+
+        this.savedMarkers = [...this.markerArray]
       })
     })
     
@@ -180,6 +231,36 @@ export class MarkersComponent implements OnInit {
   if (this.newTruck.truckRodzaj === "Bus | 3.5t") {
      this.icon ={ url: "assets/images/bus.png", scaledSize: {height: 30, width: 104.1} }
   }
+
+  this.savedMarkers.push({
+    lat: this.newTruck.latitude,
+    lng: this.newTruck.longitude,
+    firstName: this.newTruck.truckFirstName,
+    lastName: this.newTruck.truckLastName,
+    id: this.newTruck.id,
+    companyName: this.newTruck.truckCompanyName,
+    email: this.newTruck.truckEmail,
+    tel: this.newTruck.truckTel,
+    transId: this.newTruck.truckTransId,
+    wolnyOd: this.newTruck.truckWolnyOd,
+    wolnyDo: this.newTruck.truckWolnyDo,
+    adres: this.newTruck.truckAdres,
+    typ: this.newTruck.truckTyp,
+    rodzaj: this.newTruck.truckRodzaj,
+    adr: adrString,
+    winda: windaString,
+    edscha: edschaString,
+    cerXl: cerXlString,
+    uwagi: this.newTruck.truckUwagi,
+    icon: this.icon,
+    kraj: this.newTruck.truckKraj,
+  });
+
+  if(this.addTruckService.filter.kraj !== '') {
+    if (this.newTruck.truckKraj !== this.addTruckService.filter.kraj) {
+      return;
+    }
+  }
   
 
      this.markerArray.push({
@@ -203,7 +284,9 @@ export class MarkersComponent implements OnInit {
        cerXl: cerXlString,
        uwagi: this.newTruck.truckUwagi,
        icon: this.icon,
+       kraj: this.newTruck.truckKraj,
      });
+     
    });
     }
     initiateDeleteTruck(msg: Marker) {
@@ -213,8 +296,15 @@ export class MarkersComponent implements OnInit {
     deleteTruck(id: number) {
       const index = this.markerArray.findIndex(marker => marker.id === id);
       this.markerArray.splice(index, 1)
+      const index2 = this.savedMarkers.findIndex(marker => marker.id === id);
+      this.savedMarkers.splice(index2, 1)
     }
   
+    filter(truck: Truck) {
+      if (this.addTruckService.filter.kraj === truck.truckKraj)
+      return true;
+      else return false;
+    }
 
   }
 

@@ -21,7 +21,7 @@ import { MarkersComponent } from './mapa/map/markers/markers.component';
       ThemeModule, MatTabsModule, MatSlideToggleModule, MatToolbarModule, MatButtonToggleModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyCl_eRT8a-rXEmSZzHcXYKi7zNI0XlGb-w',
-        libraries: ['places'],
+        libraries: ['places','geometry'],
       }),
       TruckRoutingModule, 
     ],

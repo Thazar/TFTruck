@@ -123,6 +123,7 @@ export class AddTruckComponent  {
     this.truck.truckEdscha = this.truckEdscha;
     this.truck.truckCerXl = this.truckCerXl;
     this.truck.truckUwagi = this.truckUwagi;
+    this.truck.truckKraj = this.value;
     
     console.log("adresValue to :" + this.adresValue);
     this.addTruckService.createTruck(this.truck)

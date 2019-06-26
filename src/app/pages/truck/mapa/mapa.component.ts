@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { NbWindowService, NbWindowRef } from '@nebular/theme';
 import { MapaService } from './mapa.service';
 import {FormControl} from '@angular/forms';
@@ -7,6 +7,7 @@ import {map, startWith} from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { HostListener } from '@angular/core';
 import PlaceResult = google.maps.places.PlaceResult;
+import {Location, Appearance} from '@angular-material-extensions/google-maps-autocomplete';
 import { AddTruckService } from './add-truck/add-truck.service';
 
 
@@ -15,6 +16,11 @@ export interface State {
   flag: string;
   name: string;
   short: string;
+}
+
+export interface Range {
+  value: number;
+  viewValue: string;
 }
 
 export interface typ {
@@ -40,8 +46,16 @@ export class MapaComponent implements OnInit {
   selected = new FormControl(0);
   panelOpened = false;
   addationalPanelOpened = false;
-  ranges: string[] = [
-    '10km', '25km', '50km', '75km', '100km', '150km', '200km', '300km', '500km'
+  ranges: Range[] = [
+    { value: 10, viewValue: '10km' },
+    { value: 25, viewValue: '25km' },
+    { value: 50, viewValue: '50km' },
+    { value: 75, viewValue: '75km' },
+    { value: 100, viewValue: '100km'},
+    { value: 150, viewValue: '150km' },
+    { value: 200, viewValue: '200km'},
+    { value: 300, viewValue: '300km'},
+    { value: 500, viewValue: '500km'},
   ];
   freeOn = new FormControl(new Date())
   stateCtrl = new FormControl();
@@ -57,6 +71,7 @@ export class MapaComponent implements OnInit {
   typValue='';
   rodzajValue='';
   message: string;
+  rangeValue: number = 5;
   listaSpecyfikacji: string[] = [
     'Adr', 'Winda', 'Edscha', 'Cer.XL'
   ];
@@ -183,14 +198,17 @@ f
   }
 
   onLocationSelected(location: Location) {
-    console.log('onLocationSelected: ', location);
     this.adressSelected = true;
+    this.addTruckService.filter.lat = location.latitude;
+    this.addTruckService.filter.lng = location.longitude;
+    this.addTruckService.countrySelected = true;
   }
   
 
   onAutocompleteSelected(result: PlaceResult) {
     console.log('onAutocompleteSelected: ', result);
     this.adressSelected = true;
+
   }
   private _filterStates(value: string): State[] {
     const filterValue = value.toLowerCase();
@@ -198,13 +216,19 @@ f
     return this.states.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  clearKraj() {
+  @ViewChild("krajInput") nameField: ElementRef;
+  clearKraj(): void {
     this.value = '';
+    this.clearAdres();
     this.countryShortSelected = false;
+    this.addTruckService.countrySelected = false;
+    
+    
   }
   clearAdres() {
     this.adresValue = '';
     this.adressSelected = false;
+    this.addTruckService.countrySelected = false;
   }
   clearFreeOn() {
     this.freeOnValue = '';
@@ -212,6 +236,7 @@ f
   search() {
     console.log('clicked search')
     this.addTruckService.filter.kraj = this.value;
+    this.addTruckService.filter.range = this.rangeValue
     this.addTruckService.changeMessage('search')
   }
 }
