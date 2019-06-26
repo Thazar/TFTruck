@@ -50,9 +50,9 @@
                       </mat-autocomplete>
                     </mat-form-field>
                    </div>
-                    <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                    
                    <div style="display: inline-block;"  *ngIf="countryShortSelected; else falseInput">
-                    <mat-form-field style="font-size: 14px; margin-top: 10px; width: 220px;">
+                    <mat-form-field style="font-size: 14px; margin-top: 10px; width: 220px; margin-left: 20px;">
                       <input placeholder="Adres" autocomplete="off" matInput type="text" name="somethingAutofillDoesntKnow" autocomplete="off"
         [(ngModel)]="adresValue"
         id="adres"
@@ -69,14 +69,14 @@
                    </div>
                    <ng-template #falseInput>
                       <div style="display: inline-block;">
-                          <mat-form-field style="font-size: 14px; margin-top: 10px; width: 220px;">
+                          <mat-form-field style="font-size: 14px; margin-top: 10px; width: 220px; margin-left: 20px;">
                         <input placeholder="Wybierz Kraj" style="min-width: 200px;" matInput disabled >
                         </mat-form-field>
                       </div>
                     </ng-template>
-                    <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                   
                    <div style="display: inline-block;" *ngIf="adressSelected; else falseRange">
-                    <mat-form-field style="font-size: 14px; margin-top: 10px; width: 100px;">
+                    <mat-form-field style="font-size: 14px; margin-top: 10px; width: 100px; margin-left: 20px;">
                       <mat-label>Promień</mat-label>
                       <mat-select>
                         <mat-option>Brak</mat-option>
@@ -86,7 +86,7 @@
                    </div>
                    <ng-template #falseRange>
                       <div style="display: inline-block;">
-                          <mat-form-field style="font-size: 14px; margin-top: 10px; width: 100px;" >
+                          <mat-form-field style="font-size: 14px; margin-top: 10px; width: 100px; margin-left: 20px;" >
                             <mat-label>Promień</mat-label>
                             <mat-select disabled>
                               <mat-option>Brak</mat-option>
@@ -95,7 +95,20 @@
                          </div>
                    </ng-template>
                    <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                   <div style="display: inline-block;">
                     <button (click)="toggleAddationalPanel()" mat-button  style=" height: 45px; display: inline-block;"><mat-icon style="margin-right: 5px;">playlist_add</mat-icon>Dodatkowe filtry<mat-icon *ngIf="addationalPanelOpened">arrow_drop_down</mat-icon></button>
+                    </div>
+                    <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                    <div style="display: inline-block; flex: 1 ">    
+                  </div>
+                    <div style="display: inline-block;">
+                    <button mat-button color="blue"  style=" height: 45px; display: inline-block;"><mat-icon style="margin-right: 5px;">search</mat-icon>Szukaj</button>
+                  </div>
+                  <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                  <div style="display: inline-block;">
+                  <button mat-button color="warn"  style=" height: 45px; display: inline-block;"><mat-icon style="margin-right: 5px;">clear</mat-icon>Wyczyść Filtry</button>
+                  </div>
+                  
                   </mat-toolbar>
 
                  
@@ -119,9 +132,9 @@
                           <mat-datepicker #picker1></mat-datepicker>
                       </mat-form-field>
                      </div>
-                      <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                      
                      <div style="display: inline-block;">
-                      <mat-form-field style="font-size: 14px; margin-top: 10px;">
+                      <mat-form-field style="font-size: 14px; margin-top: 10px; margin-left: 20px;">
                           <mat-select [(ngModel)]="typValue">  
                               <mat-option  *ngFor="let type of types" [value]="type.value" >
                                 {{type.viewValue}}
@@ -130,9 +143,9 @@
                             <mat-label>Nadwozie</mat-label>
                       </mat-form-field>
                      </div>
-                      <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                      
                       <div style="display: inline-block;">
-                          <mat-form-field style="font-size: 14px; margin-top: 10px;">
+                          <mat-form-field style="font-size: 14px; margin-top: 10px; margin-left: 20px;">
                               <mat-select [(ngModel)]="rodzajValue">
                                   <mat-option *ngFor="let spec of specs" [value]="spec.value">
                                     {{spec.viewValue}} 
@@ -141,16 +154,16 @@
                                   <mat-label>Typ pojazdu</mat-label>
                           </mat-form-field>
                          </div>
-                         <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
+                         
                       <div style="display: inline-block;">
-                          <mat-form-field style="font-size: 14px; margin-top: 10px; width: 200px;">
+                          <mat-form-field style="font-size: 14px; margin-top: 10px; width: 200px; margin-left: 20px;">
                               <mat-label>Specyfikacje</mat-label>
                               <mat-select [formControl]="specyfikacje" multiple>
                                 <mat-option *ngFor="let specyfikacja of listaSpecyfikacji" [value]="specyfikacja">{{specyfikacja}}</mat-option>
                               </mat-select>
                           </mat-form-field>
                          </div>
- 
+                         <mat-divider [vertical]="true" style="height: 68%; margin-left: 15px; margin-right: 15px;"></mat-divider>
                     </mat-toolbar>
   
                     
