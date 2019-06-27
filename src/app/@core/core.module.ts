@@ -99,7 +99,7 @@ export const NB_CORE_PROVIDERS = [
           return token;
           },
        },
-        baseEndpoint: 'http://localhost:8888/nebular',
+        baseEndpoint: 'https://tftruck.herokuapp.com/nebular',
         login: {
           endpoint: '/auth/login',
         },
