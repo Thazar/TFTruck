@@ -9,6 +9,7 @@ import { element } from '@angular/core/src/render3';
 import { Notifications } from '../../add-truck/notifications';
 import { MapsAPILoader } from '@agm/core';
 import { FormControl } from '@angular/forms';
+import * as moment from 'moment';
 
 interface Marker {
   lat: number;
@@ -66,6 +67,8 @@ export class MarkersComponent implements OnInit {
     var index;
     const dateOd = new FormControl(new Date()) 
     const dateDo = new FormControl(new Date());
+    const moment = require('moment')
+    moment.locale('pl')
     this.addTruckService.currentMessage.subscribe(message => {
       this.range = addTruckService.filter.range;
       console.log(this.addTruckService.filter.range);
@@ -88,10 +91,13 @@ export class MarkersComponent implements OnInit {
         if (this.addTruckService.filter.freeOn.value !== '') {
           dateOd.setValue(this.markerArray[index].wolnyOd);
           dateDo.setValue(this.markerArray[index].wolnyDo);
-          if(this.markerArray[index].wolnyOd === this.addTruckService.filter.freeOn.value) {
-          console.log("zgadza sie")
-          } else console.log("niezgadza sie")
-         
+          const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
+          const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
+          const filterDate = moment(addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
+          if (filterDate < dateOdValue || filterDate > dateDoValue) {
+            this.markerArray.splice(index, 1);
+            continue;
+          }
         }
        const center = new google.maps.LatLng(addTruckService.filter.lat, addTruckService.filter.lng)
        const markerLoc = new google.maps.LatLng(this.markerArray[index].lat, this.markerArray[index].lng)
@@ -105,12 +111,27 @@ export class MarkersComponent implements OnInit {
    
       for (index = this.markerArray.length -1; index >= 0; index -= 1) {
         if (this.addTruckService.filter.kraj === '') {
-          return
-      }
+         break; 
+        }
           if  (this.markerArray[index].kraj !== this.addTruckService.filter.kraj) {     
           this.markerArray.splice(index, 1)
         } 
       }
+
+      for (index = this.markerArray.length -1; index >= 0; index -= 1) {
+      if (this.addTruckService.filter.freeOn.value === '') { 
+        break;
+      }
+        dateOd.setValue(this.markerArray[index].wolnyOd);
+        dateDo.setValue(this.markerArray[index].wolnyDo);
+        const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
+        const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
+        const filterDate = moment(addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
+        console.log(dateDoValue + "||" +  dateOdValue + "||" + filterDate)
+        if (filterDate < dateOdValue || filterDate > dateDoValue) {
+          this.markerArray.splice(index, 1);
+        }
+}
       
      
     } );
@@ -271,13 +292,49 @@ export class MarkersComponent implements OnInit {
 
   if (this.addTruckService.adresRealSelected === true) {
 
+    if (this.addTruckService.filter.freeOn.value !== '') { 
+      const dateOd = new FormControl(new Date()) 
+      const dateDo = new FormControl(new Date());
+      const moment = require('moment')
+      moment.locale('pl')
+  
+      dateOd.setValue(this.newTruck.truckWolnyOd);
+      dateDo.setValue(this.newTruck.truckWolnyDo);
+      const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
+      const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
+      const filterDate = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
+     
+    
+      if (filterDate < dateOdValue || filterDate > dateDoValue) {
+        return;
+      }
+    }
+
+    if (this.addTruckService.filter.freeOn.value !== '') { 
+      const dateOd = new FormControl(new Date()) 
+      const dateDo = new FormControl(new Date());
+      const moment = require('moment')
+      moment.locale('pl')
+  
+      dateOd.setValue(this.newTruck.truckWolnyOd);
+      dateDo.setValue(this.newTruck.truckWolnyDo);
+      const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
+      const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
+      const filterDate = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
+  
+      if (filterDate < dateOdValue || filterDate > dateDoValue) {
+        console.log(" no i kurwa niepasuje trzeba wyjebac")
+        return;
+      }
+    }
+
   const center = new google.maps.LatLng(this.addTruckService.filter.lat, this.addTruckService.filter.lng)
   const markerLoc = new google.maps.LatLng(this.newTruck.latitude, this.newTruck.longitude)
   const distanceInKm = google.maps.geometry.spherical.computeDistanceBetween(markerLoc, center) / 1000;
   
    if (distanceInKm > this.range) {
     return;
-   } else  {
+   }  else  {
      this.circleColor = "#0081ba"
      this.markerArray.push({
       lat: this.newTruck.latitude,
@@ -309,6 +366,24 @@ export class MarkersComponent implements OnInit {
 
   if(this.addTruckService.filter.kraj !== '') {
     if (this.newTruck.truckKraj !== this.addTruckService.filter.kraj) {
+      return;
+    }
+  }
+
+  if (this.addTruckService.filter.freeOn.value !== '') { 
+    const dateOd = new FormControl(new Date()) 
+    const dateDo = new FormControl(new Date());
+    const moment = require('moment')
+    moment.locale('pl')
+
+    dateOd.setValue(this.newTruck.truckWolnyOd);
+    dateDo.setValue(this.newTruck.truckWolnyDo);
+    const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
+    const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
+    const filterDate = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
+   
+  
+    if (filterDate < dateOdValue || filterDate > dateDoValue) {
       return;
     }
   }
