@@ -61,6 +61,7 @@ export class MapaComponent implements OnInit {
   stateCtrl = new FormControl();
   specyfikacje = new FormControl();
   filteredStates: Observable<State[]>;
+  specSelected: any[];
   value = '';
   countryShortSelected= false;
   adressSelected= false;
@@ -201,7 +202,7 @@ f
     this.adressSelected = true;
     this.addTruckService.filter.lat = location.latitude;
     this.addTruckService.filter.lng = location.longitude;
-    this.addTruckService.countrySelected = true;
+    this.addTruckService.adresSelected = true;
   }
   
 
@@ -221,22 +222,33 @@ f
     this.value = '';
     this.clearAdres();
     this.countryShortSelected = false;
-    this.addTruckService.countrySelected = false;
+    this.addTruckService.adresSelected = false;
     
     
   }
   clearAdres() {
     this.adresValue = '';
     this.adressSelected = false;
-    this.addTruckService.countrySelected = false;
+    this.addTruckService.adresSelected = false;
   }
   clearFreeOn() {
     this.freeOnValue = '';
+  }
+  clearAll() {
+    this.clearKraj();
+    this.clearFreeOn();
+    this.typValue = '';
+    this.rodzajValue = '';
+    this.specSelected = [];
+
   }
   search() {
     console.log('clicked search')
     this.addTruckService.filter.kraj = this.value;
     this.addTruckService.filter.range = this.rangeValue
+    this.addTruckService.filter.freeOn.setValue(this.freeOnValue);
     this.addTruckService.changeMessage('search')
   }
+
+ 
 }
