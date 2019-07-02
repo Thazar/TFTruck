@@ -245,7 +245,8 @@ f
   search() {
     console.log('clicked search')
     this.addTruckService.filter.kraj = this.value;
-    this.addTruckService.filter.range = this.rangeValue
+    this.addTruckService.filter.range = this.rangeValue;
+    this.addTruckService.filter.typValue = this.typValue;
     this.addTruckService.filter.freeOn.setValue(this.freeOnValue);
     this.addTruckService.changeMessage('search')
   }
