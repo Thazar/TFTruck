@@ -11,6 +11,8 @@ export interface filter {
   range: number;
   freeOn: FormControl;
   typValue: string;
+  rodzajValue: string;
+  specSelected: [];
 }
 
 var SockJs = require("sockjs-client")
@@ -27,6 +29,8 @@ export class AddTruckService {
     range: 5,
     freeOn:  new FormControl(new Date()),
     typValue: '',
+    rodzajValue: '',
+    specSelected: [],
   }
   email: string;
   private messageSource = new BehaviorSubject('default message');

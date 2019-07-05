@@ -67,6 +67,7 @@ export class MarkersComponent implements OnInit {
   circleShowed: boolean = false;
 
   constructor(private addTruckService: AddTruckService,  private mapsAPILoader: MapsAPILoader){  
+    this.addTruckService.filter.freeOn.setValue('')
     var index;
     const dateOd = new FormControl(new Date()) 
     const dateDo = new FormControl(new Date());
@@ -93,7 +94,40 @@ export class MarkersComponent implements OnInit {
               continue;
             }
           }
-        }
+          if (this.addTruckService.filter.typValue !== '') {
+            if (this.markerArray[index].typ !== this.addTruckService.filter.typValue) {
+              this.markerArray.splice(index, 1);
+              continue;
+            }
+          }
+          if (this.addTruckService.filter.rodzajValue !== '') {
+            if (this.markerArray[index].rodzaj !== this.addTruckService.filter.rodzajValue) {
+              this.markerArray.splice(index, 1);
+              continue;
+            }
+          }
+          if (this.addTruckService.filter.specSelected !== undefined) {
+            if (this.addTruckService.filter.specSelected.length > 0) {
+            var specIndex
+            var specCount = 0;
+            for (specIndex = this.addTruckService.filter.specSelected.length -1; specIndex >= 0; specIndex -= 1) {
+              if (this.addTruckService.filter.specSelected[specIndex] === this.markerArray[index].adr 
+                || this.addTruckService.filter.specSelected[specIndex] === this.markerArray[index].cerXl 
+                || this.addTruckService.filter.specSelected[specIndex] === this.markerArray[index].edscha 
+                || this.addTruckService.filter.specSelected[specIndex] === this.markerArray[index].winda) {
+                  specCount += 1;
+              }
+            }
+            if (specCount !== this.addTruckService.filter.specSelected.length) {
+              console.log("specwybrane" + this.addTruckService.filter.specSelected.length + "nie jest rowny specCount:" + specCount);
+              this.markerArray.splice(index, 1);
+              specCount = 0;
+              continue;
+            }
+            specCount = 0;
+          }
+        }    
+      }
 
        if (this.addTruckService.adresSelected === true) {
          this.addTruckService.adresRealSelected = true;
@@ -358,6 +392,7 @@ export class MarkersComponent implements OnInit {
   }
 
   if (this.addTruckService.filter.freeOn.value !== '') {
+    console.log("tu mamy buga")
     dateOd.setValue(this.newTruck.truckWolnyOd);
     dateDo.setValue(this.newTruck.truckWolnyDo);
     const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
@@ -367,6 +402,40 @@ export class MarkersComponent implements OnInit {
       return;      
     }
   }
+
+  if (this.addTruckService.filter.typValue !== '') {
+    if (this.newTruck.truckTyp !== this.addTruckService.filter.typValue) {
+      return
+      
+    }
+  }
+  if (this.addTruckService.filter.rodzajValue !== '') {
+    if (this.newTruck.truckRodzaj !== this.addTruckService.filter.rodzajValue) {
+      return;
+    }
+  }
+  if (this.addTruckService.filter.specSelected !== undefined) {
+    if (this.addTruckService.filter.specSelected.length > 0) {
+      console.log("otwieramy funcje")
+    var specIndex
+    var specCount = 0;
+    for (specIndex = this.addTruckService.filter.specSelected.length -1; specIndex >= 0; specIndex -= 1) {
+      if (this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckAdr 
+        || this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckCerXl
+        || this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckEdscha
+        || this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckWinda) {
+          specCount += 1;
+      }
+    }
+    if (specCount !== this.addTruckService.filter.specSelected.length) {
+      console.log("specwybrane" + this.addTruckService.filter.specSelected.length + "nie jest rowny specCount:" + specCount);
+      specCount = 0;
+      return;
+    }
+    specCount = 0;
+  }
+}  
+  
   
 
      this.markerArray.push({
