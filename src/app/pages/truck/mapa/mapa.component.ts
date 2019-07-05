@@ -76,7 +76,7 @@ export class MapaComponent implements OnInit {
   message: string;
   rangeValue: number = 5;
   listaSpecyfikacji: string[] = [
-    'Adr', 'Winda', 'Edscha', 'Cer.XL'
+    'Adr', 'Winda', 'Edscha', 'Cer. XL'
   ];
   states: State[] = [
     {

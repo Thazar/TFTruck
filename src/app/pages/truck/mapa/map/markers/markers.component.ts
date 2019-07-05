@@ -71,13 +71,8 @@ export class MarkersComponent implements OnInit {
     var index;
     const dateOd = new FormControl(new Date()) 
     const dateDo = new FormControl(new Date());
-<<<<<<< HEAD
-    const moment = require('moment')
-    moment.locale('pl')
-=======
     const moment = require('moment');
     moment.locale('pl');
->>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
     this.addTruckService.currentMessage.subscribe(message => {
       this.range = addTruckService.filter.range;
       console.log(this.addTruckService.filter.range);
@@ -150,13 +145,8 @@ export class MarkersComponent implements OnInit {
           dateDo.setValue(this.markerArray[index].wolnyDo);
           const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
           const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
-<<<<<<< HEAD
-          const filterDate = moment(addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
-          if (filterDate < dateOdValue || filterDate > dateDoValue) {
-=======
           const filterDateValue = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
           if (filterDateValue < dateOdValue || filterDateValue > dateDoValue ) {
->>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
             this.markerArray.splice(index, 1);
             continue;
           }
@@ -182,28 +172,11 @@ export class MarkersComponent implements OnInit {
         }
         
       }
-<<<<<<< HEAD
-
-      for (index = this.markerArray.length -1; index >= 0; index -= 1) {
-      if (this.addTruckService.filter.freeOn.value === '') { 
-        break;
-      }
-        dateOd.setValue(this.markerArray[index].wolnyOd);
-        dateDo.setValue(this.markerArray[index].wolnyDo);
-        const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
-        const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
-        const filterDate = moment(addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
-        console.log(dateDoValue + "||" +  dateOdValue + "||" + filterDate)
-        if (filterDate < dateOdValue || filterDate > dateDoValue) {
-          this.markerArray.splice(index, 1);
-        }
-}
-=======
     
->>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
       
      
-    } );
+    }
+     );
     
     let stompClient = this.addTruckService.connect();
     stompClient.connect({}, frame => {
@@ -220,7 +193,7 @@ export class MarkersComponent implements OnInit {
       })
     }); 
 
-    
+   this.addTruckService.trucksCount = this.markerArray.length;
  
     
   }
@@ -244,7 +217,7 @@ export class MarkersComponent implements OnInit {
           adrString = "Adr"   
         } else adrString=""
         if (this.newTruck.truckEdscha == true) {
-          edschaString = "Zaladunek Górą"   
+          edschaString = "Edscha"   
         } else edschaString=""
         if (this.newTruck.truckWinda == true) {
           windaString = "Winda"   
@@ -317,7 +290,7 @@ export class MarkersComponent implements OnInit {
      adrString = "Adr"   
    } else adrString=""
    if (this.newTruck.truckEdscha == true) {
-     edschaString = "Zaladunek Górą"   
+     edschaString = "Edscha"   
    } else edschaString=""
    if (this.newTruck.truckWinda == true) {
      windaString = "Winda"   
@@ -366,49 +339,14 @@ export class MarkersComponent implements OnInit {
 
   if (this.addTruckService.adresRealSelected === true) {
 
-<<<<<<< HEAD
-    if (this.addTruckService.filter.freeOn.value !== '') { 
-      const dateOd = new FormControl(new Date()) 
-      const dateDo = new FormControl(new Date());
-      const moment = require('moment')
-      moment.locale('pl')
-  
-=======
     if (this.addTruckService.filter.freeOn.value !== '') {
->>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
       dateOd.setValue(this.newTruck.truckWolnyOd);
       dateDo.setValue(this.newTruck.truckWolnyDo);
       const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
       const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
-<<<<<<< HEAD
-      const filterDate = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
-     
-    
-      if (filterDate < dateOdValue || filterDate > dateDoValue) {
-        return;
-      }
-    }
-
-    if (this.addTruckService.filter.freeOn.value !== '') { 
-      const dateOd = new FormControl(new Date()) 
-      const dateDo = new FormControl(new Date());
-      const moment = require('moment')
-      moment.locale('pl')
-  
-      dateOd.setValue(this.newTruck.truckWolnyOd);
-      dateDo.setValue(this.newTruck.truckWolnyDo);
-      const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
-      const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
-      const filterDate = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
-  
-      if (filterDate < dateOdValue || filterDate > dateDoValue) {
-        console.log(" no i kurwa niepasuje trzeba wyjebac")
-        return;
-=======
       const filterDateValue = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
       if (filterDateValue < dateOdValue || filterDateValue > dateDoValue ) {
         return;      
->>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
       }
     }
 
@@ -418,33 +356,7 @@ export class MarkersComponent implements OnInit {
   
    if (distanceInKm > this.range) {
     return;
-   }  else  {
-     this.circleColor = "#0081ba"
-     this.markerArray.push({
-      lat: this.newTruck.latitude,
-      lng: this.newTruck.longitude,
-      firstName: this.newTruck.truckFirstName,
-      lastName: this.newTruck.truckLastName,
-      id: this.newTruck.id,
-      companyName: this.newTruck.truckCompanyName,
-      email: this.newTruck.truckEmail,
-      tel: this.newTruck.truckTel,
-      transId: this.newTruck.truckTransId,
-      wolnyOd: this.newTruck.truckWolnyOd,
-      wolnyDo: this.newTruck.truckWolnyDo,
-      adres: this.newTruck.truckAdres,
-      typ: this.newTruck.truckTyp,
-      rodzaj: this.newTruck.truckRodzaj,
-      adr: adrString,
-      winda: windaString,
-      edscha: edschaString,
-      cerXl: cerXlString,
-      uwagi: this.newTruck.truckUwagi,
-      icon: this.icon,
-      kraj: this.newTruck.truckKraj,
-    });
-    return;
-  }
+   }  
 
 }
 
@@ -454,30 +366,12 @@ export class MarkersComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
-  if (this.addTruckService.filter.freeOn.value !== '') { 
-    const dateOd = new FormControl(new Date()) 
-    const dateDo = new FormControl(new Date());
-    const moment = require('moment')
-    moment.locale('pl')
-
-=======
   if (this.addTruckService.filter.freeOn.value !== '') {
     console.log("tu mamy buga")
->>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
     dateOd.setValue(this.newTruck.truckWolnyOd);
     dateDo.setValue(this.newTruck.truckWolnyDo);
     const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
     const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
-<<<<<<< HEAD
-    const filterDate = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
-   
-  
-    if (filterDate < dateOdValue || filterDate > dateDoValue) {
-      return;
-    }
-  }
-=======
     const filterDateValue = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
     if (filterDateValue < dateOdValue || filterDateValue > dateDoValue ) {
       return;      
@@ -501,10 +395,10 @@ export class MarkersComponent implements OnInit {
     var specIndex
     var specCount = 0;
     for (specIndex = this.addTruckService.filter.specSelected.length -1; specIndex >= 0; specIndex -= 1) {
-      if (this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckAdr 
-        || this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckCerXl
-        || this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckEdscha
-        || this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckWinda) {
+      if (this.addTruckService.filter.specSelected[specIndex] ===  adrString
+        || this.addTruckService.filter.specSelected[specIndex] === cerXlString
+        || this.addTruckService.filter.specSelected[specIndex] === edschaString
+        || this.addTruckService.filter.specSelected[specIndex] === windaString) {
           specCount += 1;
       }
     }
@@ -517,7 +411,6 @@ export class MarkersComponent implements OnInit {
   }
 }  
   
->>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
   
 
      this.markerArray.push({

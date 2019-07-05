@@ -13,7 +13,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
   },
   {
-    title: 'Truck & Cargo',
+    title: 'Pojazdy & Towary',
     group: true,
     data: {
       permission: 'view',
@@ -21,7 +21,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
   },
   {
-    title: 'Truck',
+    title: 'Pojazdy',
     icon: 'fas fa-truck',
     link: '/pages/truck/mapa',
     data: {
@@ -30,7 +30,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
   },
   {
-    title: 'Cargo',
+    title: 'Towary',
     icon: 'fas fa-truck-loading',
     link: '#',
     data: {

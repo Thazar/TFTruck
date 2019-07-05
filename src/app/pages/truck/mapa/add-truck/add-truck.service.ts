@@ -32,6 +32,9 @@ export class AddTruckService {
     rodzajValue: '',
     specSelected: [],
   }
+
+  trucksCount: number;
+  
   email: string;
   private messageSource = new BehaviorSubject('default message');
   currentMessage = this.messageSource.asObservable();
