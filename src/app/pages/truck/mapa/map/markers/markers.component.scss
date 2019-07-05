@@ -27,4 +27,9 @@
      .mat-raised-button.mat-blue, .mat-flat-button.mat-blue{
         color: #0081ba;
      }
-   
+     ::ng-deep .gm-style-iw-c {
+      max-height: 500px !important;
+  }
+  ::ng-deep .gm-style-iw-d {
+    max-height: 500px !important;
+}

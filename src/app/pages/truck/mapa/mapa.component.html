@@ -1,7 +1,7 @@
 <nb-card>
     <nb-card-header class="header" >
        
-      Truck</nb-card-header >
+      Pojazdy</nb-card-header >
     <nb-card-body>
   
           <mat-toolbar style="background-color: white; height: 50px;">    
@@ -136,7 +136,7 @@
                      <div style="display: inline-block;">
                       <mat-form-field style="font-size: 14px; margin-top: 10px; margin-left: 20px;">
                           <mat-select [(ngModel)]="typValue">  
-                              <mat-option>Brak</mat-option>
+                              <mat-option [value]="empty">Brak</mat-option>
                               <mat-option  *ngFor="let type of types" [value]="type.value" >
                                 {{type.viewValue}}
                               </mat-option>
@@ -148,7 +148,7 @@
                       <div style="display: inline-block;">
                           <mat-form-field style="font-size: 14px; margin-top: 10px; margin-left: 20px;">
                               <mat-select [(ngModel)]="rodzajValue">
-                                  <mat-option>Brak</mat-option>
+                                  <mat-option [value]="empty">Brak</mat-option>
                                   <mat-option *ngFor="let spec of specs" [value]="spec.value">
                                     {{spec.viewValue}} 
                                   </mat-option>
