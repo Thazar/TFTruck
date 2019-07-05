@@ -61,8 +61,10 @@ export class MapaComponent implements OnInit {
   stateCtrl = new FormControl();
   specyfikacje = new FormControl();
   filteredStates: Observable<State[]>;
-  specSelected: any[];
+  specSelected: [];
+  tempSelected: [];
   value = '';
+  empty = '';
   countryShortSelected= false;
   adressSelected= false;
   countryNotSelected= true;
@@ -133,6 +135,7 @@ export class MapaComponent implements OnInit {
       map(state => state ? this._filterStates(state) : this.states.slice())
     );
     this.getScreenSize();
+    this.tempSelected = [];
   };
 
   @HostListener('window:resize', ['$event'])
@@ -243,11 +246,19 @@ f
 
   }
   search() {
+    if (this.specSelected === undefined) {
+      console.log("no kurwa puste do chuja")
+    }
     console.log('clicked search')
     this.addTruckService.filter.kraj = this.value;
-    this.addTruckService.filter.range = this.rangeValue
+    this.addTruckService.filter.range = this.rangeValue;
+    this.addTruckService.filter.typValue = this.typValue;
+    this.addTruckService.filter.rodzajValue = this.rodzajValue;
+    this.addTruckService.filter.specSelected = this.specSelected;
     this.addTruckService.filter.freeOn.setValue(this.freeOnValue);
-    this.addTruckService.changeMessage('search')
+    this.addTruckService.changeMessage('search');
+    console.log(this.specSelected)
+
   }
 
  

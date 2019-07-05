@@ -56,6 +56,9 @@ export class MarkersComponent implements OnInit {
   savedMarkers: Marker[] = [];
   range: number = 5;
   
+  
+ 
+  
   icon: {
     url: string, scaledSize: {height: number, width: number}
   }
@@ -64,11 +67,17 @@ export class MarkersComponent implements OnInit {
   circleShowed: boolean = false;
 
   constructor(private addTruckService: AddTruckService,  private mapsAPILoader: MapsAPILoader){  
+    this.addTruckService.filter.freeOn.setValue('')
     var index;
     const dateOd = new FormControl(new Date()) 
     const dateDo = new FormControl(new Date());
+<<<<<<< HEAD
     const moment = require('moment')
     moment.locale('pl')
+=======
+    const moment = require('moment');
+    moment.locale('pl');
+>>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
     this.addTruckService.currentMessage.subscribe(message => {
       this.range = addTruckService.filter.range;
       console.log(this.addTruckService.filter.range);
@@ -77,6 +86,53 @@ export class MarkersComponent implements OnInit {
       this.markerArray = [...this.savedMarkers];
         this.circleLat = addTruckService.filter.lat;
         this.circleLng = addTruckService.filter.lng;
+
+        for (index = this.markerArray.length -1; index >= 0; index -= 1) {
+          if (this.addTruckService.filter.freeOn.value !== '') {
+            dateOd.setValue(this.markerArray[index].wolnyOd);
+            dateDo.setValue(this.markerArray[index].wolnyDo);
+            const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
+            const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
+            const filterDateValue = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
+            if (filterDateValue < dateOdValue || filterDateValue > dateDoValue ) {
+              this.markerArray.splice(index, 1);
+              continue;
+            }
+          }
+          if (this.addTruckService.filter.typValue !== '') {
+            if (this.markerArray[index].typ !== this.addTruckService.filter.typValue) {
+              this.markerArray.splice(index, 1);
+              continue;
+            }
+          }
+          if (this.addTruckService.filter.rodzajValue !== '') {
+            if (this.markerArray[index].rodzaj !== this.addTruckService.filter.rodzajValue) {
+              this.markerArray.splice(index, 1);
+              continue;
+            }
+          }
+          if (this.addTruckService.filter.specSelected !== undefined) {
+            if (this.addTruckService.filter.specSelected.length > 0) {
+            var specIndex
+            var specCount = 0;
+            for (specIndex = this.addTruckService.filter.specSelected.length -1; specIndex >= 0; specIndex -= 1) {
+              if (this.addTruckService.filter.specSelected[specIndex] === this.markerArray[index].adr 
+                || this.addTruckService.filter.specSelected[specIndex] === this.markerArray[index].cerXl 
+                || this.addTruckService.filter.specSelected[specIndex] === this.markerArray[index].edscha 
+                || this.addTruckService.filter.specSelected[specIndex] === this.markerArray[index].winda) {
+                  specCount += 1;
+              }
+            }
+            if (specCount !== this.addTruckService.filter.specSelected.length) {
+              console.log("specwybrane" + this.addTruckService.filter.specSelected.length + "nie jest rowny specCount:" + specCount);
+              this.markerArray.splice(index, 1);
+              specCount = 0;
+              continue;
+            }
+            specCount = 0;
+          }
+        }    
+      }
 
        if (this.addTruckService.adresSelected === true) {
          this.addTruckService.adresRealSelected = true;
@@ -88,17 +144,24 @@ export class MarkersComponent implements OnInit {
 
        if (this.addTruckService.adresSelected === true) {
          for (index = this.markerArray.length -1; index >= 0; index -= 1) {
-        if (this.addTruckService.filter.freeOn.value !== '') {
+        
+          if (this.addTruckService.filter.freeOn.value !== '') {
           dateOd.setValue(this.markerArray[index].wolnyOd);
           dateDo.setValue(this.markerArray[index].wolnyDo);
           const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
           const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
+<<<<<<< HEAD
           const filterDate = moment(addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
           if (filterDate < dateOdValue || filterDate > dateDoValue) {
+=======
+          const filterDateValue = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
+          if (filterDateValue < dateOdValue || filterDateValue > dateDoValue ) {
+>>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
             this.markerArray.splice(index, 1);
             continue;
           }
         }
+
        const center = new google.maps.LatLng(addTruckService.filter.lat, addTruckService.filter.lng)
        const markerLoc = new google.maps.LatLng(this.markerArray[index].lat, this.markerArray[index].lng)
        const distanceInKm = google.maps.geometry.spherical.computeDistanceBetween(markerLoc, center) / 1000;
@@ -115,8 +178,11 @@ export class MarkersComponent implements OnInit {
         }
           if  (this.markerArray[index].kraj !== this.addTruckService.filter.kraj) {     
           this.markerArray.splice(index, 1)
-        } 
+          continue;
+        }
+        
       }
+<<<<<<< HEAD
 
       for (index = this.markerArray.length -1; index >= 0; index -= 1) {
       if (this.addTruckService.filter.freeOn.value === '') { 
@@ -132,6 +198,9 @@ export class MarkersComponent implements OnInit {
           this.markerArray.splice(index, 1);
         }
 }
+=======
+    
+>>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
       
      
     } );
@@ -239,6 +308,11 @@ export class MarkersComponent implements OnInit {
    var windaString = "";
    var cerXlString = "";
    var index;
+   const dateOd = new FormControl(new Date()) 
+   const dateDo = new FormControl(new Date());
+   const moment = require('moment');
+   moment.locale('pl');
+
    if (this.newTruck.truckAdr == true) {
      adrString = "Adr"   
    } else adrString=""
@@ -292,16 +366,21 @@ export class MarkersComponent implements OnInit {
 
   if (this.addTruckService.adresRealSelected === true) {
 
+<<<<<<< HEAD
     if (this.addTruckService.filter.freeOn.value !== '') { 
       const dateOd = new FormControl(new Date()) 
       const dateDo = new FormControl(new Date());
       const moment = require('moment')
       moment.locale('pl')
   
+=======
+    if (this.addTruckService.filter.freeOn.value !== '') {
+>>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
       dateOd.setValue(this.newTruck.truckWolnyOd);
       dateDo.setValue(this.newTruck.truckWolnyDo);
       const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
       const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
+<<<<<<< HEAD
       const filterDate = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
      
     
@@ -325,6 +404,11 @@ export class MarkersComponent implements OnInit {
       if (filterDate < dateOdValue || filterDate > dateDoValue) {
         console.log(" no i kurwa niepasuje trzeba wyjebac")
         return;
+=======
+      const filterDateValue = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
+      if (filterDateValue < dateOdValue || filterDateValue > dateDoValue ) {
+        return;      
+>>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
       }
     }
 
@@ -370,16 +454,22 @@ export class MarkersComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   if (this.addTruckService.filter.freeOn.value !== '') { 
     const dateOd = new FormControl(new Date()) 
     const dateDo = new FormControl(new Date());
     const moment = require('moment')
     moment.locale('pl')
 
+=======
+  if (this.addTruckService.filter.freeOn.value !== '') {
+    console.log("tu mamy buga")
+>>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
     dateOd.setValue(this.newTruck.truckWolnyOd);
     dateDo.setValue(this.newTruck.truckWolnyDo);
     const dateOdValue = moment(dateOd.value, 'DD.MM.YYYY').valueOf();
     const dateDoValue = moment(dateDo.value, 'DD.MM.YYYY').valueOf();
+<<<<<<< HEAD
     const filterDate = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
    
   
@@ -387,6 +477,47 @@ export class MarkersComponent implements OnInit {
       return;
     }
   }
+=======
+    const filterDateValue = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
+    if (filterDateValue < dateOdValue || filterDateValue > dateDoValue ) {
+      return;      
+    }
+  }
+
+  if (this.addTruckService.filter.typValue !== '') {
+    if (this.newTruck.truckTyp !== this.addTruckService.filter.typValue) {
+      return
+      
+    }
+  }
+  if (this.addTruckService.filter.rodzajValue !== '') {
+    if (this.newTruck.truckRodzaj !== this.addTruckService.filter.rodzajValue) {
+      return;
+    }
+  }
+  if (this.addTruckService.filter.specSelected !== undefined) {
+    if (this.addTruckService.filter.specSelected.length > 0) {
+      console.log("otwieramy funcje")
+    var specIndex
+    var specCount = 0;
+    for (specIndex = this.addTruckService.filter.specSelected.length -1; specIndex >= 0; specIndex -= 1) {
+      if (this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckAdr 
+        || this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckCerXl
+        || this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckEdscha
+        || this.addTruckService.filter.specSelected[specIndex] === this.newTruck.truckWinda) {
+          specCount += 1;
+      }
+    }
+    if (specCount !== this.addTruckService.filter.specSelected.length) {
+      console.log("specwybrane" + this.addTruckService.filter.specSelected.length + "nie jest rowny specCount:" + specCount);
+      specCount = 0;
+      return;
+    }
+    specCount = 0;
+  }
+}  
+  
+>>>>>>> 9e2f0e5962e1b4f1edd580c8e16cc1cb12be5def
   
 
      this.markerArray.push({
