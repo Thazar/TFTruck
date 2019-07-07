@@ -45,6 +45,8 @@
               "node_modules/leaflet/dist/leaflet.css",
               "src/app/@theme/styles/styles.scss",
               "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/eva-icons/style/scss/eva-icons.scss"
+              
             ],
             "scripts": [
               "node_modules/pace-js/pace.min.js",
@@ -123,7 +125,8 @@
               "node_modules/nebular-icons/scss/nebular-icons.scss",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "src/app/@theme/styles/styles.scss",
-              "node_modules/font-awesome/css/font-awesome.css"
+              "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/eva-icons/style/scss/eva-icons.scss"
             ],
             "assets": [
               "src/assets",

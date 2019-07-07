@@ -39,9 +39,7 @@ export class HeaderComponent implements OnInit {
                 .pipe(filter(({ tag }) => tag === this.tag))
                 .subscribe(bag => {
                   if (bag.item.title === 'Wyloguj') {
-                    if (this.mapaService.windowOpened == true) {
-                      this.mapaService.loggedOfWithOpenedWindow = true;
-                    }
+                      this.mapaService.loggedOfWithOpenedWindow = true;                 
                   }
                 });
   }
@@ -50,7 +48,7 @@ export class HeaderComponent implements OnInit {
     if (title == 'Wyloguj') {
       console.log("logout clicked")
       this.mapaService.ref.close;
-      this.mapaService.windowOpened = false;
+      
     }
   }
 
