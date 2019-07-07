@@ -53,7 +53,6 @@ export class MarkersComponent implements OnInit {
   markerArray: Marker[] = [];
   savedMarkers: Marker[] = [];
   range: number = 5;
-  toastrIndex: number = 0;
   
  
   
@@ -290,11 +289,19 @@ export class MarkersComponent implements OnInit {
   }
   showToast(position, status, duration, icon, destroyByClick) {
     this.toastrService.show(
-      `${this.newTruck.truckAdres} \ 
-       ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ 
-       ${this.newTruck.truckCompanyName} `,
-      
-      'Dodano nowy pojazd',
+      ` ${this.newTruck.truckCompanyName} `,
+      `Dodano nowy pojazd:
+       ${this.newTruck.truckAdres} \ 
+       ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ `,
+      { position, status, duration, icon, destroyByClick});
+  }
+
+  showToastDelete(position, status, duration, icon, destroyByClick) {
+    this.toastrService.show(
+      ` ${this.newTruck.truckCompanyName} `,
+      `Usunięto pojazd: 
+       ${this.newTruck.truckAdres} \ 
+       ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ `,
       { position, status, duration, icon, destroyByClick});
   }
   updateTruck(id: number) {
@@ -482,6 +489,7 @@ export class MarkersComponent implements OnInit {
       }
       this.addTruckService.pojazdy = this.markerArray.length;
       this.addTruckService.changeMessageMapa('scan');
+      this.showToastDelete('top-end', 'danger', 10000, 'eva eva-car', false);
     }
   
     filter(truck: Truck) {
