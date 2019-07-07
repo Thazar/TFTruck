@@ -263,6 +263,7 @@ export class MapaComponent implements OnInit {
     this.addTruckService.filter.specSelected = this.specSelected;
     this.addTruckService.filter.freeOn.setValue(this.freeOnValue);
     this.addTruckService.changeMessage('search');
+    this.addTruckService.changeMessageMapaPosition('set');
     console.log(this.specSelected)
 
   }

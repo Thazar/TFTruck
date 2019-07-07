@@ -15,6 +15,12 @@ export interface filter {
   specSelected: [];
 }
 
+export interface position {
+  latitude: number;
+  longitute: number;
+  zoom: number;
+}
+
 var SockJs = require("sockjs-client")
 var Stomp = require("stompjs")
 
@@ -33,6 +39,12 @@ export class AddTruckService {
     specSelected: [],
   }
 
+  position: position = {
+    latitude: 49.8915943 ,
+    longitute: 8.9206519,
+    zoom: 6,
+  }
+
   trucksCount: number;
   pojazdy: number;
   
@@ -42,6 +54,10 @@ export class AddTruckService {
 
   private messageSourceMapa = new BehaviorSubject('default message')
   currentMessageMapa = this.messageSourceMapa.asObservable();
+
+  private messageSourceMapaPosition = new BehaviorSubject('default message')
+  currentMessageMapaPosition = this.messageSourceMapaPosition.asObservable();
+
 
   adresSelected: boolean = false;
   adresRealSelected: boolean = false;
@@ -63,6 +79,10 @@ export class AddTruckService {
 
   changeMessageMapa(message: string) {
     this.messageSourceMapa.next(message)
+  }
+
+  changeMessageMapaPosition(message: string) {
+    this.messageSourceMapaPosition.next(message)
   }
 
   createTruck(truck: Object): Observable<Object> {
