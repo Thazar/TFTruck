@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, range } from 'rxjs';
 import { Truck } from '../../add-truck/truck';
 import { AddTruckService } from '../../add-truck/add-truck.service';
-import { NbToastrService } from '@nebular/theme';
+
 import { Notifications } from '../../add-truck/notifications';
 import { MapsAPILoader } from '@agm/core';
 import { FormControl } from '@angular/forms';
 import * as eva from 'eva-icons';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 interface Marker {
   lat: number;
@@ -33,6 +34,7 @@ interface Marker {
   icon: {
     url: string, scaledSize: {height: number, width: number}
   }
+  markerOpened: boolean;
 }
 
 
@@ -53,7 +55,7 @@ export class MarkersComponent implements OnInit {
   markerArray: Marker[] = [];
   savedMarkers: Marker[] = [];
   range: number = 5;
-  toastrIndex: number = 0;
+  markerOpened: boolean = false;
   
  
   
@@ -64,7 +66,7 @@ export class MarkersComponent implements OnInit {
   notifications: Notifications;
   circleShowed: boolean = false;
 
-  constructor(private addTruckService: AddTruckService,  private toastrService: NbToastrService){  
+  constructor(private addTruckService: AddTruckService, private toastr: ToastrService  ){  
     const eva = require('eva-icons');
     this.addTruckService.filter.freeOn.setValue('')
     var index;
@@ -278,6 +280,7 @@ export class MarkersComponent implements OnInit {
           uwagi: this.newTruck.truckUwagi,
           icon: this.icon,
           kraj: this.newTruck.truckKraj,
+          markerOpened: false
         });
 
         this.savedMarkers = [...this.markerArray]
@@ -288,14 +291,35 @@ export class MarkersComponent implements OnInit {
     
     
   }
-  showToast(position, status, duration, icon, destroyByClick) {
-    this.toastrService.show(
+  showToast() {
+    const toastrLatitude = this.newTruck.latitude;
+    const toastrLongitude = this.newTruck.longitude;
+    const markerId = this.newTruck.id;
+    this.toastr.success(
+      ` ${this.newTruck.truckCompanyName} `,
       `${this.newTruck.truckAdres} \ 
-       ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ 
-       ${this.newTruck.truckCompanyName} `,
-      
-      'Dodano nowy pojazd',
-      { position, status, duration, icon, destroyByClick});
+       ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ `,
+      ).onTap.pipe().subscribe(() => {
+        this.addTruckService.toastrClicked = true;
+        this.addTruckService.position.latitude = toastrLatitude;
+        this.addTruckService.position.longitute = toastrLongitude;
+        this.addTruckService.position.zoom = 8;
+        this.addTruckService.changeMessageMapaPosition('set');
+        this.addTruckService.toastrClicked = false;
+        for (var index = this.markerArray.length -1; index > 0; index -= 1) {
+          if (this.markerArray[index].id === markerId) {
+            this.markerArray[index].markerOpened = true;
+          }
+        }
+      });
+  }
+
+  showToastDelete() {
+    this.toastr.error(
+      ` ${this.newTruck.truckCompanyName} `,
+      `${this.newTruck.truckAdres} \ 
+       ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ `,
+      );
   }
   updateTruck(id: number) {
    this.truck = this.addTruckService.getTruckById(id)
@@ -360,6 +384,7 @@ export class MarkersComponent implements OnInit {
     uwagi: this.newTruck.truckUwagi,
     icon: this.icon,
     kraj: this.newTruck.truckKraj,
+    markerOpened: false
   });
 
   if (this.addTruckService.adresRealSelected === true) {
@@ -460,8 +485,9 @@ export class MarkersComponent implements OnInit {
        uwagi: this.newTruck.truckUwagi,
        icon: this.icon,
        kraj: this.newTruck.truckKraj,
+       markerOpened: false
      });
-     this.showToast('top-end', 'primary', 10000, 'eva eva-car', false);
+     this.showToast();
      this.addTruckService.pojazdy = this.markerArray.length;
      this.addTruckService.changeMessageMapa('scan');
    });
@@ -482,6 +508,7 @@ export class MarkersComponent implements OnInit {
       }
       this.addTruckService.pojazdy = this.markerArray.length;
       this.addTruckService.changeMessageMapa('scan');
+      this.showToastDelete();
     }
   
     filter(truck: Truck) {
