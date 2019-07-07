@@ -47,7 +47,7 @@ export class AddTruckService {
 
   trucksCount: number;
   pojazdy: number;
-  
+  toastrClicked: boolean = false;
   email: string;
   private messageSource = new BehaviorSubject('default message');
   currentMessage = this.messageSource.asObservable();

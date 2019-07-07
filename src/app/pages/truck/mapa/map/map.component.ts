@@ -23,6 +23,11 @@ public map_Class= 'high';
 
 constructor(addTruckService: AddTruckService,) {
   addTruckService.currentMessageMapaPosition.subscribe(message => {
+    if (addTruckService.toastrClicked === true) {
+      this.latitude = addTruckService.position.latitude;
+      this.longitude = addTruckService.position.longitute;
+      this.zoom = 8;
+    }
     if (addTruckService.filter.kraj !=='') {
       if (addTruckService.filter.kraj == 'Polska') {
         this.latitude = 52.1884838;

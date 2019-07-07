@@ -21,6 +21,7 @@ import {AuthGuard} from './auth.guard';
 import { NbWindowService } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE, MatButtonModule } from '@angular/material';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -33,7 +34,10 @@ import { MAT_DATE_LOCALE, MatButtonModule } from '@angular/material';
     AngularFontAwesomeModule,
     ReactiveFormsModule,
     MatButtonModule,
-  
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-center'
+    }),
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),

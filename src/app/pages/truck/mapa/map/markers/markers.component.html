@@ -2,8 +2,9 @@
 <agm-marker 
       [latitude]="mark.lat"
       [longitude]="mark.lng"
-      [iconUrl]="mark.icon">
-      <agm-info-window>
+      [iconUrl]="mark.icon"
+     >
+      <agm-info-window  [isOpen]="mark.markerOpened">
         <div style="align-items: center">
           <div class="marker-header">
           <mat-icon style="color: #0081ba;">person</mat-icon>

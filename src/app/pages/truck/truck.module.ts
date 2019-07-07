@@ -10,7 +10,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NbDatepickerModule, NbSelectModule, NbTabsetModule, NbToastrModule, } from '@nebular/theme';
 import { HttpClientModule } from '@angular/common/http';
+
 import { MarkersComponent } from './mapa/map/markers/markers.component';
+
 
 
 
@@ -18,7 +20,7 @@ import { MarkersComponent } from './mapa/map/markers/markers.component';
     imports: [
       MatIconModule, MatInputModule, MatButtonModule, MatGoogleMapsAutocompleteModule.forRoot() , ReactiveFormsModule,AngularFontAwesomeModule, ReactiveFormsModule, MatAutocompleteModule, 
       NbDatepickerModule.forRoot(), NbDatepickerModule, NbSelectModule, MatSelectModule, HttpClientModule, MatExpansionModule, MatCheckboxModule, MatDividerModule, NbTabsetModule, MatDatepickerModule, MatNativeDateModule,
-      ThemeModule, MatTabsModule, MatSlideToggleModule, MatToolbarModule, MatButtonToggleModule, NbToastrModule.forRoot(),
+      ThemeModule, MatTabsModule, MatSlideToggleModule, MatToolbarModule, MatButtonToggleModule,  
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyCl_eRT8a-rXEmSZzHcXYKi7zNI0XlGb-w',
         libraries: ['places','geometry'],
@@ -29,6 +31,7 @@ import { MarkersComponent } from './mapa/map/markers/markers.component';
     declarations: [
       ...routedComponents,
       MarkersComponent,
+     
    
   
     ],
