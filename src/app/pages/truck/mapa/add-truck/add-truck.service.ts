@@ -34,10 +34,15 @@ export class AddTruckService {
   }
 
   trucksCount: number;
+  pojazdy: number;
   
   email: string;
   private messageSource = new BehaviorSubject('default message');
   currentMessage = this.messageSource.asObservable();
+
+  private messageSourceMapa = new BehaviorSubject('default message')
+  currentMessageMapa = this.messageSourceMapa.asObservable();
+
   adresSelected: boolean = false;
   adresRealSelected: boolean = false;
   
@@ -54,6 +59,10 @@ export class AddTruckService {
 
   changeMessage(message: string) {
     this.messageSource.next(message)
+  }
+
+  changeMessageMapa(message: string) {
+    this.messageSourceMapa.next(message)
   }
 
   createTruck(truck: Object): Observable<Object> {

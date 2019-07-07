@@ -75,6 +75,7 @@ export class MapaComponent implements OnInit {
   rodzajValue='';
   message: string;
   rangeValue: number = 5;
+  pojazdy: number = this.addTruckService.pojazdy;
   listaSpecyfikacji: string[] = [
     'Adr', 'Winda', 'Edscha', 'Cer. XL'
   ];
@@ -129,6 +130,7 @@ export class MapaComponent implements OnInit {
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
 
   constructor(private windowService: NbWindowService, private mapaService: MapaService, private addTruckService: AddTruckService) {
+    
     this.filteredStates = this.stateCtrl.valueChanges
     .pipe(
       startWith(''),
@@ -136,6 +138,10 @@ export class MapaComponent implements OnInit {
     );
     this.getScreenSize();
     this.tempSelected = [];
+
+    this.addTruckService.currentMessageMapa.subscribe(message => {
+      this.pojazdy = this.addTruckService.pojazdy;
+    });
   };
 
   @HostListener('window:resize', ['$event'])
@@ -161,7 +167,7 @@ export class MapaComponent implements OnInit {
      this.mapaService.windowOpened = false;
    });
   }
-f
+
   close() {
     this.mapaService.ref.close;
   }

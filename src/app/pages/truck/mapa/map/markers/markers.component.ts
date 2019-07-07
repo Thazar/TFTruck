@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, range } from 'rxjs';
 import { Truck } from '../../add-truck/truck';
 import { AddTruckService } from '../../add-truck/add-truck.service';
-import { MiscellaneousComponent } from '../../../../miscellaneous/miscellaneous.component';
-import { count } from 'rxjs/operators';
-import { strictEqual } from 'assert';
-import { element } from '@angular/core/src/render3';
+import { NbToastrService } from '@nebular/theme';
 import { Notifications } from '../../add-truck/notifications';
 import { MapsAPILoader } from '@agm/core';
 import { FormControl } from '@angular/forms';
+import * as eva from 'eva-icons';
 import * as moment from 'moment';
 
 interface Marker {
@@ -55,7 +53,7 @@ export class MarkersComponent implements OnInit {
   markerArray: Marker[] = [];
   savedMarkers: Marker[] = [];
   range: number = 5;
-  
+  toastrIndex: number = 0;
   
  
   
@@ -66,7 +64,8 @@ export class MarkersComponent implements OnInit {
   notifications: Notifications;
   circleShowed: boolean = false;
 
-  constructor(private addTruckService: AddTruckService,  private mapsAPILoader: MapsAPILoader){  
+  constructor(private addTruckService: AddTruckService,  private toastrService: NbToastrService){  
+    const eva = require('eva-icons');
     this.addTruckService.filter.freeOn.setValue('')
     var index;
     const dateOd = new FormControl(new Date()) 
@@ -74,11 +73,14 @@ export class MarkersComponent implements OnInit {
     const moment = require('moment');
     moment.locale('pl');
     this.addTruckService.currentMessage.subscribe(message => {
+    
       this.range = addTruckService.filter.range;
       console.log(this.addTruckService.filter.range);
       this.circleRange = addTruckService.filter.range * 1000;
       this.circleColor = "red"
       this.markerArray = [...this.savedMarkers];
+      this.addTruckService.pojazdy = this.markerArray.length;
+      this.addTruckService.changeMessageMapa('scan');
         this.circleLat = addTruckService.filter.lat;
         this.circleLng = addTruckService.filter.lng;
 
@@ -91,18 +93,24 @@ export class MarkersComponent implements OnInit {
             const filterDateValue = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
             if (filterDateValue < dateOdValue || filterDateValue > dateDoValue ) {
               this.markerArray.splice(index, 1);
+              this.addTruckService.pojazdy = this.markerArray.length;
+        this.addTruckService.changeMessageMapa('scan');
               continue;
             }
           }
           if (this.addTruckService.filter.typValue !== '') {
             if (this.markerArray[index].typ !== this.addTruckService.filter.typValue) {
               this.markerArray.splice(index, 1);
+              this.addTruckService.pojazdy = this.markerArray.length;
+        this.addTruckService.changeMessageMapa('scan');
               continue;
             }
           }
           if (this.addTruckService.filter.rodzajValue !== '') {
             if (this.markerArray[index].rodzaj !== this.addTruckService.filter.rodzajValue) {
               this.markerArray.splice(index, 1);
+              this.addTruckService.pojazdy = this.markerArray.length;
+        this.addTruckService.changeMessageMapa('scan');
               continue;
             }
           }
@@ -121,6 +129,8 @@ export class MarkersComponent implements OnInit {
             if (specCount !== this.addTruckService.filter.specSelected.length) {
               console.log("specwybrane" + this.addTruckService.filter.specSelected.length + "nie jest rowny specCount:" + specCount);
               this.markerArray.splice(index, 1);
+              this.addTruckService.pojazdy = this.markerArray.length;
+        this.addTruckService.changeMessageMapa('scan');
               specCount = 0;
               continue;
             }
@@ -148,6 +158,8 @@ export class MarkersComponent implements OnInit {
           const filterDateValue = moment(this.addTruckService.filter.freeOn.value, 'DD.MM.YYYY').valueOf();
           if (filterDateValue < dateOdValue || filterDateValue > dateDoValue ) {
             this.markerArray.splice(index, 1);
+            this.addTruckService.pojazdy = this.markerArray.length;
+        this.addTruckService.changeMessageMapa('scan');
             continue;
           }
         }
@@ -157,6 +169,8 @@ export class MarkersComponent implements OnInit {
        const distanceInKm = google.maps.geometry.spherical.computeDistanceBetween(markerLoc, center) / 1000;
        if (distanceInKm > this.range) {
          this.markerArray.splice(index, 1);
+         this.addTruckService.pojazdy = this.markerArray.length;
+        this.addTruckService.changeMessageMapa('scan');
        } else this.circleColor = "#0081ba"
       }
       return
@@ -168,13 +182,14 @@ export class MarkersComponent implements OnInit {
         }
           if  (this.markerArray[index].kraj !== this.addTruckService.filter.kraj) {     
           this.markerArray.splice(index, 1)
+          this.addTruckService.pojazdy = this.markerArray.length;
+        this.addTruckService.changeMessageMapa('scan');
           continue;
         }
         
       }
-    
-      
-     
+      this.addTruckService.pojazdy = this.markerArray.length;
+        this.addTruckService.changeMessageMapa('scan');
     }
      );
     
@@ -266,12 +281,22 @@ export class MarkersComponent implements OnInit {
         });
 
         this.savedMarkers = [...this.markerArray]
+        this.addTruckService.pojazdy = this.markerArray.length;
+        this.addTruckService.changeMessageMapa('scan');
       })
     })
     
     
   }
-
+  showToast(position, status, duration, icon, destroyByClick) {
+    this.toastrService.show(
+      `${this.newTruck.truckAdres} \ 
+       ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ 
+       ${this.newTruck.truckCompanyName} `,
+      
+      'Dodano nowy pojazd',
+      { position, status, duration, icon, destroyByClick});
+  }
   updateTruck(id: number) {
    this.truck = this.addTruckService.getTruckById(id)
    this.truck.subscribe(data => {
@@ -436,7 +461,9 @@ export class MarkersComponent implements OnInit {
        icon: this.icon,
        kraj: this.newTruck.truckKraj,
      });
-     
+     this.showToast('top-end', 'primary', 10000, 'eva eva-car', false);
+     this.addTruckService.pojazdy = this.markerArray.length;
+     this.addTruckService.changeMessageMapa('scan');
    });
     }
     initiateDeleteTruck(msg: Marker) {
@@ -453,6 +480,8 @@ export class MarkersComponent implements OnInit {
           this.circleColor = 'red'
         }
       }
+      this.addTruckService.pojazdy = this.markerArray.length;
+      this.addTruckService.changeMessageMapa('scan');
     }
   
     filter(truck: Truck) {
