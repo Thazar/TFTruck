@@ -3,8 +3,9 @@
       [latitude]="mark.lat"
       [longitude]="mark.lng"
       [iconUrl]="mark.icon"
+      (markerClick)="openMarker(mark.id)"
      >
-      <agm-info-window  [isOpen]="mark.markerOpened">
+      <agm-info-window *ngIf="mark.markerOpened" [isOpen]="mark.markerOpened" >
         <div style="align-items: center">
           <div class="marker-header">
           <mat-icon style="color: #0081ba;">person</mat-icon>

@@ -531,5 +531,13 @@ export class MarkersComponent implements OnInit {
       else return false;
     }
 
+    openMarker(id) {
+     for (var windowIndex = this.markerArray.length -1; windowIndex > -1; windowIndex -= 1) {
+       if (this.markerArray[windowIndex].id === id) {
+         this.markerArray[windowIndex].markerOpened = true;
+       }
+     }
+    }
+
   }
 
