@@ -487,6 +487,11 @@ export class MarkersComponent implements OnInit {
        kraj: this.newTruck.truckKraj,
        markerOpened: false
      });
+     if (this.circleShowed === true) {
+       if (this.circleColor === 'red') {
+         this.circleColor = '#0081ba';
+       }
+     }
      this.showToast();
      this.addTruckService.pojazdy = this.markerArray.length;
      this.addTruckService.changeMessageMapa('scan');
