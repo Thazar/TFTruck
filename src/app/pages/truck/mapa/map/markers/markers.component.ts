@@ -502,18 +502,26 @@ export class MarkersComponent implements OnInit {
       .subscribe(data => console.log(data), error => console.log(error));
     }
     deleteTruck(id: number) {
-      const index = this.markerArray.findIndex(marker => marker.id === id);
-      this.markerArray.splice(index, 1)
+      
+      for (var deleteIndex = this.markerArray.length -1 ; deleteIndex > -1; deleteIndex -= 1) {
+        if (this.markerArray[deleteIndex].id === id) {
+          this.markerArray.splice(deleteIndex, 1);
+          this.showToastDelete();
+        }
+      }
       const index2 = this.savedMarkers.findIndex(marker => marker.id === id);
       this.savedMarkers.splice(index2, 1)
+
       if (this.circleShowed === true) {
         if (this.markerArray.length === 0) {
           this.circleColor = 'red'
         }
       }
+
       this.addTruckService.pojazdy = this.markerArray.length;
       this.addTruckService.changeMessageMapa('scan');
-      this.showToastDelete();
+    
+   
     }
   
     filter(truck: Truck) {
