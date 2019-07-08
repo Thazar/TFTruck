@@ -315,11 +315,11 @@ export class MarkersComponent implements OnInit {
       });
   }
 
-  showToastDelete() {
+  showToastDelete(truckCompanyName: string, truckAdres: string,  truckRodzaj: string, truckTyp: string) {
     this.toastr.error(
-      ` ${this.newTruck.truckCompanyName} `,
-      `${this.newTruck.truckAdres} \ 
-       ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ `,
+      ` ${truckCompanyName} `,
+      `${truckAdres} \ 
+       ${truckRodzaj} ${truckTyp} \ `,
       );
   }
   updateTruck(id: number) {
@@ -506,8 +506,8 @@ export class MarkersComponent implements OnInit {
       
       for (var deleteIndex = this.markerArray.length -1 ; deleteIndex > -1; deleteIndex -= 1) {
         if (this.markerArray[deleteIndex].id === id) {
-          this.markerArray.splice(deleteIndex, 1);
-          this.showToastDelete();
+          this.showToastDelete(this.markerArray[deleteIndex].companyName, this.markerArray[deleteIndex].adres,  this.markerArray[deleteIndex].rodzaj, this.markerArray[deleteIndex].typ);
+          this.markerArray.splice(deleteIndex, 1); 
         }
       }
       const index2 = this.savedMarkers.findIndex(marker => marker.id === id);
