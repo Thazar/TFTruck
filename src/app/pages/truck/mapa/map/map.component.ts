@@ -44,6 +44,11 @@ constructor(addTruckService: AddTruckService,) {
         this.longitude = 1.8531053;
         this.zoom = 6;
       }
+      if (addTruckService.adresRealSelected ) {
+        this.latitude = addTruckService.position.latitude;
+        this.longitude = addTruckService.position.longitute;
+        this.zoom = 8;
+      }
     }
   } );
 

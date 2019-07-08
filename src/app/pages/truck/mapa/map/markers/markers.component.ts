@@ -56,6 +56,7 @@ export class MarkersComponent implements OnInit {
   savedMarkers: Marker[] = [];
   range: number = 5;
   markerOpened: boolean = false;
+  showMarkers: boolean = true;
   
  
   
@@ -257,7 +258,7 @@ export class MarkersComponent implements OnInit {
            this.icon ={ url: "assets/images/bus.png", scaledSize: {height: 30, width: 104.1} }
         }
         
-      
+        this.showMarkers = false;
         this.markerArray.push({
           lat: this.newTruck.latitude,
           lng: this.newTruck.longitude,
@@ -282,7 +283,7 @@ export class MarkersComponent implements OnInit {
           kraj: this.newTruck.truckKraj,
           markerOpened: false
         });
-
+        this.showMarkers = true;
         this.savedMarkers = [...this.markerArray]
         this.addTruckService.pojazdy = this.markerArray.length;
         this.addTruckService.changeMessageMapa('scan');
@@ -314,11 +315,11 @@ export class MarkersComponent implements OnInit {
       });
   }
 
-  showToastDelete() {
+  showToastDelete(truckCompanyName: string, truckAdres: string,  truckRodzaj: string, truckTyp: string) {
     this.toastr.error(
-      ` ${this.newTruck.truckCompanyName} `,
-      `${this.newTruck.truckAdres} \ 
-       ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ `,
+      ` ${truckCompanyName} `,
+      `${truckAdres} \ 
+       ${truckRodzaj} ${truckTyp} \ `,
       );
   }
   updateTruck(id: number) {
@@ -487,6 +488,11 @@ export class MarkersComponent implements OnInit {
        kraj: this.newTruck.truckKraj,
        markerOpened: false
      });
+     if (this.circleShowed === true) {
+       if (this.circleColor === 'red') {
+         this.circleColor = '#0081ba';
+       }
+     }
      this.showToast();
      this.addTruckService.pojazdy = this.markerArray.length;
      this.addTruckService.changeMessageMapa('scan');
@@ -497,24 +503,40 @@ export class MarkersComponent implements OnInit {
       .subscribe(data => console.log(data), error => console.log(error));
     }
     deleteTruck(id: number) {
-      const index = this.markerArray.findIndex(marker => marker.id === id);
-      this.markerArray.splice(index, 1)
+      
+      for (var deleteIndex = this.markerArray.length -1 ; deleteIndex > -1; deleteIndex -= 1) {
+        if (this.markerArray[deleteIndex].id === id) {
+          this.showToastDelete(this.markerArray[deleteIndex].companyName, this.markerArray[deleteIndex].adres,  this.markerArray[deleteIndex].rodzaj, this.markerArray[deleteIndex].typ);
+          this.markerArray.splice(deleteIndex, 1); 
+        }
+      }
       const index2 = this.savedMarkers.findIndex(marker => marker.id === id);
       this.savedMarkers.splice(index2, 1)
+
       if (this.circleShowed === true) {
         if (this.markerArray.length === 0) {
           this.circleColor = 'red'
         }
       }
+
       this.addTruckService.pojazdy = this.markerArray.length;
       this.addTruckService.changeMessageMapa('scan');
-      this.showToastDelete();
+    
+   
     }
   
     filter(truck: Truck) {
       if (this.addTruckService.filter.kraj === truck.truckKraj)
       return true;
       else return false;
+    }
+
+    openMarker(id) {
+     for (var windowIndex = this.markerArray.length -1; windowIndex > -1; windowIndex -= 1) {
+       if (this.markerArray[windowIndex].id === id) {
+         this.markerArray[windowIndex].markerOpened = true;
+       }
+     }
     }
 
   }
