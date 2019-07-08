@@ -1,5 +1,5 @@
 <div *ngFor="let mark of markerArray; let i = index">
-<agm-marker 
+<agm-marker *ngIf="showMarkers" 
       [latitude]="mark.lat"
       [longitude]="mark.lng"
       [iconUrl]="mark.icon"

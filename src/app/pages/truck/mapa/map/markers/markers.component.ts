@@ -56,6 +56,7 @@ export class MarkersComponent implements OnInit {
   savedMarkers: Marker[] = [];
   range: number = 5;
   markerOpened: boolean = false;
+  showMarkers: boolean = true;
   
  
   
@@ -257,7 +258,7 @@ export class MarkersComponent implements OnInit {
            this.icon ={ url: "assets/images/bus.png", scaledSize: {height: 30, width: 104.1} }
         }
         
-      
+        this.showMarkers = false;
         this.markerArray.push({
           lat: this.newTruck.latitude,
           lng: this.newTruck.longitude,
@@ -282,7 +283,7 @@ export class MarkersComponent implements OnInit {
           kraj: this.newTruck.truckKraj,
           markerOpened: false
         });
-
+        this.showMarkers = true;
         this.savedMarkers = [...this.markerArray]
         this.addTruckService.pojazdy = this.markerArray.length;
         this.addTruckService.changeMessageMapa('scan');

@@ -211,6 +211,9 @@ export class MapaComponent implements OnInit {
     this.adressSelected = true;
     this.addTruckService.filter.lat = location.latitude;
     this.addTruckService.filter.lng = location.longitude;
+    this.addTruckService.position.latitude = location.latitude;
+    this.addTruckService.position.longitute = location.longitude;
+    this.addTruckService.position.zoom = 8;
     this.addTruckService.adresSelected = true;
   }
   
