@@ -503,10 +503,17 @@ export class MarkersComponent implements OnInit {
       .subscribe(data => console.log(data), error => console.log(error));
     }
     deleteTruck(id: number) {
-      
+       var companyName ;
+       var adres;
+       var rodzaj;
+       var typ;
       for (var deleteIndex = this.markerArray.length -1 ; deleteIndex > -1; deleteIndex -= 1) {
         if (this.markerArray[deleteIndex].id === id) {
-          this.showToastDelete(this.markerArray[deleteIndex].companyName, this.markerArray[deleteIndex].adres,  this.markerArray[deleteIndex].rodzaj, this.markerArray[deleteIndex].typ);
+         companyName = this.markerArray[deleteIndex].companyName;
+         adres = this.markerArray[deleteIndex].adres;
+         rodzaj = this.markerArray[deleteIndex].rodzaj;
+         typ = this.markerArray[deleteIndex].typ;
+
           this.markerArray.splice(deleteIndex, 1); 
         }
       }
@@ -518,9 +525,10 @@ export class MarkersComponent implements OnInit {
           this.circleColor = 'red'
         }
       }
-
+      this.showToastDelete(companyName, adres, rodzaj, typ);
       this.addTruckService.pojazdy = this.markerArray.length;
       this.addTruckService.changeMessageMapa('scan');
+      
     
    
     }
