@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
-import { MatIconModule, MatInputModule, MatButtonModule, MatAutocompleteModule, MatSelectModule, MatExpansionModule, MatCheckboxModule, MatDividerModule, MatDatepickerModule, MatNativeDateModule, MatTabsModule, MatSlideToggle, MatSlideToggleModule, MatToolbarModule, MatButtonToggleModule,} from '@angular/material';
+import { MatIconModule, MatInputModule, MatButtonModule, MatAutocompleteModule, MatSelectModule, MatExpansionModule, MatCheckboxModule, MatDividerModule, MatDatepickerModule, MatNativeDateModule, MatTabsModule, MatSlideToggle, MatSlideToggleModule, MatToolbarModule, MatButtonToggleModule, MatTableModule,} from '@angular/material';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 
@@ -12,6 +12,7 @@ import { NbDatepickerModule, NbSelectModule, NbTabsetModule, NbToastrModule, } f
 import { HttpClientModule } from '@angular/common/http';
 
 import { MarkersComponent } from './mapa/map/markers/markers.component';
+import { ListComponent } from './mapa/list/list.component';
 
 
 
@@ -20,7 +21,7 @@ import { MarkersComponent } from './mapa/map/markers/markers.component';
     imports: [
       MatIconModule, MatInputModule, MatButtonModule, MatGoogleMapsAutocompleteModule.forRoot() , ReactiveFormsModule,AngularFontAwesomeModule, ReactiveFormsModule, MatAutocompleteModule, 
       NbDatepickerModule.forRoot(), NbDatepickerModule, NbSelectModule, MatSelectModule, HttpClientModule, MatExpansionModule, MatCheckboxModule, MatDividerModule, NbTabsetModule, MatDatepickerModule, MatNativeDateModule,
-      ThemeModule, MatTabsModule, MatSlideToggleModule, MatToolbarModule, MatButtonToggleModule,  
+      ThemeModule, MatTabsModule, MatSlideToggleModule, MatToolbarModule, MatButtonToggleModule, MatTableModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyCl_eRT8a-rXEmSZzHcXYKi7zNI0XlGb-w',
         libraries: ['places','geometry'],
@@ -31,6 +32,7 @@ import { MarkersComponent } from './mapa/map/markers/markers.component';
     declarations: [
       ...routedComponents,
       MarkersComponent,
+      ListComponent,
      
    
   
