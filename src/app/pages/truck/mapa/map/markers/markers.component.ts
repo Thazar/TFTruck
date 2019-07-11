@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Observable, range } from 'rxjs';
 import { Truck } from '../../add-truck/truck';
 import { AddTruckService } from '../../add-truck/add-truck.service';
@@ -43,7 +43,7 @@ interface Marker {
   templateUrl: './markers.component.html',
   styleUrls: ['./markers.component.scss']
 })
-export class MarkersComponent implements OnInit {
+export class MarkersComponent implements OnInit ,OnDestroy {
   truck: Observable<Truck>;
   newTruck: Truck;
   trucks: Observable<Truck[]>;
@@ -66,6 +66,7 @@ export class MarkersComponent implements OnInit {
   message: string;
   notifications: Notifications;
   circleShowed: boolean = false;
+  stompClient: any;
 
   constructor(private addTruckService: AddTruckService, private toastr: ToastrService  ){  
     const eva = require('eva-icons');
@@ -196,9 +197,9 @@ export class MarkersComponent implements OnInit {
     }
      );
     
-    let stompClient = this.addTruckService.connect();
-    stompClient.connect({}, frame => {
-      stompClient.subscribe('/topic/notification', notifications => {
+     this.stompClient = this.addTruckService.connect();
+    this.stompClient.connect({}, frame => {
+      this.stompClient.subscribe('/topic/notification', notifications => {
         this.notifications = JSON.parse(notifications.body);
         if (this.notifications.msg === "createTruck") {
           this.updateTruck(this.notifications.count);
@@ -219,6 +220,10 @@ export class MarkersComponent implements OnInit {
   ngOnInit() {
     this.reloadData();
     
+  }
+  
+  ngOnDestroy() {
+  
   }
 
   

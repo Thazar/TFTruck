@@ -278,10 +278,13 @@ export class MapaComponent implements OnInit {
   
   changeToggleValue(toggleValue: string) {
     if (toggleValue === "mapa") {
-      this.mapaToggle = true;
+      this.addTruckService.disconnect();
       this.listToggle = false;
+      this.mapaToggle = true;
+      
     }
     if (toggleValue === "lista") {
+      this.addTruckService.disconnect();
       this.mapaToggle = false;
       this.listToggle = true;
     }

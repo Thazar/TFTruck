@@ -24,10 +24,13 @@ export interface position {
 var SockJs = require("sockjs-client")
 var Stomp = require("stompjs")
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AddTruckService {
+  socket: any;
+  stompClient: any
   filter: filter = {
     kraj: '',
     lat: 0,
@@ -64,10 +67,15 @@ export class AddTruckService {
   
 
   public connect() {
-    let socket = new SockJs(`http://localhost:8888/nebular/socket`)
-    let stompClient = Stomp.over(socket);
-    return stompClient;
+    this.socket = new SockJs(`http://localhost:8888/nebular/socket`)
+    this.stompClient = Stomp.over(this.socket);
+    return this.stompClient;
   }
+  
+  public disconnect() {
+  this.stompClient.disconnect();
+  }
+
 
   private baseUrl = 'http://localhost:8888/nebular/api/trucks';
 
