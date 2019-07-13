@@ -281,14 +281,16 @@ export class MapaComponent implements OnInit {
     if (toggleValue === "mapa") {
       this.listToggle = false;
       this.mapaToggle = true;
+      this.addTruckService.listToggle = this.listToggle;
       this.addTruckService.mapaToggle = this.mapaToggle;
       
     }
     if (toggleValue === "lista") {
       this.mapaToggle = false;
       this.listToggle = true;
-      this.addTruckService.mapaToggle = false;
+      this.addTruckService.mapaToggle = this.mapaToggle;
       this.addTruckService.changeMessage('closeMarkers')
+      this.addTruckService.listToggle = this.listToggle;
     }
   }
 

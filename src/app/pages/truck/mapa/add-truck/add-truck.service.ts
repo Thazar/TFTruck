@@ -31,7 +31,8 @@ var Stomp = require("stompjs")
 export class AddTruckService {
   socket: any;
   stompClient: any
-  mapaToggle: boolean ;
+  mapaToggle: boolean;
+  listToggle: boolean;
   filter: filter = {
     kraj: '',
     lat: 0,

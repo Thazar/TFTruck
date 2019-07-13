@@ -36,3 +36,10 @@
 .pac-container {
   z-index: 10000 !important;
 }
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
