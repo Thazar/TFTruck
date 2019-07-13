@@ -11,7 +11,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NbDatepickerModule, NbSelectModule, NbTabsetModule, NbToastrModule, } from '@nebular/theme';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MarkersComponent } from './mapa/map/markers/markers.component';
+import { MarkersComponent } from './mapa/markers/markers.component';
 import { ListComponent } from './mapa/list/list.component';
 
 

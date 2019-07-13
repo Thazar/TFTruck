@@ -73,9 +73,6 @@ export class AddTruckService {
     return this.stompClient;
   }
   
-  public disconnect() {
-  this.stompClient.disconnect();
-  }
 
 
   private baseUrl = 'http://localhost:8888/nebular/api/trucks';

@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Observable, range } from 'rxjs';
-import { Truck } from '../../add-truck/truck';
-import { AddTruckService } from '../../add-truck/add-truck.service';
+import { Truck } from '../add-truck/truck';
+import { AddTruckService } from '../add-truck/add-truck.service';
 import { HostListener } from '@angular/core';
-import { Notifications } from '../../add-truck/notifications';
+import { Notifications } from '../add-truck/notifications';
 import { MapsAPILoader } from '@agm/core';
 import { FormControl } from '@angular/forms';
 import * as eva from 'eva-icons';
@@ -115,7 +115,10 @@ export class MarkersComponent implements OnInit ,OnDestroy {
     const moment = require('moment');
     moment.locale('pl');
     this.addTruckService.currentMessage.subscribe(message => {
-    
+      for (var windowIndex = this.markerArray.length -1; windowIndex > -1; windowIndex -= 1) {
+        this.markerArray[windowIndex].markerOpened = false;     
+    }
+      if (message === 'search') {
       this.range = addTruckService.filter.range;
       console.log(this.addTruckService.filter.range);
       this.circleRange = addTruckService.filter.range * 1000;
@@ -233,6 +236,7 @@ export class MarkersComponent implements OnInit ,OnDestroy {
       this.addTruckService.pojazdy = this.markerArray.length;
         this.addTruckService.changeMessageMapa('scan');
     }
+  }
      );
     
      this.stompClient = this.addTruckService.connect();
