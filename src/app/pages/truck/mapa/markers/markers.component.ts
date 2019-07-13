@@ -115,13 +115,14 @@ export class MarkersComponent implements OnInit ,OnDestroy {
     const moment = require('moment');
     moment.locale('pl');
     this.addTruckService.currentMessage.subscribe(message => {
-     this.latitude = 49.8915943;
-  this.longitude = 8.9206519;
-  this.zoom = 6;
+     
       for (var windowIndex = this.markerArray.length -1; windowIndex > -1; windowIndex -= 1) {
         this.markerArray[windowIndex].markerOpened = false;     
     }
       if (message === 'search') {
+        this.latitude = 49.8915943;
+  this.longitude = 8.9206519;
+  this.zoom = 6;
       this.range = addTruckService.filter.range;
       console.log(this.addTruckService.filter.range);
       this.circleRange = addTruckService.filter.range * 1000;
