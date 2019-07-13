@@ -128,6 +128,7 @@ export class MapaComponent implements OnInit {
     window.location.reload();
   }
   this.mapaToggle = true;
+  this.addTruckService.mapaToggle = true;
   this.toggleValue = "mapa";
   }
    
@@ -281,12 +282,14 @@ export class MapaComponent implements OnInit {
       this.addTruckService.disconnect();
       this.listToggle = false;
       this.mapaToggle = true;
+      this.addTruckService.mapaToggle = this.mapaToggle;
       
     }
     if (toggleValue === "lista") {
       this.addTruckService.disconnect();
       this.mapaToggle = false;
       this.listToggle = true;
+      this.addTruckService.mapaToggle = false;
     }
   }
 

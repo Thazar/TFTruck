@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef, ViewChild} from '@angular/core';
+import { Component} from '@angular/core';
 import { AddTruckService } from '../add-truck/add-truck.service';
 import { HostListener } from '@angular/core';
 

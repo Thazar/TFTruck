@@ -1,4 +1,6 @@
-<div *ngFor="let mark of markerArray; let i = index">
+<div *ngIf="addTruckService.mapaToggle">
+    <agm-map [zoom]="zoom" [latitude]="latitude" [longitude]="longitude"  [style.height.px]="mapSize">
+<div  *ngFor="let mark of markerArray; let i = index">
 <agm-marker *ngIf="showMarkers" 
       [latitude]="mark.lat"
       [longitude]="mark.lng"
@@ -87,6 +89,8 @@
       </agm-info-window>
     </agm-marker>
   </div>
+    </agm-map>
+</div>
 
   <agm-circle *ngIf="circleShowed"
   [latitude]="circleLat"
