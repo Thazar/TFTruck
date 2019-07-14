@@ -36,35 +36,57 @@
 .pac-container {
   z-index: 10000 !important;
 }
-.mat-table {
-  overflow: auto;
-  max-height: 500px;
+table {
+  width: 100%;
 }
 
-.element-row {
-  position: relative;
+tr.example-detail-row {
+  height: 0;
 }
 
-.element-row:not(.expanded) {
-  cursor: pointer;
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #777;
 }
 
-.element-row:not(.expanded):hover {
-  background: #f5f5f5;
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
 }
 
-.element-row.expanded {
-  border-bottom-color: transparent;
+.example-element-row td {
+  border-bottom-width: 0;
 }
 
-.example-container {
+.example-element-detail {
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  max-height: 500px;
-  min-width: 300px;
 }
 
-.example-header {
-  min-height: 64px;
-  padding: 8px 24px 0;
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
 }
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.mat-paginator-sticky {
+  bottom: 0px;
+  position: sticky;
+  z-index: 10;
+}
+

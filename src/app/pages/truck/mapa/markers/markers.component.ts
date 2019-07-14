@@ -76,9 +76,9 @@ interface Marker {
   styleUrls: ['./markers.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('void', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
-      state('*', style({ height: '*', visibility: 'visible' })),
-      transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
@@ -113,11 +113,12 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit {
   circleShowed: boolean = false;
   stompClient: any;
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-
+  columnsValue = ['tel', 'transId'];
+  displayedColumns = {tel: 'telefon', transId: 'numer transa' }
+  dataSource = new MatTableDataSource<Marker>(this.markerArray);
   private paginator: MatPaginator;
   private sort: MatSort;
+  expandedElement: Marker | null;
 
 
   @ViewChild(MatSort) set matSort(ms: MatSort) {
@@ -329,7 +330,7 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.reloadData();
- 
+   
   }
 
   ngAfterViewInit() {
