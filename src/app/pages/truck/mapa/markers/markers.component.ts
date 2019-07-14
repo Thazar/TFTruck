@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, IterableDiffers, DoCheck} from '@angular/core';
 import { Observable, range } from 'rxjs';
 import { Truck } from '../add-truck/truck';
 import { AddTruckService } from '../add-truck/add-truck.service';
@@ -40,7 +40,7 @@ interface Marker {
     url: string, scaledSize: {height: number, width: number}
   }
   markerOpened: boolean;
-  cellColor: string;
+ 
 }
 
 @Component({
@@ -55,7 +55,7 @@ interface Marker {
     ]),
   ],
 })
-export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit {
+export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoCheck {
   truck: Observable<Truck>;
   newTruck: Truck;
   trucks: Observable<Truck[]>;
@@ -78,7 +78,8 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit {
   zoom: number = 6;
   public map_Class= 'high';
   colorNumber: number = 0;
-  cellColor: string = 'white';
+ 
+  differ: any;
   
   icon: {
     url: string, scaledSize: {height: number, width: number}
@@ -114,7 +115,8 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit {
 
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
-  constructor(private addTruckService: AddTruckService, private toastr: ToastrService  ){  
+  constructor(private addTruckService: AddTruckService, private toastr: ToastrService, differs: IterableDiffers){  
+    this.differ = differs.find([]).create(null);
     addTruckService.currentMessageMapaPosition.subscribe(message => {
       if (addTruckService.toastrClicked === true) {
         this.latitude = addTruckService.position.latitude;
@@ -317,6 +319,13 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit {
   
   }
 
+  ngDoCheck() {
+    const change = this.differ.diff(this.markerArray);
+    if(change) {
+      this.dataSource = new MatTableDataSource<Marker>(this.markerArray);
+    }
+  }
+
   @HostListener('window:resize', ['$event'])
 getScreenSize(event?) {
   this.screenHeight = window.innerHeight;
@@ -391,14 +400,10 @@ getScreenSize(event?) {
           icon: this.icon,
           kraj: this.newTruck.truckKraj,
           markerOpened: false,
-          cellColor: this.cellColor
+          
         });
 
-        for(var tempIndex= this.markerArray.length -1; tempIndex > -1; tempIndex -= 1) {
-          if (this.isOdd(tempIndex) === 0) {
-            this.markerArray[tempIndex].cellColor = '#f2f2f2';
-          } else this.markerArray[tempIndex].cellColor = 'white';
-        }
+     
 
         this.showMarkers = true;
         this.savedMarkers = [...this.markerArray]
@@ -505,14 +510,9 @@ getScreenSize(event?) {
     icon: this.icon,
     kraj: this.newTruck.truckKraj,
     markerOpened: false,
-    cellColor: this.cellColor
+  
   });
 
-  for(var tempIndex= this.markerArray.length -1; tempIndex > -1; tempIndex -= 1) {
-    if (this.isOdd(tempIndex) === 0) {
-      this.markerArray[tempIndex].cellColor = '#f2f2f2';
-    } else this.markerArray[tempIndex].cellColor = 'white';
-  }
 
   if (this.addTruckService.adresRealSelected === true) {
 
@@ -612,14 +612,10 @@ getScreenSize(event?) {
        icon: this.icon,
        kraj: this.newTruck.truckKraj,
        markerOpened: false,
-       cellColor: this.cellColor
+     
      });
 
-     for(var tempIndex= this.markerArray.length -1; tempIndex > -1; tempIndex -= 1) {
-      if (this.isOdd(tempIndex) === 0) {
-        this.markerArray[tempIndex].cellColor = '#f2f2f2';
-      } else this.markerArray[tempIndex].cellColor = 'white';
-    }
+  
 
      if (this.circleShowed === true) {
        if (this.circleColor === 'red') {
