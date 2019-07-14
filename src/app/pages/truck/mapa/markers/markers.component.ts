@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit} from '@angular/core';
 import { Observable, range } from 'rxjs';
 import { Truck } from '../add-truck/truck';
 import { AddTruckService } from '../add-truck/add-truck.service';
@@ -9,8 +9,8 @@ import { FormControl } from '@angular/forms';
 import * as eva from 'eva-icons';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator, MatTableDataSource, MatSort} from '@angular/material';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 export interface PeriodicElement {
   name: string;
@@ -30,6 +30,16 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
+  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
+  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
+  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
+  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
+  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
+  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
+  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
+  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
+  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
 ];
 
 interface Marker {
@@ -63,9 +73,16 @@ interface Marker {
 @Component({
   selector: 'ngx-markers',
   templateUrl: './markers.component.html',
-  styleUrls: ['./markers.component.scss']
+  styleUrls: ['./markers.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('void', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
+      state('*', style({ height: '*', visibility: 'visible' })),
+      transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class MarkersComponent implements OnInit ,OnDestroy {
+export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit {
   truck: Observable<Truck>;
   newTruck: Truck;
   trucks: Observable<Truck[]>;
@@ -97,9 +114,28 @@ export class MarkersComponent implements OnInit ,OnDestroy {
   stompClient: any;
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
-  @ViewChild(MatSort) sort: MatSort;
+  private paginator: MatPaginator;
+  private sort: MatSort;
+
+
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.setDataSourceAttributes();
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
   constructor(private addTruckService: AddTruckService, private toastr: ToastrService  ){  
     addTruckService.currentMessageMapaPosition.subscribe(message => {
@@ -293,7 +329,11 @@ export class MarkersComponent implements OnInit ,OnDestroy {
 
   ngOnInit() {
     this.reloadData();
-    this.dataSource.sort = this.sort;
+ 
+  }
+
+  ngAfterViewInit() {
+    
   }
   
   ngOnDestroy() {
