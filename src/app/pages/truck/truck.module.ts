@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { MatIconModule, MatInputModule, MatButtonModule, MatAutocompleteModule, MatSelectModule, MatExpansionModule, MatCheckboxModule, MatDividerModule, MatDatepickerModule, MatNativeDateModule, MatTabsModule, MatSlideToggle, MatSlideToggleModule, MatToolbarModule, MatButtonToggleModule, MatTableModule, MatPaginatorModule, MatSortModule,} from '@angular/material';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import {CustomMatPaginatorIntl} from './mapa/markers/custom-mat-paginator-int'
+import {MatPaginatorIntl} from '@angular/material';
 
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -28,8 +30,15 @@ import { ListComponent } from './mapa/list/list.component';
       }),
       TruckRoutingModule, 
     ],
+    entryComponents: [MarkersComponent],
+  bootstrap: [MarkersComponent],
+  providers: [{
+      provide: MatPaginatorIntl, 
+      useClass: CustomMatPaginatorIntl
+    }],
     exports: [],
     declarations: [
+      [MarkersComponent],
       ...routedComponents,
       MarkersComponent,
       ListComponent,

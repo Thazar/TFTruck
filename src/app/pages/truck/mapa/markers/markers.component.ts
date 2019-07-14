@@ -105,7 +105,6 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
 
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
-    this.paginator._intl.itemsPerPageLabel = 'Ofert na stronę.';
     this.setDataSourceAttributes();
   }
 
