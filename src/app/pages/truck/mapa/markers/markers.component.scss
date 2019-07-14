@@ -61,14 +61,6 @@ tr.example-element-row:not(.example-expanded-row):active {
   display: flex;
 }
 
-.example-element-diagram {
-  min-width: 80px;
-  border: 2px solid black;
-  padding: 8px;
-  font-weight: lighter;
-  margin: 8px 0;
-  height: 104px;
-}
 
 .example-element-symbol {
   font-weight: bold;
@@ -84,9 +76,21 @@ tr.example-element-row:not(.example-expanded-row):active {
   opacity: 0.5;
 }
 
+.mat-header {
+  border-bottom: black;
+}
+
 .mat-paginator-sticky {
   bottom: 0px;
   position: sticky;
   z-index: 10;
+}
+
+.mat-header-row {
+  top: 0;
+  position: sticky;
+  z-index: 1;
+  background-color: inherit;
+  text-align: center;
 }
 
