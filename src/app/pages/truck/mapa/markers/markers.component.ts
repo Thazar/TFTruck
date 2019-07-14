@@ -89,8 +89,8 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
   circleShowed: boolean = false;
   stompClient: any;
 
-  columnsValue = ['tel', 'transId'];
-  displayedColumns = {tel: 'telefon', transId: 'numer transa' }
+  columnsValue = ['tel', 'kraj', 'wolnyOd', 'rodzaj', 'adres'];
+  displayedColumns = {tel: 'Dodano', kraj: 'Kraj', wolnyOd: 'Wolny od', rodzaj: 'Pojazd', adres: 'Adres'}
   dataSource = new MatTableDataSource<Marker>(this.markerArray);
   private paginator: MatPaginator;
   private sort: MatSort;
@@ -105,6 +105,7 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
 
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
+    this.paginator._intl.itemsPerPageLabel = 'Ofert na stronę.';
     this.setDataSourceAttributes();
   }
 
@@ -308,7 +309,7 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
 
   ngOnInit() {
     this.reloadData();
-   
+    
   }
 
   ngAfterViewInit() {

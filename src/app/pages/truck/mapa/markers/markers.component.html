@@ -131,6 +131,7 @@
 
 <tr mat-header-row *matHeaderRowDef="columnsValue; sticky: true"></tr>
 <tr mat-row *matRowDef="let element; columns: columnsValue;"
+style="width: 100px !important;"
    class="example-element-row"
    [class.example-expanded-row]="expandedElement === element"
    (click)="expandedElement = expandedElement === element ? null : element">
@@ -139,7 +140,6 @@
 </table>
     <mat-paginator  [pageSizeOptions]="[15, 25, 50, 100]"  class="mat-paginator-sticky"></mat-paginator>
  
-  
 </div>
 </div>
 
