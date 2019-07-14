@@ -50,11 +50,11 @@ tr.example-detail-row {
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-  background: #777;
+  background-color: #777!important;
 }
 
 tr.example-element-row:not(.example-expanded-row):active {
-  background: #efefef;
+  background-color: #efefef!important;
 }
 
 .example-element-row td {
@@ -104,6 +104,3 @@ tr.example-element-row:not(.example-expanded-row):active {
   text-align: center;
 }
 
-.mat-row:hover {
-  background-color: red;
-}

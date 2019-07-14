@@ -108,7 +108,7 @@
     >
 <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsValue">
  <th class="example-element-row" mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedColumns[column]}} </th>
- <td ng-click="doNothing()" [style.background-color]="element.cellColor"  mat-cell *matCellDef="let element"> {{element[column]}} </td>
+ <td ng-click="doNothing()"   mat-cell *matCellDef="let element"> {{element[column]}} </td>
 </ng-container>
 
 <ng-container matColumnDef="expandedDetail">
@@ -131,6 +131,7 @@
 
 <tr mat-header-row *matHeaderRowDef="columnsValue; sticky: true"></tr>
 <tr mat-row *matRowDef="let element; columns: columnsValue;"
+   [style.background-color]="element.cellColor"
    class="example-element-row"
    [class.example-expanded-row]="expandedElement === element"
    (click)="expandedElement = expandedElement === element ? null : element">
