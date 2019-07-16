@@ -89,8 +89,8 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
   circleShowed: boolean = false;
   stompClient: any;
 
-  columnsValue = ['tel', 'kraj', 'wolnyOd', 'rodzaj', 'adres'];
-  displayedColumns = {tel: 'Dodano', kraj: 'Kraj', wolnyOd: 'Wolny od', rodzaj: 'Pojazd', adres: 'Adres'}
+  columnsValue = ['tel',  'rodzaj', 'typ',  'wolnyOd', 'wolnyDo', 'adres'];
+  displayedColumns = {tel: 'Dodano',  rodzaj: 'Pojazd', typ: 'Nadwozie', wolnyOd: 'Wolny od', wolnyDo: 'Wolny do', adres: 'Adres'}
   dataSource = new MatTableDataSource<Marker>(this.markerArray);
   private paginator: MatPaginator;
   private sort: MatSort;
