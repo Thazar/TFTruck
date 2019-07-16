@@ -107,7 +107,7 @@
     [dataSource]="dataSource" multiTemplateDataRows matSort
     >
 <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsValue">
- <th class="example-element-row" mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedColumns[column]}} </th>
+ <th class="example-element-row" id="{{column}}" mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedColumns[column]}} </th>
  <td ng-click="doNothing()"   mat-cell *matCellDef="let element"> {{element[column]}} </td>
 </ng-container>
 
@@ -138,6 +138,7 @@ style="width: 100px !important;"
 </tr>
 <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>
+
     <mat-paginator  [pageSizeOptions]="[15, 25, 50, 100]"  class="mat-paginator-sticky"></mat-paginator>
  
 </div>

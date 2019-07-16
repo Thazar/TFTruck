@@ -284,7 +284,9 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
     }
   }
      );
-    
+     if (this.stompClient) {
+       this.stompClient.disconnect();
+     }
      this.stompClient = this.addTruckService.connect();
     this.stompClient.connect({}, frame => {
       this.stompClient.subscribe('/topic/notification', notifications => {
@@ -316,7 +318,7 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
   }
   
   ngOnDestroy() {
-  
+  this.stompClient.disconnect()
   }
 
   ngDoCheck() {

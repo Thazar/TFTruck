@@ -38,6 +38,7 @@
 }
 table {
   width: 100%;
+  border-collapse: separate; border-spacing: 0px;
 }
 
 table > tr:hover {
@@ -50,11 +51,15 @@ tr.example-detail-row {
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-  background-color: #777!important;
+  background-color: #0081ba!important;
+ 
 }
 
+
+
 tr.example-element-row:not(.example-expanded-row):active {
-  background-color: #efefef!important;
+  background-color: #a2d9f7!important;
+  border-bottom-width: 100%;
 }
 
 .example-element-row td {
@@ -92,9 +97,11 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .mat-paginator-sticky {
   bottom: 0px;
+  top: 100%;
   position: sticky;
   z-index: 10;
-  top: 0px;
+ 
+ 
 }
 
 .mat-header-row {
@@ -106,21 +113,60 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .mat-column-typ {
-  width: 200px ;
+  width: 100px ;
+ 
 }
 
 .mat-column-tel {
-  width: 200px  ;
+  width: 150px  ;
+  
 }
 .mat-column-rodzaj {
   width: 200px  ;
+  padding-left: 30px;
 }
 .mat-column-wolnyOd {
   width: 200px ;
+  padding-left: 30px;
 }
 .mat-column-wolnyDo {
-  width: 200px  ;
+  width: 100;
+  padding-right: 30px;
 }
+
+.mat-column-adres {
+  
+  width: 1000px;
+ 
+  padding-left: 30px;
+}
+
+
+#tel {
+  border-right: 1px solid  #e0e0e0;  
+}
+
+#typ {
+  border-right: 1px solid  #e0e0e0;
+}
+
+#wolnyDo {
+ 
+}
+
+#adres {
+  border-left: 1px solid  #e0e0e0;
+}
+
+.example-element-row {
+  bottom: 0px;
+  position: sticky;
+  z-index: 10;
+  top: 0px;
+  background-color: white;
+}
+
+
 
 
 
