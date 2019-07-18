@@ -107,8 +107,8 @@
     [dataSource]="dataSource" multiTemplateDataRows matSort
     >
 <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsValue">
- <th class="example-element-row" id="{{column}}" mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedColumns[column]}} </th>
- <td ng-click="doNothing()"   mat-cell *matCellDef="let element"> {{element[column]}} </td>
+ <th class="example-element-row" id="{{column}}" mat-header-cell *matHeaderCellDef mat-sort-header><i *ngIf="icons[column]" style="margin-right: 10px;" class="{{icons[column]}}"></i> {{displayedColumns[column]}} </th>
+ <td  ng-click="doNothing()"   mat-cell *matCellDef="let element"> {{element[column]}} </td>
 </ng-container>
 
 <ng-container matColumnDef="expandedDetail">

@@ -91,6 +91,7 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
 
   columnsValue = ['tel',  'rodzaj', 'typ',  'wolnyOd', 'wolnyDo', 'adres'];
   displayedColumns = {tel: 'Dodano',  rodzaj: 'Pojazd', typ: 'Nadwozie', wolnyOd: 'Wolny od', wolnyDo: 'Wolny do', adres: 'Adres'}
+  icons = {tel: 'fas fa-history fa-2x', rodzaj: 'fas fa-truck fa-2x', wolnyOd: 'fas fa-calendar fa-2x', wolnyDo: 'far fa-calendar fa-2x', typ: 'fas fa-truck-loading fa-2x', adres: 'fas fa-map-marker-alt fa-2x'}
   dataSource = new MatTableDataSource<Marker>(this.markerArray);
   private paginator: MatPaginator;
   private sort: MatSort;

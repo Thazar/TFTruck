@@ -130,7 +130,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   padding-left: 30px;
 }
 .mat-column-wolnyDo {
-  width: 100;
+  width: 140px;
   padding-right: 30px;
 }
 
@@ -177,6 +177,9 @@ tr.example-element-row:not(.example-expanded-row):active {
   flex: 1;
 }
 
+.td {
+ padding-left: 30px !important;
+}
 
 
 
