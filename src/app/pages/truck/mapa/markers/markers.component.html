@@ -101,7 +101,7 @@
   </agm-circle>
     </agm-map>
 </div>
-<div *ngIf="addTruckService.listToggle" >
+<div class="outer" *ngIf="addTruckService.listToggle" >
     <div class="example-container" style="overflow: auto" [style.height.px]="mapSize">
     <table mat-table 
     [dataSource]="dataSource" multiTemplateDataRows matSort
@@ -137,9 +137,10 @@ style="width: 100px !important;"
    (click)="expandedElement = expandedElement === element ? null : element">
 </tr>
 <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-</table>
 
-    <mat-paginator  [pageSizeOptions]="[15, 25, 50, 100]"  class="mat-paginator-sticky"></mat-paginator>
+</table>
+    <div class="remaining"></div>
+    <mat-paginator [class.mat-elevation-z2]="!isActive" [pageSizeOptions]="[15, 25, 50, 100]"  class="mat-paginator-sticky"></mat-paginator>
  
 </div>
 </div>

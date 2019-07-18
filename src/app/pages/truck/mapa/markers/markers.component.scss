@@ -97,7 +97,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .mat-paginator-sticky {
   bottom: 0px;
-  top: 100%;
+
   position: sticky;
   z-index: 10;
  
@@ -105,8 +105,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .mat-header-row {
-  top: 0;
-  position: sticky;
+  
+  
   z-index: 1;
   background-color: inherit;
   text-align: center;
@@ -166,6 +166,16 @@ tr.example-element-row:not(.example-expanded-row):active {
   background-color: white;
 }
 
+.example-container {
+  height: 100%;
+  min-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.remaining {
+  flex: 1;
+}
 
 
 
