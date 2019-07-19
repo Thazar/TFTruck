@@ -114,7 +114,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .mat-column-typ {
   width: 100px ;
- 
+  padding-right: 15px;
 }
 
 .mat-column-tel {
@@ -180,6 +180,25 @@ tr.example-element-row:not(.example-expanded-row):active {
 .td {
  padding-left: 30px !important;
 }
+
+.example-element-row:hover {
+  .fa-truck-loading {
+    color: #0081ba;
+  }
+  .fa-truck {
+    color: #0081ba;
+  }
+  .fa-history {
+    color: #0081ba;
+  }
+  .fa-calendar {
+    color: #0081ba;
+  }
+  .fa-map-marker-alt {
+    color: #0081ba;
+  }
+}
+
 
 
 
