@@ -51,14 +51,14 @@ tr.example-detail-row {
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-  background-color: #0081ba!important;
+  background-color: #a2d9f7!important ;
  
 }
 
 
 
 tr.example-element-row:not(.example-expanded-row):active {
-  background-color: #a2d9f7!important;
+  background-color: #0081ba!important;
   border-bottom-width: 100%;
 }
 
@@ -138,6 +138,10 @@ tr.example-element-row:not(.example-expanded-row):active {
   
   width: 1000px;
  
+  padding-left: 10px;
+}
+
+.mat-column-kraj {
   padding-left: 30px;
 }
 
@@ -150,11 +154,8 @@ tr.example-element-row:not(.example-expanded-row):active {
   border-right: 1px solid  #e0e0e0;
 }
 
-#wolnyDo {
- 
-}
 
-#adres {
+#kraj {
   border-left: 1px solid  #e0e0e0;
 }
 
@@ -197,8 +198,15 @@ tr.example-element-row:not(.example-expanded-row):active {
   .fa-map-marker-alt {
     color: #0081ba;
   }
+  .fa-flag {
+    color: #0081ba;
+  }
 }
 
+#grey {
+  background-color: 
+  #eff0f1 ;
+}
 
 
 

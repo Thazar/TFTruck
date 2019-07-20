@@ -40,7 +40,7 @@ interface Marker {
     url: string, scaledSize: {height: number, width: number}
   }
   markerOpened: boolean;
- 
+  color: string;
 }
 
 @Component({
@@ -65,6 +65,7 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
   circleColor:string;
   circleRange:number;
   markerArray: Marker[] = [];
+  renderedData: Marker[];
   savedMarkers: Marker[] = [];
   range: number = 5;
   markerOpened: boolean = false;
@@ -84,14 +85,32 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
   icon: {
     url: string, scaledSize: {height: number, width: number}
   }
+
+  states= 
+    { kraj: {
+      // https://commons.wikimedia.org/wiki/File:Flag_of_Poland.svg
+      Polska: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Flag_of_Poland.svg',
+      // https://commons.wikimedia.org/wiki/File:Flag_of_Germany.svg
+      Niemcy: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg',   
+      // https://commons.wikimedia.org/wiki/File:Flag_of_France.svg
+      Francja: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg',
+      // https://commons.wikimedia.org/wiki/Fisle:Flag_of_Italy.svg
+      Włochy: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg',
+    }
+    }
+
+    
+   
+    
+  
   message: string;
   notifications: Notifications;
   circleShowed: boolean = false;
   stompClient: any;
 
-  columnsValue = ['tel',  'rodzaj', 'typ',  'wolnyOd', 'wolnyDo', 'adres'];
-  displayedColumns = {tel: 'Dodano',  rodzaj: 'Pojazd', typ: 'Nadwozie', wolnyOd: 'Wolny od', wolnyDo: 'Wolny do', adres: 'Adres'}
-  icons = {tel: 'fas fa-history fa-2x', rodzaj: 'fas fa-truck fa-2x', wolnyOd: 'fas fa-calendar fa-2x', wolnyDo: 'far fa-calendar fa-2x', typ: 'fas fa-truck-loading fa-2x', adres: 'fas fa-map-marker-alt fa-2x'}
+  columnsValue = ['tel',  'rodzaj', 'typ',  'wolnyOd', 'wolnyDo','kraj', 'adres'];
+  displayedColumns = {tel: 'Dodano',  rodzaj: 'Pojazd', typ: 'Nadwozie', wolnyOd: 'Wolny od', wolnyDo: 'Wolny do', kraj:'', adres: 'Adres'}
+  icons = {tel: 'fas fa-history fa-2x', rodzaj: 'fas fa-truck fa-2x', wolnyOd: 'fas fa-calendar fa-2x', wolnyDo: 'far fa-calendar fa-2x', typ: 'fas fa-truck-loading fa-2x', kraj:'fas fa-flag fa-2x', adres: 'fas fa-map-marker-alt fa-2x'}
   dataSource = new MatTableDataSource<Marker>(this.markerArray);
   private paginator: MatPaginator;
   private sort: MatSort;
@@ -326,6 +345,7 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
     const change = this.differ.diff(this.markerArray);
     if(change) {
       this.dataSource = new MatTableDataSource<Marker>(this.markerArray);
+      console.log("color pierwszy = " + this.markerArray[1].color + " color drugi = " + this.markerArray[2].color)
     }
   }
 
@@ -403,10 +423,14 @@ getScreenSize(event?) {
           icon: this.icon,
           kraj: this.newTruck.truckKraj,
           markerOpened: false,
-          
+          color: 'white',
         });
 
-     
+        for(var colorIndex = this.markerArray.length -1; colorIndex > -1; colorIndex -= 1) {
+          if(colorIndex % 2 == 0) {
+            this.markerArray[colorIndex].color = 'grey'
+          }
+        }
 
         this.showMarkers = true;
         this.savedMarkers = [...this.markerArray]
@@ -415,8 +439,10 @@ getScreenSize(event?) {
       })
     })
     
+   
     
   }
+
   showToast() {
     const toastrLatitude = this.newTruck.latitude;
     const toastrLongitude = this.newTruck.longitude;
@@ -513,7 +539,7 @@ getScreenSize(event?) {
     icon: this.icon,
     kraj: this.newTruck.truckKraj,
     markerOpened: false,
-  
+    color: 'white'
   });
 
 
@@ -615,7 +641,7 @@ getScreenSize(event?) {
        icon: this.icon,
        kraj: this.newTruck.truckKraj,
        markerOpened: false,
-     
+       color: 'white',
      });
 
   
@@ -632,7 +658,7 @@ getScreenSize(event?) {
     }
     initiateDeleteTruck(msg: Marker) {
       this.addTruckService.deleteTruckById(msg.id)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => console.log(data), error =>  console.log(error));
     }
     deleteTruck(id: number) {
        var companyName ;
@@ -683,5 +709,20 @@ getScreenSize(event?) {
       return num % 2;
     }
 
+   sortClicked() {
+     
+    this.markerArray = this.dataSource.sortData(this.dataSource.filteredData,this.dataSource.sort)
+     console.log("initializing sortClicked()..." + this.markerArray[1].tel)
+    for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+      if(this.markerArray[colorIndex + 1].color === "white") {
+        this.markerArray[colorIndex].color = "grey";
+      } else {
+        this.markerArray[colorIndex].color = "white";
+      }
+    }
+ 
+   }
+
   }
+
 

@@ -102,18 +102,19 @@
     </agm-map>
 </div>
 <div class="outer" *ngIf="addTruckService.listToggle" >
+    
     <div class="example-container" style="overflow: auto" [style.height.px]="mapSize">
     <table mat-table 
     [dataSource]="dataSource" multiTemplateDataRows matSort
     >
 <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsValue">
- <th class="example-element-row" id="{{column}}" mat-header-cell *matHeaderCellDef mat-sort-header><i *ngIf="icons[column]" style="margin-right: 10px;" class="{{icons[column]}}"></i> {{displayedColumns[column]}} </th>
- <td  ng-click="doNothing()"   mat-cell *matCellDef="let element"> {{element[column]}} </td>
+ <th (click)="sortClicked()" class="example-element-row" id="{{column}}" mat-header-cell *matHeaderCellDef mat-sort-header><i *ngIf="icons[column]" style="margin-right: 10px;" class="{{icons[column]}}"></i> {{displayedColumns[column]}} </th>
+ <td mat-cell *matCellDef="let element"><img *ngIf="states[column]" class="example-option-img" aria-hidden [src]="states.kraj[element.kraj]" height="25" style="margin-right: 10px;">   <div *ngIf="displayedColumns[column]">{{element[column]}}</div> </td>
 </ng-container>
 
-<ng-container matColumnDef="expandedDetail">
- <td mat-cell *matCellDef="let element" [attr.colspan]="columnsValue.length">
-   <div class="example-element-detail"
+<ng-container matColumnDef="expandedDetail" >
+ <td id="{{element.color}}" mat-cell *matCellDef="let element" [attr.colspan]="columnsValue.length">
+   <div   class="example-element-detail"
         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
      <div class="example-element-diagram">
        <div class="example-element-position"> {{element.adres}} </div>
@@ -133,6 +134,7 @@
 <tr mat-row *matRowDef="let element; columns: columnsValue;"
 style="width: 100px !important;"
    class="example-element-row"
+   id="{{element.color}}"
    [class.example-expanded-row]="expandedElement === element"
    (click)="expandedElement = expandedElement === element ? null : element">
 </tr>
