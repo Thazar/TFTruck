@@ -1,4 +1,4 @@
-<div *ngIf="this.addTruckService.mapaToggle">
+<div *ngIf="mapaToggle">
     <agm-map [zoom]="zoom" [latitude]="latitude" [longitude]="longitude"  [style.height.px]="mapSize">
 <div  *ngFor="let mark of markerArray; let i = index">
 <agm-marker *ngIf="showMarkers" 
@@ -101,7 +101,7 @@
   </agm-circle>
     </agm-map>
 </div>
-<div class="outer" *ngIf="addTruckService.listToggle" >
+<div class="outer" *ngIf="listToggle" >
     
     <div class="example-container" style="overflow: auto" [style.height.px]="mapSize">
     <table mat-table 
