@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, IterableDiffers, DoCheck} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, IterableDiffers, DoCheck} from '@angular/core';
 import { Observable, range } from 'rxjs';
 import { Truck } from '../add-truck/truck';
 import { AddTruckService } from '../add-truck/add-truck.service';
@@ -55,7 +55,7 @@ interface Marker {
     ]),
   ],
 })
-export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoCheck {
+export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
   truck: Observable<Truck>;
   newTruck: Truck;
   trucks: Observable<Truck[]>;
@@ -333,9 +333,6 @@ export class MarkersComponent implements OnInit ,OnDestroy, AfterViewInit, DoChe
     
   }
 
-  ngAfterViewInit() {
-    
-  }
   
   ngOnDestroy() {
   this.stompClient.disconnect()
