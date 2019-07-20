@@ -22,6 +22,7 @@ interface Marker {
   lastName: string;
   id: number;
   companyName: string;
+  temp: string;
   email: string;
   tel: string;
   transId: string;
