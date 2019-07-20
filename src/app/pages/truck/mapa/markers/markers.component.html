@@ -1,4 +1,4 @@
-<div *ngIf="addTruckService.mapaToggle">
+<div *ngIf="this.addTruckService.mapaToggle">
     <agm-map [zoom]="zoom" [latitude]="latitude" [longitude]="longitude"  [style.height.px]="mapSize">
 <div  *ngFor="let mark of markerArray; let i = index">
 <agm-marker *ngIf="showMarkers" 

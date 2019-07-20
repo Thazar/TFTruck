@@ -135,7 +135,7 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
 
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
-  constructor( addTruckService: AddTruckService, private toastr: ToastrService, differs: IterableDiffers){  
+  constructor(private addTruckService: AddTruckService, private toastr: ToastrService, differs: IterableDiffers){  
     this.differ = differs.find([]).create(null);
     addTruckService.currentMessageMapaPosition.subscribe(message => {
       if (addTruckService.toastrClicked === true) {
