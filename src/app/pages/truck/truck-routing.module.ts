@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TruckComponent } from './truck.component'
 import { MapaComponent } from './mapa/mapa.component'
-import { MapComponent } from './mapa/map/map.component';
 import { AddTruckComponent } from './mapa/add-truck/add-truck.component';
 
 const routes: Routes = [{
@@ -24,7 +23,6 @@ const routes: Routes = [{
   export const routedComponents = [
     TruckComponent,
     MapaComponent,
-    MapComponent,
     AddTruckComponent,
   ];
   

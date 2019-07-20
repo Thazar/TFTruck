@@ -13,6 +13,7 @@ import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
@@ -34,6 +35,7 @@ import { ToastrModule } from 'ngx-toastr';
     AngularFontAwesomeModule,
     ReactiveFormsModule,
     MatButtonModule,
+   
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-top-center'

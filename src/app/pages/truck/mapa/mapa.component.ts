@@ -76,6 +76,9 @@ export class MapaComponent implements OnInit {
   message: string;
   rangeValue: number = 5;
   pojazdy: number = this.addTruckService.pojazdy;
+  toggleValue: string;
+  mapaToggle: boolean;
+  listToggle: boolean;
   listaSpecyfikacji: string[] = [
     'Adr', 'Winda', 'Edscha', 'Cer. XL'
   ];
@@ -124,6 +127,9 @@ export class MapaComponent implements OnInit {
   if (this.mapaService.loggedOfWithOpenedWindow == true) {
     window.location.reload();
   }
+  this.mapaToggle = true;
+  this.addTruckService.mapaToggle = true;
+  this.toggleValue = "mapa";
   }
    
 
@@ -269,6 +275,23 @@ export class MapaComponent implements OnInit {
     this.addTruckService.changeMessageMapaPosition('set');
     console.log(this.specSelected)
 
+  }
+  
+  changeToggleValue(toggleValue: string) {
+    if (toggleValue === "mapa") {
+      this.listToggle = false;
+      this.mapaToggle = true;
+      this.addTruckService.listToggle = this.listToggle;
+      this.addTruckService.mapaToggle = this.mapaToggle;
+      
+    }
+    if (toggleValue === "lista") {
+      this.mapaToggle = false;
+      this.listToggle = true;
+      this.addTruckService.mapaToggle = this.mapaToggle;
+      this.addTruckService.changeMessage('closeMarkers')
+      this.addTruckService.listToggle = this.listToggle;
+    }
   }
 
  

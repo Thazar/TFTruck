@@ -24,10 +24,15 @@ export interface position {
 var SockJs = require("sockjs-client")
 var Stomp = require("stompjs")
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AddTruckService {
+  socket: any;
+  stompClient: any
+  mapaToggle: boolean;
+  listToggle: boolean;
   filter: filter = {
     kraj: '',
     lat: 0,
@@ -64,10 +69,18 @@ export class AddTruckService {
   
 
   public connect() {
+<<<<<<< HEAD
     let socket = new SockJs(`https://tftruck.herokuapp.com/nebular/socket`)
     let stompClient = Stomp.over(socket);
     return stompClient;
+=======
+    this.socket = new SockJs(`http://localhost:8888/nebular/socket`)
+    this.stompClient = Stomp.over(this.socket);
+    return this.stompClient;
+>>>>>>> feature
   }
+  
+
 
   private baseUrl = 'https://tftruck.herokuapp.com/nebular/api/trucks';
 

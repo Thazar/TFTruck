@@ -7,7 +7,7 @@ import { AddTruckService } from './add-truck.service';
 import {Location, Appearance} from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
 import { MatAutocompleteSelectedEvent } from '@angular/material';
-import { MarkersComponent } from '../map/markers/markers.component';
+import { MarkersComponent } from '../markers/markers.component';
 
 import { MapaService } from '../mapa.service';
 

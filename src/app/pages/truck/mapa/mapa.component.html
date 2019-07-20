@@ -18,12 +18,12 @@
           <button mat-button  color="" style=" height: 45px; display: inline-block;"><i class="fas fa-map-marked-alt" style="font-size: 2rem;  margin-right: 8px;"></i>Wyswietl Moje</button>
         </div>
         <div style="display: inline-block;">
-          <mat-button-toggle-group #group="matButtonToggleGroup">
-            <mat-button-toggle value="temporary">
+          <mat-button-toggle-group #group="matButtonToggleGroup" [value] = "toggleValue" (change)="changeToggleValue(group.value)">
+            <mat-button-toggle value="mapa">
               mapa
               <mat-icon style="-webkit-text-fill-color:#0081ba">place</mat-icon>
             </mat-button-toggle>
-            <mat-button-toggle value="temporary">  
+            <mat-button-toggle value="lista">  
               <mat-icon style="-webkit-text-fill-color:#0081ba">view_list</mat-icon>
               lista
             </mat-button-toggle>
@@ -183,7 +183,9 @@
 
 <div class="map-container">
       
-      <ngx-map ></ngx-map>
+    <ngx-markers></ngx-markers>
+    
+      
 </div>
 
 

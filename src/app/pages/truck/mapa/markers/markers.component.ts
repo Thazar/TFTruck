@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, IterableDiffers, DoCheck} from '@angular/core';
 import { Observable, range } from 'rxjs';
-import { Truck } from '../../add-truck/truck';
-import { AddTruckService } from '../../add-truck/add-truck.service';
-
-import { Notifications } from '../../add-truck/notifications';
+import { Truck } from '../add-truck/truck';
+import { AddTruckService } from '../add-truck/add-truck.service';
+import { HostListener } from '@angular/core';
+import { Notifications } from '../add-truck/notifications';
 import { MapsAPILoader } from '@agm/core';
 import { FormControl } from '@angular/forms';
 import * as eva from 'eva-icons';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import {MatPaginator, MatTableDataSource, MatSort} from '@angular/material';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+
+
+
 
 interface Marker {
   lat: number;
@@ -35,15 +40,22 @@ interface Marker {
     url: string, scaledSize: {height: number, width: number}
   }
   markerOpened: boolean;
+  color: string;
 }
-
 
 @Component({
   selector: 'ngx-markers',
   templateUrl: './markers.component.html',
-  styleUrls: ['./markers.component.scss']
+  styleUrls: ['./markers.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class MarkersComponent implements OnInit {
+export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
   truck: Observable<Truck>;
   newTruck: Truck;
   trucks: Observable<Truck[]>;
@@ -53,21 +65,110 @@ export class MarkersComponent implements OnInit {
   circleColor:string;
   circleRange:number;
   markerArray: Marker[] = [];
+  renderedData: Marker[];
   savedMarkers: Marker[] = [];
   range: number = 5;
   markerOpened: boolean = false;
   showMarkers: boolean = true;
-  
+  mapaToggle: boolean = true;
+  screenHeight: any;
+  screenWidth: any;
+  mapSize: any;
+  latitude: number = 49.8915943;
+  longitude: number = 8.9206519;
+  zoom: number = 6;
+  public map_Class= 'high';
+  colorNumber: number = 0;
  
+  differ: any;
   
   icon: {
     url: string, scaledSize: {height: number, width: number}
   }
+
+  states= 
+    { kraj: {
+      // https://commons.wikimedia.org/wiki/File:Flag_of_Poland.svg
+      Polska: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Flag_of_Poland.svg',
+      // https://commons.wikimedia.org/wiki/File:Flag_of_Germany.svg
+      Niemcy: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg',   
+      // https://commons.wikimedia.org/wiki/File:Flag_of_France.svg
+      Francja: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg',
+      // https://commons.wikimedia.org/wiki/Fisle:Flag_of_Italy.svg
+      Włochy: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg',
+    }
+    }
+
+    
+   
+    
+  
   message: string;
   notifications: Notifications;
   circleShowed: boolean = false;
+  stompClient: any;
 
-  constructor(private addTruckService: AddTruckService, private toastr: ToastrService  ){  
+  columnsValue = ['tel',  'rodzaj', 'typ',  'wolnyOd', 'wolnyDo','kraj', 'adres'];
+  displayedColumns = {tel: 'Dodano',  rodzaj: 'Pojazd', typ: 'Nadwozie', wolnyOd: 'Wolny od', wolnyDo: 'Wolny do', kraj:'', adres: 'Adres'}
+  icons = {tel: 'fas fa-history fa-2x', rodzaj: 'fas fa-truck fa-2x', wolnyOd: 'fas fa-calendar fa-2x', wolnyDo: 'far fa-calendar fa-2x', typ: 'fas fa-truck-loading fa-2x', kraj:'fas fa-flag fa-2x', adres: 'fas fa-map-marker-alt fa-2x'}
+  dataSource = new MatTableDataSource<Marker>(this.markerArray);
+  private paginator: MatPaginator;
+  private sort: MatSort;
+  expandedElement: Marker | null;
+
+
+
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.setDataSourceAttributes();
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
+
+  constructor(private addTruckService: AddTruckService, private toastr: ToastrService, differs: IterableDiffers){  
+    this.differ = differs.find([]).create(null);
+    addTruckService.currentMessageMapaPosition.subscribe(message => {
+      if (addTruckService.toastrClicked === true) {
+        this.latitude = addTruckService.position.latitude;
+        this.longitude = addTruckService.position.longitute;
+        this.zoom = 8;
+      }
+      if (addTruckService.filter.kraj !=='') {
+        if (addTruckService.filter.kraj == 'Polska') {
+          this.latitude = 52.1884838;
+          this.longitude = 18.8885656;
+          this.zoom = 6;
+        }
+        if (addTruckService.filter.kraj == 'Niemcy') {
+          this.latitude = 50.7571597;
+          this.longitude = 10.5762499;
+          this.zoom = 6;
+        }
+        if (addTruckService.filter.kraj == 'Francja') {
+          this.latitude = 46.0654438;
+          this.longitude = 1.8531053;
+          this.zoom = 6;
+        }
+        if (addTruckService.adresRealSelected ) {
+          this.latitude = addTruckService.position.latitude;
+          this.longitude = addTruckService.position.longitute;
+          this.zoom = 8;
+        }
+      }
+    } );
+  
+  this.getScreenSize();
+  
     const eva = require('eva-icons');
     this.addTruckService.filter.freeOn.setValue('')
     var index;
@@ -76,7 +177,14 @@ export class MarkersComponent implements OnInit {
     const moment = require('moment');
     moment.locale('pl');
     this.addTruckService.currentMessage.subscribe(message => {
-    
+     
+      for (var windowIndex = this.markerArray.length -1; windowIndex > -1; windowIndex -= 1) {
+        this.markerArray[windowIndex].markerOpened = false;     
+    }
+      if (message === 'search') {
+        this.latitude = 49.8915943;
+  this.longitude = 8.9206519;
+  this.zoom = 6;
       this.range = addTruckService.filter.range;
       console.log(this.addTruckService.filter.range);
       this.circleRange = addTruckService.filter.range * 1000;
@@ -194,11 +302,14 @@ export class MarkersComponent implements OnInit {
       this.addTruckService.pojazdy = this.markerArray.length;
         this.addTruckService.changeMessageMapa('scan');
     }
+  }
      );
-    
-    let stompClient = this.addTruckService.connect();
-    stompClient.connect({}, frame => {
-      stompClient.subscribe('/topic/notification', notifications => {
+     if (this.stompClient) {
+       this.stompClient.disconnect();
+     }
+     this.stompClient = this.addTruckService.connect();
+    this.stompClient.connect({}, frame => {
+      this.stompClient.subscribe('/topic/notification', notifications => {
         this.notifications = JSON.parse(notifications.body);
         if (this.notifications.msg === "createTruck") {
           this.updateTruck(this.notifications.count);
@@ -216,12 +327,37 @@ export class MarkersComponent implements OnInit {
     
   }
 
+
   ngOnInit() {
     this.reloadData();
     
   }
 
   
+  ngOnDestroy() {
+  this.stompClient.disconnect()
+  }
+
+  ngDoCheck() {
+    const change = this.differ.diff(this.markerArray);
+    if(change) {
+      this.dataSource = new MatTableDataSource<Marker>(this.markerArray);
+      console.log("color pierwszy = " + this.markerArray[1].color + " color drugi = " + this.markerArray[2].color)
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+getScreenSize(event?) {
+  this.screenHeight = window.innerHeight;
+  this.screenWidth = window.innerWidth;
+  this.mapSize = this.screenHeight - 275;
+ 
+  
+  if (this.screenHeight < 641 ) {
+    this.mapSize = this.screenHeight - 205;
+  }
+}
+
 
   reloadData() {
     this.addTruckService.getAllTrucks().subscribe(snapshots=>{
@@ -258,6 +394,8 @@ export class MarkersComponent implements OnInit {
            this.icon ={ url: "assets/images/bus.png", scaledSize: {height: 30, width: 104.1} }
         }
         
+     
+        
         this.showMarkers = false;
         this.markerArray.push({
           lat: this.newTruck.latitude,
@@ -281,8 +419,16 @@ export class MarkersComponent implements OnInit {
           uwagi: this.newTruck.truckUwagi,
           icon: this.icon,
           kraj: this.newTruck.truckKraj,
-          markerOpened: false
+          markerOpened: false,
+          color: 'white',
         });
+
+        for(var colorIndex = this.markerArray.length -1; colorIndex > -1; colorIndex -= 1) {
+          if(colorIndex % 2 == 0) {
+            this.markerArray[colorIndex].color = 'grey'
+          }
+        }
+
         this.showMarkers = true;
         this.savedMarkers = [...this.markerArray]
         this.addTruckService.pojazdy = this.markerArray.length;
@@ -290,8 +436,10 @@ export class MarkersComponent implements OnInit {
       })
     })
     
+   
     
   }
+
   showToast() {
     const toastrLatitude = this.newTruck.latitude;
     const toastrLongitude = this.newTruck.longitude;
@@ -363,6 +511,8 @@ export class MarkersComponent implements OnInit {
      this.icon ={ url: "assets/images/bus.png", scaledSize: {height: 30, width: 104.1} }
   }
 
+
+
   this.savedMarkers.push({
     lat: this.newTruck.latitude,
     lng: this.newTruck.longitude,
@@ -385,8 +535,10 @@ export class MarkersComponent implements OnInit {
     uwagi: this.newTruck.truckUwagi,
     icon: this.icon,
     kraj: this.newTruck.truckKraj,
-    markerOpened: false
+    markerOpened: false,
+    color: 'white'
   });
+
 
   if (this.addTruckService.adresRealSelected === true) {
 
@@ -461,8 +613,7 @@ export class MarkersComponent implements OnInit {
     specCount = 0;
   }
 }  
-  
-  
+
 
      this.markerArray.push({
        lat: this.newTruck.latitude,
@@ -486,8 +637,12 @@ export class MarkersComponent implements OnInit {
        uwagi: this.newTruck.truckUwagi,
        icon: this.icon,
        kraj: this.newTruck.truckKraj,
-       markerOpened: false
+       markerOpened: false,
+       color: 'white',
      });
+
+  
+
      if (this.circleShowed === true) {
        if (this.circleColor === 'red') {
          this.circleColor = '#0081ba';
@@ -500,13 +655,20 @@ export class MarkersComponent implements OnInit {
     }
     initiateDeleteTruck(msg: Marker) {
       this.addTruckService.deleteTruckById(msg.id)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => console.log(data), error =>  console.log(error));
     }
     deleteTruck(id: number) {
-      
+       var companyName ;
+       var adres;
+       var rodzaj;
+       var typ;
       for (var deleteIndex = this.markerArray.length -1 ; deleteIndex > -1; deleteIndex -= 1) {
         if (this.markerArray[deleteIndex].id === id) {
-          this.showToastDelete(this.markerArray[deleteIndex].companyName, this.markerArray[deleteIndex].adres,  this.markerArray[deleteIndex].rodzaj, this.markerArray[deleteIndex].typ);
+         companyName = this.markerArray[deleteIndex].companyName;
+         adres = this.markerArray[deleteIndex].adres;
+         rodzaj = this.markerArray[deleteIndex].rodzaj;
+         typ = this.markerArray[deleteIndex].typ;
+
           this.markerArray.splice(deleteIndex, 1); 
         }
       }
@@ -518,9 +680,10 @@ export class MarkersComponent implements OnInit {
           this.circleColor = 'red'
         }
       }
-
+      this.showToastDelete(companyName, adres, rodzaj, typ);
       this.addTruckService.pojazdy = this.markerArray.length;
       this.addTruckService.changeMessageMapa('scan');
+      
     
    
     }
@@ -539,5 +702,24 @@ export class MarkersComponent implements OnInit {
      }
     }
 
+    isOdd(num) {
+      return num % 2;
+    }
+
+   sortClicked() {
+     
+    this.markerArray = this.dataSource.sortData(this.dataSource.filteredData,this.dataSource.sort)
+     console.log("initializing sortClicked()..." + this.markerArray[1].tel)
+    for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+      if(this.markerArray[colorIndex + 1].color === "white") {
+        this.markerArray[colorIndex].color = "grey";
+      } else {
+        this.markerArray[colorIndex].color = "white";
+      }
+    }
+ 
+   }
+
   }
+
 

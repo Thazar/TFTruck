@@ -1,4 +1,6 @@
-<div *ngFor="let mark of markerArray; let i = index">
+<div *ngIf="addTruckService.mapaToggle">
+    <agm-map [zoom]="zoom" [latitude]="latitude" [longitude]="longitude"  [style.height.px]="mapSize">
+<div  *ngFor="let mark of markerArray; let i = index">
 <agm-marker *ngIf="showMarkers" 
       [latitude]="mark.lat"
       [longitude]="mark.lng"
@@ -87,7 +89,6 @@
       </agm-info-window>
     </agm-marker>
   </div>
-
   <agm-circle *ngIf="circleShowed"
   [latitude]="circleLat"
   [longitude]="circleLng"
@@ -98,5 +99,54 @@
   
 
   </agm-circle>
+    </agm-map>
+</div>
+<div class="outer" *ngIf="addTruckService.listToggle" >
+    
+    <div class="example-container" style="overflow: auto" [style.height.px]="mapSize">
+    <table mat-table 
+    [dataSource]="dataSource" multiTemplateDataRows matSort
+    >
+<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsValue">
+ <th (click)="sortClicked()" class="example-element-row" id="{{column}}" mat-header-cell *matHeaderCellDef mat-sort-header><i *ngIf="icons[column]" style="margin-right: 10px;" class="{{icons[column]}}"></i> {{displayedColumns[column]}} </th>
+ <td mat-cell *matCellDef="let element"><img *ngIf="states[column]" class="example-option-img" aria-hidden [src]="states.kraj[element.kraj]" height="25" style="margin-right: 10px;">   <div *ngIf="displayedColumns[column]">{{element[column]}}</div> </td>
+</ng-container>
+
+<ng-container matColumnDef="expandedDetail" >
+ <td id="{{element.color}}" mat-cell *matCellDef="let element" [attr.colspan]="columnsValue.length">
+   <div   class="example-element-detail"
+        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+     <div class="example-element-diagram">
+       <div class="example-element-position"> {{element.adres}} </div>
+       <div class="example-element-symbol"> {{element.wolnyOd}} </div>
+       <div class="example-element-name"> {{element.wolnyDo}} </div>
+       <div class="example-element-weight"> {{element.firstName}} </div>
+     </div>
+     <div class="example-element-description">
+       {{element.description}}
+       <span class="example-element-description-attribution"> -- Wikipedia </span>
+     </div>
+   </div>
+ </td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="columnsValue; sticky: true"></tr>
+<tr mat-row *matRowDef="let element; columns: columnsValue;"
+style="width: 100px !important;"
+   class="example-element-row"
+   id="{{element.color}}"
+   [class.example-expanded-row]="expandedElement === element"
+   (click)="expandedElement = expandedElement === element ? null : element">
+</tr>
+<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+</table>
+    <div class="remaining"></div>
+    <mat-paginator [class.mat-elevation-z2]="!isActive" [pageSizeOptions]="[15, 25, 50, 100]"  class="mat-paginator-sticky"></mat-paginator>
+ 
+</div>
+</div>
+
+  
   
  
