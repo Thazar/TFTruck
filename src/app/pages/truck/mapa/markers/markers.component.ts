@@ -71,6 +71,7 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
   markerOpened: boolean = false;
   showMarkers: boolean = true;
   mapaToggle: boolean = true;
+  listToggle: boolean;
   screenHeight: any;
   screenWidth: any;
   mapSize: any;
@@ -181,6 +182,10 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
       for (var windowIndex = this.markerArray.length -1; windowIndex > -1; windowIndex -= 1) {
         this.markerArray[windowIndex].markerOpened = false;     
     }
+      if (message === 'closeMarkers') {
+        this.mapaToggle = this.addTruckService.mapaToggle;
+        this.listToggle = this.addTruckService.listToggle;
+      }
       if (message === 'search') {
         this.latitude = 49.8915943;
   this.longitude = 8.9206519;
