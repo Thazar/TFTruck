@@ -418,6 +418,7 @@ export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck {
     const change = this.differ.diff(this.markerArray);
     if(change) {
       this.dataSource = new MatTableDataSource<Marker>(this.markerArray);
+      this.expandedElement = this.expandedElement;
     }
   }
 
@@ -535,6 +536,13 @@ getScreenSize(event?) {
        ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ `,
       ).onTap.pipe().subscribe(() => {
         this.addTruckService.toastrClicked = true;
+        if(this.addTruckService.listToggle === true) {
+        this.addTruckService.listToggle = false;
+        }
+        this.listToggle = this.addTruckService.listToggle;
+        this.addTruckService.mapaToggle = true;
+        this.mapaToggle = this.addTruckService.mapaToggle;
+        this.addTruckService.changeMessageMapa('changeToggle');
         this.addTruckService.position.latitude = toastrLatitude;
         this.addTruckService.position.longitute = toastrLongitude;
         this.addTruckService.position.zoom = 8;
@@ -743,6 +751,13 @@ getScreenSize(event?) {
       }
     }
      this.addTruckService.changeMessageMapa('scan');
+     for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+      if(this.markerArray[colorIndex + 1].color === "white") {
+        this.markerArray[colorIndex].color = "grey";
+      } else {
+        this.markerArray[colorIndex].color = "white";
+      }
+    }
    });
     }
     initiateDeleteTruck(msg: Marker) {

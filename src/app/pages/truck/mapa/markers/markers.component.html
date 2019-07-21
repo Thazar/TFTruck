@@ -114,18 +114,23 @@
 
 <ng-container matColumnDef="expandedDetail" >
  <td id="{{element.color}}" mat-cell *matCellDef="let element" [attr.colspan]="columnsValue.length">
-   <div   class="example-element-detail"
+   <div   class="example-element-detail" style="min-height: 75px ;"
         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-     <div class="example-element-diagram">
-       <div class="example-element-position"> {{element.adres}} </div>
-       <div class="example-element-symbol"> {{element.wolnyOd}} </div>
-       <div class="example-element-name"> {{element.wolnyDo}} </div>
-       <div class="example-element-weight"> {{element.firstName}} </div>
-     </div>
-     <div class="example-element-description">
-       {{element.description}}
-       <span class="example-element-description-attribution"> -- Wikipedia </span>
-     </div>
+       
+        <div style="border-right: 1.5px solid  #0081ba; margin-bottom: 15px; margin-left: -2px; min-height: 75px ; padding-top: 5px; padding-right: 15px;">
+            <mat-icon style="color: #0081ba;">person</mat-icon>
+            <div style="display: inline-flex;  vertical-align: middle !important; ">
+            <h5 style="margin-right: 15px; margin-top: -7px;" >{{element.firstName}} {{element.lastName}}</h5>
+            </div>
+
+            <div></div>
+
+            <mat-icon style="color: #0081ba; margin-top: 8px;">alarm_add</mat-icon>   
+            <div style="display: inline-flex;  vertical-align: middle !important; ">
+            <h5 style="margin-top: 10px;  margin-top: -8px;">Dodano: {{element.tel}}</h5> 
+            </div>
+            </div>
+        
    </div>
  </td>
 </ng-container>
