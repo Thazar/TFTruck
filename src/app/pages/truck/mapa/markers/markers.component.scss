@@ -59,6 +59,19 @@ tr.example-element-row:not(.example-expanded-row):hover {
 
 tr.example-element-row:not(.example-expanded-row):active {
   background-color: #0081ba!important;
+
+}
+
+tr.example-element-row.example-expanded-row:hover {
+  background-color: #0081ba!important;
+
+ 
+}
+
+
+tr.example-element-row {
+  cursor: pointer;
+  border-bottom: 1.5px solid #0081ba !important;
   border-bottom-width: 100%;
 }
 

@@ -19,11 +19,11 @@
         </div>
         <div style="display: inline-block;">
           <mat-button-toggle-group #group="matButtonToggleGroup" [value] = "toggleValue" (change)="changeToggleValue(group.value)">
-            <mat-button-toggle value="mapa">
+            <mat-button-toggle value="mapa" [checked]="mapaToggle">
               mapa
               <mat-icon style="-webkit-text-fill-color:#0081ba">place</mat-icon>
             </mat-button-toggle>
-            <mat-button-toggle value="lista">  
+            <mat-button-toggle value="lista" [checked]="listToggle">  
               <mat-icon style="-webkit-text-fill-color:#0081ba">view_list</mat-icon>
               lista
             </mat-button-toggle>
