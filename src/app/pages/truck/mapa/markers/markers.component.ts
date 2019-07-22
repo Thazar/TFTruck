@@ -110,7 +110,7 @@ export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck {
   stompClient: any;
   matRow: boolean = true;
   columnsValue = ['tel',  'rodzaj', 'typ',  'wolnyOd', 'wolnyDo','kraj', 'adres'];
-  displayedColumns = {tel: 'Dodano',  rodzaj: 'Pojazd', typ: 'Nadwozie', wolnyOd: 'Wolny od', wolnyDo: 'Wolny do', kraj:'', adres: 'Adres'}
+  displayedColumns = {tel: 'Dodano',  rodzaj: 'Pojazd', typ: 'Nadwozie', wolnyOd: 'Wolny od', wolnyDo: 'Wolny do', kraj:'', adres: 'Adres',}
   icons = {tel: 'fas fa-history fa-2x', rodzaj: 'fas fa-truck fa-2x', wolnyOd: 'fas fa-calendar fa-2x', wolnyDo: 'far fa-calendar fa-2x', typ: 'fas fa-truck-loading fa-2x', kraj:'fas fa-flag fa-2x', adres: 'fas fa-map-marker-alt fa-2x'}
   dataSource = new MatTableDataSource<Marker>(this.markerArray);
   paginator: MatPaginator;
