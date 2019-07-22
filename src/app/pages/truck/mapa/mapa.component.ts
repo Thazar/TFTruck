@@ -146,7 +146,13 @@ export class MapaComponent implements OnInit {
     this.tempSelected = [];
 
     this.addTruckService.currentMessageMapa.subscribe(message => {
+      console.log("messege ma messegae: " + message)
       this.pojazdy = this.addTruckService.pojazdy;
+      if(message === 'changeToggle') {
+       console.log(" no to jedziemy")
+        this.listToggle = this.addTruckService.listToggle;
+        this.mapaToggle = this.addTruckService.mapaToggle;
+      }
     });
   };
 

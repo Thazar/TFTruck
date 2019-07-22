@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, IterableDiffers, DoCheck} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, IterableDiffers, DoCheck, AfterContentInit} from '@angular/core';
 import { Observable, range } from 'rxjs';
 import { Truck } from '../add-truck/truck';
 import { AddTruckService } from '../add-truck/add-truck.service';
@@ -55,7 +55,7 @@ interface Marker {
     ]),
   ],
 })
-export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
+export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck {
   truck: Observable<Truck>;
   newTruck: Truck;
   trucks: Observable<Truck[]>;
@@ -108,13 +108,13 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
   notifications: Notifications;
   circleShowed: boolean = false;
   stompClient: any;
-
+  matRow: boolean = true;
   columnsValue = ['tel',  'rodzaj', 'typ',  'wolnyOd', 'wolnyDo','kraj', 'adres'];
-  displayedColumns = {tel: 'Dodano',  rodzaj: 'Pojazd', typ: 'Nadwozie', wolnyOd: 'Wolny od', wolnyDo: 'Wolny do', kraj:'', adres: 'Adres'}
+  displayedColumns = {tel: 'Dodano',  rodzaj: 'Pojazd', typ: 'Nadwozie', wolnyOd: 'Wolny od', wolnyDo: 'Wolny do', kraj:'', adres: 'Adres',}
   icons = {tel: 'fas fa-history fa-2x', rodzaj: 'fas fa-truck fa-2x', wolnyOd: 'fas fa-calendar fa-2x', wolnyDo: 'far fa-calendar fa-2x', typ: 'fas fa-truck-loading fa-2x', kraj:'fas fa-flag fa-2x', adres: 'fas fa-map-marker-alt fa-2x'}
   dataSource = new MatTableDataSource<Marker>(this.markerArray);
-  private paginator: MatPaginator;
-  private sort: MatSort;
+  paginator: MatPaginator;
+  sort: MatSort;
   expandedElement: Marker | null;
 
 
@@ -130,8 +130,9 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
   }
 
   setDataSourceAttributes() {
-    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    
   }
 
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
@@ -178,7 +179,10 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
     const moment = require('moment');
     moment.locale('pl');
     this.addTruckService.currentMessage.subscribe(message => {
-     
+     if (this.dataSource.sort) {
+       this.dataSource.sort.direction = '';
+       this.dataSource.sort._stateChanges.next();
+     }
       for (var windowIndex = this.markerArray.length -1; windowIndex > -1; windowIndex -= 1) {
         this.markerArray[windowIndex].markerOpened = false;     
     }
@@ -187,6 +191,9 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
         this.listToggle = this.addTruckService.listToggle;
       }
       if (message === 'search') {
+        this.matRow = false;
+        this.dataSource = new MatTableDataSource<Marker>(this.markerArray);
+        this.matRow = true;
         this.latitude = 49.8915943;
   this.longitude = 8.9206519;
   this.zoom = 6;
@@ -196,6 +203,13 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
       this.circleColor = "red"
       this.markerArray = [...this.savedMarkers];
       this.addTruckService.pojazdy = this.markerArray.length;
+      for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+        if(this.markerArray[colorIndex + 1].color === "white") {
+          this.markerArray[colorIndex].color = "grey";
+        } else {
+          this.markerArray[colorIndex].color = "white";
+        }
+      }
       this.addTruckService.changeMessageMapa('scan');
         this.circleLat = addTruckService.filter.lat;
         this.circleLng = addTruckService.filter.lng;
@@ -210,6 +224,13 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
             if (filterDateValue < dateOdValue || filterDateValue > dateDoValue ) {
               this.markerArray.splice(index, 1);
               this.addTruckService.pojazdy = this.markerArray.length;
+              for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+                if(this.markerArray[colorIndex + 1].color === "white") {
+                  this.markerArray[colorIndex].color = "grey";
+                } else {
+                  this.markerArray[colorIndex].color = "white";
+                }
+              }
         this.addTruckService.changeMessageMapa('scan');
               continue;
             }
@@ -218,6 +239,13 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
             if (this.markerArray[index].typ !== this.addTruckService.filter.typValue) {
               this.markerArray.splice(index, 1);
               this.addTruckService.pojazdy = this.markerArray.length;
+              for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+                if(this.markerArray[colorIndex + 1].color === "white") {
+                  this.markerArray[colorIndex].color = "grey";
+                } else {
+                  this.markerArray[colorIndex].color = "white";
+                }
+              }
         this.addTruckService.changeMessageMapa('scan');
               continue;
             }
@@ -226,6 +254,13 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
             if (this.markerArray[index].rodzaj !== this.addTruckService.filter.rodzajValue) {
               this.markerArray.splice(index, 1);
               this.addTruckService.pojazdy = this.markerArray.length;
+              for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+                if(this.markerArray[colorIndex + 1].color === "white") {
+                  this.markerArray[colorIndex].color = "grey";
+                } else {
+                  this.markerArray[colorIndex].color = "white";
+                }
+              }
         this.addTruckService.changeMessageMapa('scan');
               continue;
             }
@@ -246,6 +281,13 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
               console.log("specwybrane" + this.addTruckService.filter.specSelected.length + "nie jest rowny specCount:" + specCount);
               this.markerArray.splice(index, 1);
               this.addTruckService.pojazdy = this.markerArray.length;
+              for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+                if(this.markerArray[colorIndex + 1].color === "white") {
+                  this.markerArray[colorIndex].color = "grey";
+                } else {
+                  this.markerArray[colorIndex].color = "white";
+                }
+              }
         this.addTruckService.changeMessageMapa('scan');
               specCount = 0;
               continue;
@@ -275,6 +317,13 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
           if (filterDateValue < dateOdValue || filterDateValue > dateDoValue ) {
             this.markerArray.splice(index, 1);
             this.addTruckService.pojazdy = this.markerArray.length;
+            for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+              if(this.markerArray[colorIndex + 1].color === "white") {
+                this.markerArray[colorIndex].color = "grey";
+              } else {
+                this.markerArray[colorIndex].color = "white";
+              }
+            }
         this.addTruckService.changeMessageMapa('scan');
             continue;
           }
@@ -286,6 +335,13 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
        if (distanceInKm > this.range) {
          this.markerArray.splice(index, 1);
          this.addTruckService.pojazdy = this.markerArray.length;
+         for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+          if(this.markerArray[colorIndex + 1].color === "white") {
+            this.markerArray[colorIndex].color = "grey";
+          } else {
+            this.markerArray[colorIndex].color = "white";
+          }
+        }
         this.addTruckService.changeMessageMapa('scan');
        } else this.circleColor = "#0081ba"
       }
@@ -299,12 +355,26 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
           if  (this.markerArray[index].kraj !== this.addTruckService.filter.kraj) {     
           this.markerArray.splice(index, 1)
           this.addTruckService.pojazdy = this.markerArray.length;
+          for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+            if(this.markerArray[colorIndex + 1].color === "white") {
+              this.markerArray[colorIndex].color = "grey";
+            } else {
+              this.markerArray[colorIndex].color = "white";
+            }
+          }
         this.addTruckService.changeMessageMapa('scan');
           continue;
         }
         
       }
       this.addTruckService.pojazdy = this.markerArray.length;
+      for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+        if(this.markerArray[colorIndex + 1].color === "white") {
+          this.markerArray[colorIndex].color = "grey";
+        } else {
+          this.markerArray[colorIndex].color = "white";
+        }
+      }
         this.addTruckService.changeMessageMapa('scan');
     }
   }
@@ -333,8 +403,9 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
   }
 
 
-  ngOnInit() {
+  ngAfterContentInit() {
     this.reloadData();
+    
     
   }
 
@@ -347,7 +418,7 @@ export class MarkersComponent implements OnInit ,OnDestroy, DoCheck {
     const change = this.differ.diff(this.markerArray);
     if(change) {
       this.dataSource = new MatTableDataSource<Marker>(this.markerArray);
-      console.log("color pierwszy = " + this.markerArray[1].color + " color drugi = " + this.markerArray[2].color)
+      this.expandedElement = this.expandedElement;
     }
   }
 
@@ -428,15 +499,25 @@ getScreenSize(event?) {
           color: 'white',
         });
 
-        for(var colorIndex = this.markerArray.length -1; colorIndex > -1; colorIndex -= 1) {
-          if(colorIndex % 2 == 0) {
-            this.markerArray[colorIndex].color = 'grey'
+       
+        for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+          if(this.markerArray[colorIndex + 1].color === "white") {
+            this.markerArray[colorIndex].color = "grey";
+          } else {
+            this.markerArray[colorIndex].color = "white";
           }
         }
 
         this.showMarkers = true;
         this.savedMarkers = [...this.markerArray]
         this.addTruckService.pojazdy = this.markerArray.length;
+        for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+          if(this.markerArray[colorIndex + 1].color === "white") {
+            this.markerArray[colorIndex].color = "grey";
+          } else {
+            this.markerArray[colorIndex].color = "white";
+          }
+        }
         this.addTruckService.changeMessageMapa('scan');
       })
     })
@@ -455,6 +536,13 @@ getScreenSize(event?) {
        ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ `,
       ).onTap.pipe().subscribe(() => {
         this.addTruckService.toastrClicked = true;
+        if(this.addTruckService.listToggle === true) {
+        this.addTruckService.listToggle = false;
+        }
+        this.listToggle = this.addTruckService.listToggle;
+        this.addTruckService.mapaToggle = true;
+        this.mapaToggle = this.addTruckService.mapaToggle;
+        this.addTruckService.changeMessageMapa('changeToggle');
         this.addTruckService.position.latitude = toastrLatitude;
         this.addTruckService.position.longitute = toastrLongitude;
         this.addTruckService.position.zoom = 8;
@@ -655,7 +743,21 @@ getScreenSize(event?) {
      }
      this.showToast();
      this.addTruckService.pojazdy = this.markerArray.length;
+     for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+      if(this.markerArray[colorIndex + 1].color === "white") {
+        this.markerArray[colorIndex].color = "grey";
+      } else {
+        this.markerArray[colorIndex].color = "white";
+      }
+    }
      this.addTruckService.changeMessageMapa('scan');
+     for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+      if(this.markerArray[colorIndex + 1].color === "white") {
+        this.markerArray[colorIndex].color = "grey";
+      } else {
+        this.markerArray[colorIndex].color = "white";
+      }
+    }
    });
     }
     initiateDeleteTruck(msg: Marker) {
@@ -687,6 +789,13 @@ getScreenSize(event?) {
       }
       this.showToastDelete(companyName, adres, rodzaj, typ);
       this.addTruckService.pojazdy = this.markerArray.length;
+      for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
+        if(this.markerArray[colorIndex + 1].color === "white") {
+          this.markerArray[colorIndex].color = "grey";
+        } else {
+          this.markerArray[colorIndex].color = "white";
+        }
+      }
       this.addTruckService.changeMessageMapa('scan');
       
     
@@ -714,7 +823,6 @@ getScreenSize(event?) {
    sortClicked() {
      
     this.markerArray = this.dataSource.sortData(this.dataSource.filteredData,this.dataSource.sort)
-     console.log("initializing sortClicked()..." + this.markerArray[1].tel)
     for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
       if(this.markerArray[colorIndex + 1].color === "white") {
         this.markerArray[colorIndex].color = "grey";
