@@ -764,6 +764,10 @@ getScreenSize(event?) {
       this.addTruckService.deleteTruckById(msg.id)
       .subscribe(data => console.log(data), error =>  console.log(error));
     }
+    initiateDeleteTruckLista(id) {
+      this.addTruckService.deleteTruckById(id)
+      .subscribe(data => console.log(data), error =>  console.log(error));
+    }
     deleteTruck(id: number) {
        var companyName ;
        var adres;
