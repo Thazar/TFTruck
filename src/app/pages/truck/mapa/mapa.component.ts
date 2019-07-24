@@ -134,6 +134,7 @@ export class MapaComponent implements OnInit {
    
 
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
+  @ViewChild('edytuj', { read: TemplateRef }) edytujTemplate: TemplateRef<HTMLElement>;
 
   constructor(private windowService: NbWindowService, private mapaService: MapaService, private addTruckService: AddTruckService) {
     
@@ -166,7 +167,7 @@ export class MapaComponent implements OnInit {
   ref: NbWindowRef;
 
   openWindowWithoutBackdrop() {
-    if (this.mapaService.windowOpened == true) {
+    if (this.mapaService.windowOpened === true) {
       return;
     }
     this.mapaService.windowOpened = true;
@@ -178,6 +179,17 @@ export class MapaComponent implements OnInit {
    this.mapaService.ref.onClose.subscribe(frames => {
      this.mapaService.windowOpened = false;
    });
+  }
+
+  openEdytujWindow() {
+    if(this.mapaService.edytujWindowOpened === true) {
+      return;
+    }
+    this.mapaService.edytujWindowOpened = true;
+    this.mapaService.ref = this.windowService.open(
+      this.edytujTemplate,
+      {title: 'Edycja Pojazdu', hasBackdrop: false, closeOnEsc: false}
+    )
   }
 
   close() {

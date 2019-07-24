@@ -9,7 +9,8 @@ import { NbWindowRef } from '@nebular/theme';
   
 })
 export class MapaService {
-  windowOpened: boolean;
+  windowOpened: boolean = false;
+  edytujWindowOpened: boolean = false;
   ref: NbWindowRef;
   loggedOfWithOpenedWindow: boolean;
 
