@@ -186,7 +186,7 @@
    <div  class="example-element-detail" style="min-height: 75px;"
    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
    <div style="display: inline-flex; width: 100%; border-top: 1px solid  #e4e5e5;">
-       <button style="" mat-button color="green" ><mat-icon>my_location</mat-icon> Mapa</button>
+       <button (click)="mapShowTruck(element.id)" style="" mat-button color="green" ><mat-icon>my_location</mat-icon> Mapa</button>
        <button style="" mat-button color="blue" ><mat-icon>edit </mat-icon> Edytuj</button>
        <button style="" mat-button color="warn" (click)="initiateDeleteTruck(mark)"><mat-icon>delete_forever </mat-icon> Usuń</button>
       </div>

@@ -833,6 +833,25 @@ getScreenSize(event?) {
  
    }
 
+   mapShowTruck(id) {
+    if(this.addTruckService.listToggle === true) {
+      this.addTruckService.listToggle = false;
+      }
+      this.listToggle = this.addTruckService.listToggle;
+      this.addTruckService.mapaToggle = true;
+      this.mapaToggle = this.addTruckService.mapaToggle;
+      this.addTruckService.changeMessageMapa('changeToggle');
+      for(var showIndex = this.markerArray.length -1; showIndex > -1; showIndex -= 1) {
+        if(this.markerArray[showIndex].id === id) {
+          this.addTruckService.position.latitude = this.markerArray[showIndex].lat;
+          this.addTruckService.position.longitute = this.markerArray[showIndex].lng;
+          this.addTruckService.position.zoom = 8;
+          this.addTruckService.changeMessageMapaPosition('set');
+          this.markerArray[showIndex].markerOpened = true;
+        }
+      }
+   }
+
   }
 
 

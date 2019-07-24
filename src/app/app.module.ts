@@ -37,7 +37,8 @@ import { ToastrModule } from 'ngx-toastr';
     MatButtonModule,
    
     ToastrModule.forRoot({
-      timeOut: 10000,
+      timeOut: 15000,
+      maxOpened: 1,
       positionClass: 'toast-top-center'
     }),
 
