@@ -1,30 +1,40 @@
-
+<div class="window">
 <h5 style="padding-bottom: 10px">Adres i Termin:</h5>
-<div class="div">
-  <div class="second-input" style="margin-left: 40px;">
-    <label >Wolny od</label>
-        <input style="height: 37px; min-width: 200px; display: inline-block;" nbInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value" [(ngModel)]="dateOdValue" >
-        <mat-datepicker-toggle style="margin-left: -45px;" matSuffix [for]="picker1"></mat-datepicker-toggle>
+
+  <div class="second-input" style="margin-left: 40px; ">
+    <mat-form-field style="font-size: 14px; width: 200px !important;">
+        <input style="display: inline-block;" matInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value" [(ngModel)]="dateOdValue" >
+        <mat-datepicker-toggle style="font-size: 150%" matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
       </div>
-  <div  class="second-input" style=" margin-bottom: 15px; margin-left: -34px;">
-    <label style="">Wolny do</label>
-      <input nbInput style="height: 37px; min-width: 200px; display: inline-block" [matDatepicker]="picker2" placeholder="Wolny do" [value]="dateDo.value" [(ngModel)]="dateDoValue">
-      <mat-datepicker-toggle style="margin-left: -45px;" matSuffix [for]="picker2"></mat-datepicker-toggle>
+
+  <div  class="second-input" style=" margin-bottom: 15px; margin-right: 40px; ">
+    <mat-form-field style="font-size: 14px; width: 200px !important;">
+      <input matInput style="display: inline-block" [matDatepicker]="picker2" placeholder="Wolny do" [value]="dateDo.value" [(ngModel)]="dateDoValue">
+      <mat-datepicker-toggle style="font-size: 150%" matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
   </div>
+
 <div></div>
-<div class="input">
-    <input style="height: 37px; min-width: 200px;" [(ngModel)]="value" nbInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" (click)="clear()" >
+
+<div class="input" style="">
+    <mat-form-field style=" width: 200px">
+    <input  [(ngModel)]="value" matInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" (click)="clear()"  type="text" name="somethingAutofillDoesntKnow"  >
     <mat-autocomplete (optionSelected)="countrySelected($event)" #auto="matAutocomplete">
       <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
         <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
         <span>{{state.name}}</span>
       </mat-option>
     </mat-autocomplete>
+    </mat-form-field>
   </div> 
+
 <div class="second-input" *ngIf="countryShortSelected; else falseInput" >
-        <input style="height: 37px; min-width: 200px;" autocomplete="off" nbInput    (click)="clearAdres()"
+    <mat-form-field style="font-size: 14px; width: 200px !important;">
+        <input type="text" name="somethingAutofillDoesntKnow" autocomplete="off" matInput    (click)="clearAdres()"
+        placeholder="Adres"
         [(ngModel)]="adresValue"
         id="adres"
         matGoogleMapsAutocomplete
@@ -33,45 +43,41 @@
         (onLocationSelected)="onLocationSelected($event)"
         (onAutocompleteSelected)="onAutocompleteSelected($event)"
         >
+        </mat-form-field>
                     </div>  
     <ng-template #falseInput>
       <div class="second-input">
-        <input placeholder="Wybierz Kraj" style="min-width: 200px; height: 37px;" nbInput [disabled]="countryNotSelected" >
+          <mat-form-field style="font-size: 14px; width: 200px !important;">
+        <input placeholder="Wybierz Kraj"  matInput [disabled]="countryNotSelected" >
+        </mat-form-field>
       </div>
     </ng-template>
-</div>
+
 
 <h5 class="h5" style="padding-bottom: 10px; margin-top: -5px;">Opis Pojazdu:</h5>
 <div class="div"> 
-  <div class="input">   
-      <input style="min-width: 200px; height: 37px;" nbInput [disabled]="true">
-</div> 
-<div class="second-input"> 
-   <mat-select style="margin-left: -205px; min-width: 170px; min-height: 42.5px;"  [(ngModel)]="typValue">  
+<div class="second-input" style="margin-left: 40px;"> 
+    <mat-form-field style="font-size: 14px; width: 200px !important;">
+   <mat-select [(ngModel)]="typValue">  
     <mat-option  *ngFor="let type of types" [value]="type.value" >
       {{type.viewValue}}
     </mat-option>
   </mat-select>
-  <mat-label *ngIf="!typValue; else mat2" style="margin-left: -170px; margin-right: 192px;">Nadwozie</mat-label>
-  <ng-template #mat2>
-      <mat-label style=" margin-left: 48.5px; min-width: 200px;"></mat-label>
-    </ng-template>
+  <mat-label>Nadwozie</mat-label>
+    </mat-form-field>
 </div>
 
-<div  class="second-input">  
-    
-</div>
-<div class="second-input" style="margin-left:-20px">
-    <input style="min-width: 200px; height: 37px; margin-left: -50px;" nbInput [disabled]="true">
-</div>
-<div class="second-input" style="margin-left:-20px">
-<mat-select style="margin-left: -165px; min-width: 170px; min-height: 42.5px;"  [(ngModel)]="rodzajValue">
+
+
+<div class="second-input">
+    <mat-form-field style="font-size: 14px; width: 200px !important;">
+<mat-select [(ngModel)]="rodzajValue">
 <mat-option *ngFor="let spec of specs" [value]="spec.value">
   {{spec.viewValue}} 
 </mat-option>
 </mat-select>
-<mat-label *ngIf="!rodzajValue;" style="margin-left: -170px;">Rodzaj</mat-label>
-
+<mat-label>Typ Pojazdu</mat-label>
+    </mat-form-field>
 </div>
 <mat-expansion-panel style=
 "margin-left: 22px;
@@ -115,4 +121,4 @@
 
 </div>
 
-
+</div>

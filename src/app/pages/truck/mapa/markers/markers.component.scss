@@ -23,10 +23,26 @@
       .mat-button.mat-blue {
         color: #0081ba;
      }
+
+     .mat-button.mat-blue:hover {
+      background-color: #e6edf8;
+   }
+     
      
      .mat-raised-button.mat-blue, .mat-flat-button.mat-blue{
         color: #0081ba;
      }
+
+     .mat-button.mat-green {
+      color: #3eceb2;
+   }
+   .mat-button.mat-green:hover {
+     background-color: #e8f5e9 !important;
+   }
+   
+   .mat-raised-button.mat-green, .mat-flat-button.mat-green{
+      color: #3eceb2;
+   }
      ::ng-deep .gm-style-iw-c {
       max-height: 500px !important;
   }
