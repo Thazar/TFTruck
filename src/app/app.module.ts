@@ -19,14 +19,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AuthGuard} from './auth.guard';
-import { NbWindowService } from '@nebular/theme';
+import { NbWindowService, NbWindowModule, NbDatepickerModule, NbSelectModule, NbTabsetModule } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MAT_DATE_LOCALE, MatButtonModule } from '@angular/material';
+import { MAT_DATE_LOCALE, MatButtonModule, MatIconModule, MatInputModule, MatAutocompleteModule, MatSelectModule, MatExpansionModule, MatCheckboxModule, MatDividerModule, MatDatepickerModule, MatNativeDateModule, MatTabsModule, MatSlideToggleModule, MatToolbarModule, MatButtonToggleModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
+import { EditTruckComponent } from './pages/truck/mapa/edit-truck/edit-truck.component';
+import { AddTruckComponent } from './pages/truck/mapa/add-truck/add-truck.component';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
-  declarations: [AppComponent],
+ 
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -35,6 +39,12 @@ import { ToastrModule } from 'ngx-toastr';
     AngularFontAwesomeModule,
     ReactiveFormsModule,
     MatButtonModule,
+    NbWindowModule.forRoot(), MatIconModule, MatInputModule, MatButtonModule, MatGoogleMapsAutocompleteModule.forRoot() , ReactiveFormsModule,AngularFontAwesomeModule, ReactiveFormsModule, MatAutocompleteModule, 
+    NbDatepickerModule.forRoot(), NbDatepickerModule, NbSelectModule, MatSelectModule, HttpClientModule, MatExpansionModule, MatCheckboxModule, MatDividerModule, NbTabsetModule, MatDatepickerModule, MatNativeDateModule,
+    ThemeModule, MatTabsModule, MatSlideToggleModule, MatToolbarModule, MatButtonToggleModule, MatTableModule, MatPaginatorModule, MatSortModule,AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCl_eRT8a-rXEmSZzHcXYKi7zNI0XlGb-w',
+      libraries: ['places','geometry'],
+    }),
    
     ToastrModule.forRoot({
       timeOut: 15000,
@@ -46,6 +56,8 @@ import { ToastrModule } from 'ngx-toastr';
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
   ],
+  entryComponents: [EditTruckComponent, AddTruckComponent,],
+  declarations: [AppComponent, EditTruckComponent, AddTruckComponent ],
   bootstrap: [AppComponent],
   providers: [
     NbWindowService,

@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MarkersComponent } from './mapa/markers/markers.component';
 import { ListComponent } from './mapa/list/list.component';
+import { EditTruckComponent } from './mapa/edit-truck/edit-truck.component';
+import { MapaComponent } from './mapa/mapa.component';
 
 
 
@@ -30,7 +32,7 @@ import { ListComponent } from './mapa/list/list.component';
       }),
       TruckRoutingModule, 
     ],
-    entryComponents: [MarkersComponent],
+    entryComponents: [MarkersComponent,],
   bootstrap: [MarkersComponent],
   providers: [{
       provide: MatPaginatorIntl, 
@@ -42,9 +44,7 @@ import { ListComponent } from './mapa/list/list.component';
       ...routedComponents,
       MarkersComponent,
       ListComponent,
-     
-   
-  
+      MapaComponent, 
     ],
   })
 

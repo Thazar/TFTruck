@@ -9,6 +9,9 @@ import { HostListener } from '@angular/core';
 import PlaceResult = google.maps.places.PlaceResult;
 import {Location, Appearance} from '@angular-material-extensions/google-maps-autocomplete';
 import { AddTruckService } from './add-truck/add-truck.service';
+import { EditTruckComponent } from './edit-truck/edit-truck.component';
+import { AddTruckComponent } from './add-truck/add-truck.component';
+
 
 
 
@@ -134,7 +137,7 @@ export class MapaComponent implements OnInit {
    
 
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
-  @ViewChild('edytuj', { read: TemplateRef }) edytujTemplate: TemplateRef<HTMLElement>;
+
 
   constructor(private windowService: NbWindowService, private mapaService: MapaService, private addTruckService: AddTruckService) {
     
@@ -172,11 +175,11 @@ export class MapaComponent implements OnInit {
     }
     this.mapaService.windowOpened = true;
     
-    this.mapaService.ref = this.windowService.open(
-      this.disabledEscTemplate,
+    this.ref = this.windowService.open(
+      AddTruckComponent,
       { title: 'Dodawanie Pojazdu', hasBackdrop: false, closeOnEsc: false },
     );
-   this.mapaService.ref.onClose.subscribe(frames => {
+   this.ref.onClose.subscribe(frames => {
      this.mapaService.windowOpened = false;
    });
   }
@@ -186,10 +189,7 @@ export class MapaComponent implements OnInit {
       return;
     }
     this.mapaService.edytujWindowOpened = true;
-    this.mapaService.ref = this.windowService.open(
-      this.edytujTemplate,
-      {title: 'Edycja Pojazdu', hasBackdrop: false, closeOnEsc: false}
-    )
+    this.windowService.open(EditTruckComponent, {title: 'Edycja Pojazdu'})
   }
 
   close() {

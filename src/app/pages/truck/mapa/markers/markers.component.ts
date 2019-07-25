@@ -55,7 +55,7 @@ interface Marker {
     ]),
   ],
 })
-export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck {
+export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck, OnInit {
   truck: Observable<Truck>;
   newTruck: Truck;
   trucks: Observable<Truck[]>;
@@ -407,6 +407,10 @@ export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck {
     this.reloadData();
     
     
+  }
+
+  ngOnInit() {
+    this.circleShowed = false;
   }
 
   

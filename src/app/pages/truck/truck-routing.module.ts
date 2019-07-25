@@ -23,6 +23,5 @@ const routes: Routes = [{
   export const routedComponents = [
     TruckComponent,
     MapaComponent,
-    AddTruckComponent,
   ];
   
