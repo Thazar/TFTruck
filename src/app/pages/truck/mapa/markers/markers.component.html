@@ -113,10 +113,13 @@
 </ng-container>
 
 <ng-container matColumnDef="expandedDetail" >
- <td id="{{element.color}}" mat-cell *matCellDef="let element" [attr.colspan]="columnsValue.length">
+ <td id="{{element.color}}" mat-cell *matCellDef="let element" [attr.colspan]="columnsValue.length" style="padding-left: 0 !important; padding-right: 0 !important;">
+  
    <div   class="example-element-detail" style="min-height: 75px; "
-        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">      
-        <div style="border-right: 1px solid  #e4e5e5; margin-bottom: 15px; margin-left: -2px; min-height: 75px ; padding-right: 35px;">
+        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">   
+        <div style="display: inline-flex;   border-top: 1px solid  #e4e5e5; width: 100% ">
+          <div style="width:15px;"></div>
+        <div style="margin-bottom: 15px; margin-top: 15px;  min-height: 75px ; padding-right: 35px; border-right: 1px solid  #e4e5e5;">
             <mat-icon style="color: #0081ba; font-size: 200%;">person</mat-icon>
             <div style="display: inline-flex;  vertical-align: middle !important; ">
             <h6 style="margin-right: 15px; margin-top: -7px; margin-left: 5px" >{{element.firstName}} {{element.lastName}}</h6>
@@ -130,15 +133,15 @@
 
             
 
-                <div style=" border-right: 1px solid  #e4e5e5; margin-bottom: 15px; margin-left: 15px; min-height: 75px ; padding-top: 5px; padding-right: 35px;">
-                    <mat-icon style="color: #0081ba; margin-left: -3px;">info</mat-icon>
+                <div style=" border-right: 1px solid  #e4e5e5; margin-bottom: 15px; margin-top: 15px; margin-left: 15px; min-height: 75px ; padding-top: 5px; padding-right: 35px;">
+                    <img src="assets/images/trans2.png" style=" margin-left: -10px; width: 17%; margin-top: -10px; ">
                     <div style="display: inline-flex;  vertical-align: middle !important; ">
-                    <h6 style="margin-right: 15px; margin-top: -7px; margin-left: 9px; max-width: 255px;" >Uwagi: {{element.uwagi}}</h6>
-                    </div>
+                        <h6 style=" margin-top: -1px; margin-left: 5px;">{{element.transId}}</h6>
+                        </div>
         
                     <div></div>
         
-                    <mat-icon style="color: #0081ba; margin-top: 8px; margin-left: -2px;">build</mat-icon>   
+                    <mat-icon style="color: #0081ba; margin-top: 8px; margin-left: px;">build</mat-icon>   
                     <div style="display: inline-flex;  vertical-align: middle !important; ">
                     <h6 style="margin-top: 10px;  margin-top: -8px; margin-left: 7px;">Specyfikacje: {{element.adr}} {{element.edscha}} {{element.winda}} {{element.cerXl}}</h6> 
                     </div>
@@ -146,7 +149,7 @@
 
                     
                     
-              <div style=" border-right: 1px solid  #e4e5e5; margin-bottom: 15px; margin-left: 15px; min-height: 75px ; padding-top: 5px; padding-right: 35px;">
+              <div style=" border-right: 1px solid  #e4e5e5; margin-bottom: 15px; margin-top: 15px; margin-left: 15px; min-height: 75px ; padding-top: 5px; padding-right: 35px;">
                     <mat-icon style="color: #0081ba;">email</mat-icon>
                     <div style="display: inline-flex;  vertical-align: middle !important; ">
                     <a style="margin-right: 15px; margin-top: -15px; margin-left: 5px" href="mailto:{{element.email}}?Subject=Wolne%20Auto">{{element.email}}</a>
@@ -161,20 +164,34 @@
 
                     </div>
 
-                    <div style="margin-bottom: 15px; margin-left: 15px; min-height: 75px ; padding-top: 5px; padding-right: 35px;">
-                        <img src="assets/images/trans2.png" style=" margin-left: -5px; width: 17%; margin-top: -10px; ">
+                    <div style=" margin-bottom: 15px; margin-top: 15px; margin-left: 15px; min-height: 75px ; padding-top: 5px; padding-right: 35px;">
+                       
+                        <mat-icon style="color: #0081ba; margin-left: -3px;">info</mat-icon>
                         <div style="display: inline-flex;  vertical-align: middle !important; ">
-                        <h6 style=" margin-top: -1px; margin-left: 5px;">{{element.transId}}</h6>
-                        </div>
-            
+                            <h6 style="margin-right: 15px; margin-top: -7px; margin-left: 9px; max-width: 255px;" >Uwagi: {{element.uwagi}}</h6>
+                            </div>
                         <div></div>
-            
+                        
+                     
                  
     
                         </div>
+                        <div style="clear:both;"></div> 
+                     
               
-        
+        </div> 
+       
+       
    </div>
+   <div  class="example-element-detail" style="max-height: 38px;"
+   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+   <div style="display: inline-flex; width: 100%; border-top: 1px solid  #e4e5e5;">
+       <button (click)="mapShowTruck(element.id)" style="" mat-button color="green" ><mat-icon>my_location</mat-icon> Mapa</button>
+       <button style="" mat-button color="blue" ><mat-icon>edit </mat-icon> Edytuj</button>
+       <button style="" mat-button color="warn" (click)="initiateDeleteTruckLista(element.id)"><mat-icon>delete_forever </mat-icon> Usuń</button>
+      </div>
+     </div> 
+   
  </td>
 </ng-container>
 

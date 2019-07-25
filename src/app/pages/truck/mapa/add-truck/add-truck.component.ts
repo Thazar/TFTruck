@@ -10,6 +10,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { MarkersComponent } from '../markers/markers.component';
 
 import { MapaService } from '../mapa.service';
+import { NbWindowRef } from '@nebular/theme';
 
 
 export interface State {
@@ -98,7 +99,7 @@ export class AddTruckComponent  {
     {value: 'Full | 40t', viewValue: 'Full | 40t'},
   ];
 
-  constructor(private addTruckService: AddTruckService, private mapaService: MapaService) {
+  constructor(private addTruckService: AddTruckService, private mapaService: MapaService, public windowRef: NbWindowRef,) {
     this.dateDoValue = this.dateDo.value;
     this.dateOdValue = this.dateOd.value;
     this.filteredStates = this.stateCtrl.valueChanges
@@ -135,11 +136,15 @@ export class AddTruckComponent  {
       return
     }
     this.save();
-    this.mapaService.ref.close();
+    this.windowRef.close();
   }
   windowClose() {
-    this.mapaService.ref.close();
+    this.windowRef.close();
   }
+  close() {
+    this.windowRef.close();
+  }
+
 
   onLocationSelected(location: Location) {
     console.log('onLocationSelected: ', location);
