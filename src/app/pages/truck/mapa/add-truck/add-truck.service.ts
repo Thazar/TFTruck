@@ -65,10 +65,10 @@ export class AddTruckService {
   editTruckAdres: string;
   editTruckTyp: string;
   editTruckRodzaj: string;
-  editTruckAdr;
-  editTruckWinda;
-  editTruckEdscha;
-  editTruckCerXl;
+  editTruckAdr: boolean;
+  editTruckWinda: boolean;
+  editTruckEdscha: boolean;
+  editTruckCerXl: boolean;
   editTruckUwagi: '';
   editTruckKraj: string;
 

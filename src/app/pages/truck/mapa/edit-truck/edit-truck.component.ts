@@ -51,10 +51,10 @@ export class EditTruckComponent implements OnInit {
   dateDo = new FormControl(new Date((new Date).getTime()+ 86400000));
   dateOdValue;
   dateDoValue;
-  truckAdr: false;
-  truckWinda: false;
-  truckEdscha: false;
-  truckCerXl: false;
+  truckAdr: boolean = false;
+  truckWinda: boolean = false;
+  truckEdscha: boolean = false;
+  truckCerXl: boolean = false;
   truckUwagi: '';
  
   
@@ -121,11 +121,10 @@ export class EditTruckComponent implements OnInit {
     this.truckUwagi = this.addTruckService.editTruckUwagi;
     this.adresValue = this.addTruckService.editTruckAdres;
     this.value = this.addTruckService.editTruckKraj;
-    this.truckAdr = this.addTruckService.editTruckAdr;
-    this.truckWinda = this.addTruckService.editTruckWinda;
-    this.truckEdscha = this.addTruckService.editTruckEdscha;
-    this.truckCerXl = this.addTruckService.editTruckCerXl;
- 
+    if(this.addTruckService.editTruckWinda === 'Winda') { this.truckWinda = true; }
+    if(this.addTruckService.editTruckAdr === 'Adr') { this.truckAdr = true; }
+    if(this.addTruckService.editTruckEdscha === 'Edscha') { this.truckEdscha = true; }
+    if(this.addTruckService.editTruckCerXl === 'Cer. XL') { this.truckCerXl = true; } 
     console.log("jest wolny od " + this.addTruckService.editTruckAdr);
     
     
@@ -144,18 +143,10 @@ export class EditTruckComponent implements OnInit {
       this.countryShortSelected=true;
       this.countryNotSelected=false;
     }
-    this.truck.truckWolnyOd = this.addTruckService.editTruckWolnyOd;
-    this.truck.truckWolnyDo = this.addTruckService.editTruckWolnyDo;
-    this.truck.truckTyp = this.addTruckService.editTruckTyp;
-    this.truck.truckRodzaj = this.addTruckService.editTruckRodzaj;
-    this.truck.truckAdr = this.addTruckService.editTruckAdr;
-    this.truck.truckWinda = this.addTruckService.editTruckWinda;
-    this.truck.truckEdscha = this.addTruckService.editTruckEdscha;
-    this.truck.truckCerXl = this.addTruckService.editTruckCerXl;
-    this.truck.truckUwagi = this.addTruckService.editTruckUwagi;
-    this.truck.truckKraj = this.addTruckService.editTruckKraj;
+
     this.truck.latitude = this.addTruckService.editTruckLatitude;
     this.truck.longitude = this.addTruckService.editTruckLongitude;
+    console.log(this.addTruckService.editTruckAdres)
 
   }
   
@@ -177,6 +168,7 @@ export class EditTruckComponent implements OnInit {
     this.truck.truckCerXl = this.truckCerXl;
     this.truck.truckUwagi = this.truckUwagi;
     this.truck.truckKraj = this.value;
+    this.truck.truckAdres = this.adresValue;
  
     
     console.log("adresValue to :" + this.adresValue);
