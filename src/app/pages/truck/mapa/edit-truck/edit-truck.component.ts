@@ -8,6 +8,7 @@ import {Location, Appearance} from '@angular-material-extensions/google-maps-aut
 import PlaceResult = google.maps.places.PlaceResult;
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { MarkersComponent } from '../markers/markers.component';
+import * as moment from 'moment';
 
 import { MapaService } from '../mapa.service';
 import { NbWindowRef } from '@nebular/theme';
@@ -101,8 +102,8 @@ export class EditTruckComponent implements OnInit {
 
 
   constructor(private addTruckService: AddTruckService, private mapaService: MapaService, public windowRef: NbWindowRef,) { 
+  
     this.dateDoValue = this.dateDo.value;
-    this.dateOdValue = this.dateOd.value;
     this.filteredStates = this.stateCtrl.valueChanges
       .pipe(
         startWith(''),
@@ -111,8 +112,23 @@ export class EditTruckComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dateOd.setValue(moment(this.addTruckService.editTruckWolnyOd, 'DD.MM.YYYY').toDate());
+    this.dateOdValue = this.dateOd.value;
+    this.dateDo.setValue(moment(this.addTruckService.editTruckWolnyDo, 'DD.MM.YYYY').toDate());
+    this.dateDoValue = this.dateDo.value;
+    this.typValue = this.addTruckService.editTruckTyp;
+    this.rodzajValue = this.addTruckService.editTruckRodzaj;
+    this.truckUwagi = this.addTruckService.editTruckUwagi;
     this.adresValue = this.addTruckService.editTruckAdres;
     this.value = this.addTruckService.editTruckKraj;
+    this.truckAdr = this.addTruckService.editTruckAdr;
+    this.truckWinda = this.addTruckService.editTruckWinda;
+    this.truckEdscha = this.addTruckService.editTruckEdscha;
+    this.truckCerXl = this.addTruckService.editTruckCerXl;
+ 
+    console.log("jest wolny od " + this.addTruckService.editTruckAdr);
+    
+    
     if (this.value === "Polska") {
       this.countryShort='pl';
       this.countryShortSelected=true;
@@ -128,6 +144,18 @@ export class EditTruckComponent implements OnInit {
       this.countryShortSelected=true;
       this.countryNotSelected=false;
     }
+    this.truck.truckWolnyOd = this.addTruckService.editTruckWolnyOd;
+    this.truck.truckWolnyDo = this.addTruckService.editTruckWolnyDo;
+    this.truck.truckTyp = this.addTruckService.editTruckTyp;
+    this.truck.truckRodzaj = this.addTruckService.editTruckRodzaj;
+    this.truck.truckAdr = this.addTruckService.editTruckAdr;
+    this.truck.truckWinda = this.addTruckService.editTruckWinda;
+    this.truck.truckEdscha = this.addTruckService.editTruckEdscha;
+    this.truck.truckCerXl = this.addTruckService.editTruckCerXl;
+    this.truck.truckUwagi = this.addTruckService.editTruckUwagi;
+    this.truck.truckKraj = this.addTruckService.editTruckKraj;
+    this.truck.latitude = this.addTruckService.editTruckLatitude;
+    this.truck.longitude = this.addTruckService.editTruckLongitude;
 
   }
   
@@ -149,6 +177,7 @@ export class EditTruckComponent implements OnInit {
     this.truck.truckCerXl = this.truckCerXl;
     this.truck.truckUwagi = this.truckUwagi;
     this.truck.truckKraj = this.value;
+ 
     
     console.log("adresValue to :" + this.adresValue);
     this.addTruckService.createTruck(this.truck)

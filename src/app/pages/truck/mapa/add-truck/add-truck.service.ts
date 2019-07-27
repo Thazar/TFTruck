@@ -59,17 +59,17 @@ export class AddTruckService {
   editTruckTel: string;
   editTruckTransId: string;
   editTruckCompanyName: string;
-  ediTruckCompanyNip: string;
+  editTruckCompanyNip: string;
   editTruckWolnyOd: string;
-  ediTruckWolnyDo: string;
+  editTruckWolnyDo: string;
   editTruckAdres: string;
-  ediTruckTyp: string;
+  editTruckTyp: string;
   editTruckRodzaj: string;
-  editTruckAdr: boolean;
-  editTruckWinda: boolean;
-  editTruckEdscha: boolean;
-  editTruckCerXl: boolean;
-  editTruckUwagi: string;
+  editTruckAdr;
+  editTruckWinda;
+  editTruckEdscha;
+  editTruckCerXl;
+  editTruckUwagi: '';
   editTruckKraj: string;
 
   

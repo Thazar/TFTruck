@@ -863,11 +863,28 @@ getScreenSize(event?) {
    editTruck(truck) {
     
        
-        
+        this.addTruckService.editTruckLongitude = truck.lng;
+        this.addTruckService.editTruckLatitude = truck.lat;
+        this.addTruckService.editTruckEmail = truck.email;
+        this.addTruckService.editTruckId = truck.id;
+        this.addTruckService.editTruckFirstName = truck.firstName;
+        this.addTruckService.editTruckLastName = truck.lastName;
+        this.addTruckService.editTruckTel = truck.tel;
+        this.addTruckService.editTruckTransId = truck.transId;
+        this.addTruckService.editTruckCompanyName = truck.companyName;
+        this.addTruckService.editTruckWolnyOd = truck.wolnyOd;
+        this.addTruckService.editTruckWolnyDo = truck.wolnyDo;
         this.addTruckService.editTruckAdres = truck.adres;
+        this.addTruckService.editTruckTyp = truck.typ;
+        this.addTruckService.editTruckRodzaj = truck.rodzaj;
+        this.addTruckService.editTruckAdr = truck.adr;
+        this.addTruckService.editTruckWinda = truck.winda;
+        this.addTruckService.editTruckEdscha = truck.edscha;
+        this.addTruckService.editTruckCerXl = truck.cerXl;
+        this.addTruckService.editTruckUwagi = truck.uwagi;
         this.addTruckService.editTruckKraj = truck.kraj;
-
-     this.addTruckService.changeMessageEditTruck('edit'); 
+     
+        this.addTruckService.changeMessageEditTruck('edit'); 
    }
   }
 

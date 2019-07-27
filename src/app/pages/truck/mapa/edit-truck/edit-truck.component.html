@@ -3,7 +3,7 @@
     
       <div class="second-input" style="margin-left: 40px; ">
         <mat-form-field style="font-size: 14px; width: 200px !important;">
-            <input style="display: inline-block;" matInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value" [(ngModel)]="dateOdValue" >
+            <input style="display: inline-block;" matInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value">
             <mat-datepicker-toggle style="font-size: 150%" matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
@@ -113,8 +113,8 @@
     </div>
     <div class="dodaj-button">
       <button style="display: flex;
-      align-items: center; "  mat-stroked-button  color="blue" (click)="onSubmit()"><mat-icon style="margin-left: -10px;">add</mat-icon>Dodaj</button>
-      <button  style="margin-left: 10px; display: flex;
+      align-items: center; "  mat-stroked-button  color="blue" (click)="onSubmit()"><mat-icon style="margin-left: -10px; margin-right: 3px;">check</mat-icon>Zapisz</button>
+      <button  style="margin-left: 10px; display: flex; width: 89px;
       align-items: center; " mat-stroked-button  color="warn" (click)="windowClose()"><mat-icon style="margin-left: -10px;">close</mat-icon>Anuluj</button>
     </div>
     <div class="dodaj-button">
