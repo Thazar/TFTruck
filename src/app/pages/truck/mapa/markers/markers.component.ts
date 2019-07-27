@@ -860,6 +860,15 @@ getScreenSize(event?) {
       }
    }
 
+   editTruck(truck) {
+    
+       
+        
+        this.addTruckService.editTruckAdres = truck.adres;
+        this.addTruckService.editTruckKraj = truck.kraj;
+
+     this.addTruckService.changeMessageEditTruck('edit'); 
+   }
   }
 
 

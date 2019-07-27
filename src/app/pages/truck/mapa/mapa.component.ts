@@ -140,6 +140,12 @@ export class MapaComponent implements OnInit {
 
 
   constructor(private windowService: NbWindowService, private mapaService: MapaService, private addTruckService: AddTruckService) {
+
+    this.addTruckService.currentMessageEditTruck.subscribe(message => {
+      if(message === 'edit') {
+        this.openEdytujWindow();
+      }
+    });
     
     this.filteredStates = this.stateCtrl.valueChanges
     .pipe(
@@ -168,6 +174,7 @@ export class MapaComponent implements OnInit {
   }
 
   ref: NbWindowRef;
+  refEdit: NbWindowRef;
 
   openWindowWithoutBackdrop() {
     if (this.mapaService.windowOpened === true) {
@@ -177,7 +184,7 @@ export class MapaComponent implements OnInit {
     
     this.ref = this.windowService.open(
       AddTruckComponent,
-      { title: 'Dodawanie Pojazdu', hasBackdrop: false, closeOnEsc: false },
+      { title: 'Dodawanie Pojazdu', closeOnBackdropClick: false },
     );
    this.ref.onClose.subscribe(frames => {
      this.mapaService.windowOpened = false;
@@ -188,8 +195,14 @@ export class MapaComponent implements OnInit {
     if(this.mapaService.edytujWindowOpened === true) {
       return;
     }
-    this.mapaService.edytujWindowOpened = true;
-    this.windowService.open(EditTruckComponent, {title: 'Edycja Pojazdu'})
+    this.mapaService.edytujWindowOpened = true
+   
+    this.refEdit = this.windowService.open(
+      EditTruckComponent, {title: 'Edycja Pojazdu', closeOnBackdropClick: false }
+      );
+      this.refEdit.onClose.subscribe(frames => {
+        this.mapaService.edytujWindowOpened = false;
+      });
   }
 
   close() {

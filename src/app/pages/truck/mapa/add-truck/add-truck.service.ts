@@ -50,6 +50,29 @@ export class AddTruckService {
     zoom: 6,
   }
 
+  editTruckLongitude: number;
+  editTruckLatitude: number;
+  editTruckEmail: string;
+  editTruckId: number;
+  editTruckFirstName: string;
+  editTruckLastName: string;
+  editTruckTel: string;
+  editTruckTransId: string;
+  editTruckCompanyName: string;
+  ediTruckCompanyNip: string;
+  editTruckWolnyOd: string;
+  ediTruckWolnyDo: string;
+  editTruckAdres: string;
+  ediTruckTyp: string;
+  editTruckRodzaj: string;
+  editTruckAdr: boolean;
+  editTruckWinda: boolean;
+  editTruckEdscha: boolean;
+  editTruckCerXl: boolean;
+  editTruckUwagi: string;
+  editTruckKraj: string;
+
+  
   trucksCount: number;
   pojazdy: number;
   toastrClicked: boolean = false;
@@ -62,6 +85,9 @@ export class AddTruckService {
 
   private messageSourceMapaPosition = new BehaviorSubject('default message')
   currentMessageMapaPosition = this.messageSourceMapaPosition.asObservable();
+
+  private messageSourceEditTruck = new BehaviorSubject('default message')
+  currentMessageEditTruck = this.messageSourceEditTruck.asObservable();
 
 
   adresSelected: boolean = false;
@@ -90,6 +116,10 @@ export class AddTruckService {
 
   changeMessageMapaPosition(message: string) {
     this.messageSourceMapaPosition.next(message)
+  }
+
+  changeMessageEditTruck(message: string) {
+    this.messageSourceEditTruck.next(message)
   }
 
   createTruck(truck: Object): Observable<Object> {
