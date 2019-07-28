@@ -170,10 +170,11 @@ export class EditTruckComponent implements OnInit {
     this.truck.truckUwagi = this.truckUwagi;
     this.truck.truckKraj = this.value;
     this.truck.truckAdres = this.adresValue;
+    this.truck.id = this.addTruckService.editTruckId;
  
     
     console.log("adresValue to :" + this.adresValue);
-    this.addTruckService.createTruck(this.truck)
+    this.addTruckService.updateTruckById(this.truck.id, this.truck)
     .subscribe(data => console.log(data), error => console.log(error));
   }
 

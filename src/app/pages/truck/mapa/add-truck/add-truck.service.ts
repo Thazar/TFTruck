@@ -134,4 +134,7 @@ export class AddTruckService {
   deleteTruckById(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/delete/${id}`);
   }
+  updateTruckById(id: number, truck: Object): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/update/${id}`, truck)
+  }
 }
