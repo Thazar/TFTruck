@@ -29,6 +29,7 @@ export interface spec {
 }
 
 @Component({
+  providers:[ MarkersComponent ],
   selector: 'ngx-edit-truck',
   templateUrl: './edit-truck.component.html',
   styleUrls: ['./edit-truck.component.scss']
@@ -101,7 +102,7 @@ export class EditTruckComponent implements OnInit {
 
 
 
-  constructor(private addTruckService: AddTruckService, private mapaService: MapaService, public windowRef: NbWindowRef,) { 
+  constructor(private addTruckService: AddTruckService, private mapaService: MapaService, public editRef: NbWindowRef,) { 
   
     this.dateDoValue = this.dateDo.value;
     this.filteredStates = this.stateCtrl.valueChanges
@@ -181,13 +182,13 @@ export class EditTruckComponent implements OnInit {
       return
     }
     this.save();
-    this.windowRef.close();
+    this.editRef.close();
   }
   windowClose() {
-    this.windowRef.close();
+    this.editRef.close();
   }
   close() {
-    this.windowRef.close();
+    this.editRef.close();
   }
 
 

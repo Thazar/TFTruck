@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ElementRef, OnDestroy } from '@angular/core';
 import { NbWindowService, NbWindowRef } from '@nebular/theme';
 import { MapaService } from './mapa.service';
 import {FormControl} from '@angular/forms';
@@ -41,7 +41,7 @@ export interface spec {
   templateUrl: './mapa.component.html',
   styleUrls: ['./mapa.component.scss']
 })
-export class MapaComponent implements OnInit {
+export class MapaComponent implements OnInit, OnDestroy {
 
   screenHeight:any;
   screenWidth:any;
@@ -125,6 +125,7 @@ export class MapaComponent implements OnInit {
 
 
   ngOnInit() {
+    this.addTruckService.changeMessageEditTruck('none')
     
   console.log("czy okno jest otwarte? " + this.mapaService.loggedOfWithOpenedWindow)
   if (this.mapaService.loggedOfWithOpenedWindow == true) {
@@ -134,15 +135,16 @@ export class MapaComponent implements OnInit {
   this.addTruckService.mapaToggle = true;
   this.toggleValue = "mapa";
   }
-   
 
-  @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
+  ngOnDestroy() {
+    this.addTruckService.changeMessageEditTruck('none');
+  }
 
-
-  constructor(private windowService: NbWindowService, private mapaService: MapaService, private addTruckService: AddTruckService) {
+  constructor(private windowService: NbWindowService, private editWindowService: NbWindowService, private mapaService: MapaService, private addTruckService: AddTruckService) {
 
     this.addTruckService.currentMessageEditTruck.subscribe(message => {
       if(message === 'edit') {
+        console.log("nie otwieraj !!")
         this.openEdytujWindow();
       }
     });
@@ -197,17 +199,16 @@ export class MapaComponent implements OnInit {
     }
     this.mapaService.edytujWindowOpened = true
    
-    this.refEdit = this.windowService.open(
-      EditTruckComponent, {title: 'Edycja Pojazdu', closeOnBackdropClick: false }
+    this.refEdit = this.editWindowService.open(
+      EditTruckComponent,
+      { title: 'Edycja Pojazdu', closeOnBackdropClick: false }
       );
       this.refEdit.onClose.subscribe(frames => {
         this.mapaService.edytujWindowOpened = false;
       });
   }
 
-  close() {
-    this.mapaService.ref.close;
-  }
+
   togglePanel() {
     if (this.panelOpened === false ) {
     this.panelOpened = true;
@@ -292,6 +293,10 @@ export class MapaComponent implements OnInit {
 
   }
   search() {
+    if (this.panelOpened === true) {
+      this.panelOpened = false;
+      this.addationalPanelOpened = false;
+    }
     if (this.specSelected === undefined) {
       console.log("no kurwa puste do chuja")
     }
