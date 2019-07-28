@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { UserInfo } from '../../../../models/UserInfo';
 
 export interface filter {
   kraj: string;
@@ -29,6 +30,8 @@ var Stomp = require("stompjs")
   providedIn: 'root'
 })
 export class AddTruckService {
+  userinfo: UserInfo;
+
   socket: any;
   stompClient: any
   mapaToggle: boolean;
@@ -50,6 +53,29 @@ export class AddTruckService {
     zoom: 6,
   }
 
+  editTruckLongitude: number;
+  editTruckLatitude: number;
+  editTruckEmail: string;
+  editTruckId: number;
+  editTruckFirstName: string;
+  editTruckLastName: string;
+  editTruckTel: string;
+  editTruckTransId: string;
+  editTruckCompanyName: string;
+  editTruckCompanyNip: string;
+  editTruckWolnyOd: string;
+  editTruckWolnyDo: string;
+  editTruckAdres: string;
+  editTruckTyp: string;
+  editTruckRodzaj: string;
+  editTruckAdr: string;
+  editTruckWinda: string;
+  editTruckEdscha: string;
+  editTruckCerXl: string;
+  editTruckUwagi: '';
+  editTruckKraj: string;
+
+  
   trucksCount: number;
   pojazdy: number;
   toastrClicked: boolean = false;
@@ -62,6 +88,9 @@ export class AddTruckService {
 
   private messageSourceMapaPosition = new BehaviorSubject('default message')
   currentMessageMapaPosition = this.messageSourceMapaPosition.asObservable();
+
+  private messageSourceEditTruck = new BehaviorSubject('default message')
+  currentMessageEditTruck = this.messageSourceEditTruck.asObservable();
 
 
   adresSelected: boolean = false;
@@ -92,6 +121,10 @@ export class AddTruckService {
     this.messageSourceMapaPosition.next(message)
   }
 
+  changeMessageEditTruck(message: string) {
+    this.messageSourceEditTruck.next(message)
+  }
+
   createTruck(truck: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}` + `/create`, truck);
   }
@@ -103,5 +136,11 @@ export class AddTruckService {
   }
   deleteTruckById(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/delete/${id}`);
+  }
+  updateTruckById(id: number, truck: Object): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/update/${id}`, truck)
+  }
+  getUserInfoByEmail(email: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/user/${email}`);
   }
 }

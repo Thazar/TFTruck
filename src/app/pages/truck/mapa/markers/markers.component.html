@@ -83,7 +83,7 @@
           </mat-tab>
         </mat-tab-group>
         <mat-divider style="margin-top: 5px;"></mat-divider>
-        <button style=" margin-top: 5px; float: right;" mat-button color="blue" ><mat-icon>edit </mat-icon> Edytuj</button>
+        <button (click)="editTruck(mark)" style=" margin-top: 5px; float: right;" mat-button color="blue" ><mat-icon>edit </mat-icon> Edytuj</button>
         <button style=" margin-top: 5px; float: right" mat-button color="warn" (click)="initiateDeleteTruck(mark)"><mat-icon>delete_forever </mat-icon> Usuń</button>
         </div>
       </agm-info-window>
@@ -187,7 +187,7 @@
    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
    <div style="display: inline-flex; width: 100%; border-top: 1px solid  #e4e5e5;">
        <button (click)="mapShowTruck(element.id)" style="" mat-button color="green" ><mat-icon>my_location</mat-icon> Mapa</button>
-       <button style="" mat-button color="blue" ><mat-icon>edit </mat-icon> Edytuj</button>
+       <button (click)="editTruck(element)" style="" mat-button color="blue" ><mat-icon>edit </mat-icon> Edytuj</button>
        <button style="" mat-button color="warn" (click)="initiateDeleteTruckLista(element.id)"><mat-icon>delete_forever </mat-icon> Usuń</button>
       </div>
      </div> 

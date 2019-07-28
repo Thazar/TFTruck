@@ -9,6 +9,8 @@ import { User } from '../../../models/User';
 import { AddTruckService } from '../../../pages/truck/mapa/add-truck/add-truck.service';
 import { MapaService } from '../../../pages/truck/mapa/mapa.service';
 import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { UserInfo } from '../../../models/UserInfo';
 
 @Component({
   selector: 'ngx-header',
@@ -20,7 +22,8 @@ export class HeaderComponent implements OnInit {
   @Input() position = 'normal';
 
   user: User;
-  
+  tempUserInfo: Observable<UserInfo>;
+  userInfo: UserInfo;
 
   userMenu = [{ title: 'Profil' }, { title: 'Wyloguj', link : '/auth/logout'}];
   tag = 'my-context-menu'
@@ -55,10 +58,17 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
    
     this.tokenService.get().subscribe((token: NbAuthJWTToken) => {
+      this.userInfo = new UserInfo;
       if (token.isValid()) {
           this.user = token.getPayload();
           this.user.displayName = this.user.firstName + " " + this.user.lastName;
           this.truckService.email = this.user.email;
+          this.tempUserInfo = this.truckService.getUserInfoByEmail(this.user.email);
+          this.tempUserInfo.subscribe(data => {
+         this.userInfo = data as UserInfo;
+         this.truckService.userinfo = this.userInfo;
+          });
+       
       }
    });
   }

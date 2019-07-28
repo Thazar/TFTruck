@@ -140,6 +140,16 @@ export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck, O
   constructor(private addTruckService: AddTruckService, private toastr: ToastrService, differs: IterableDiffers){  
     this.differ = differs.find([]).create(null);
     addTruckService.currentMessageMapaPosition.subscribe(message => {
+      if (message === 'setMyTrucks') {
+        for(var myTrucksIndex = this.markerArray.length -1; myTrucksIndex > -1; myTrucksIndex -= 1) {
+          const tempTruck = this.markerArray[myTrucksIndex];
+          if(!(tempTruck.companyName === addTruckService.userinfo.userCompanyName && tempTruck.firstName === addTruckService.userinfo.userFirstName && tempTruck.lastName === this.addTruckService.userinfo.userLastName
+             && tempTruck.email === this.addTruckService.userinfo.userEmail)) {
+               this.markerArray.splice(myTrucksIndex, 1);
+             } 
+        }
+        this.addTruckService.pojazdy = this.markerArray.length;
+      }
       if (addTruckService.toastrClicked === true) {
         this.latitude = addTruckService.position.latitude;
         this.longitude = addTruckService.position.longitute;
@@ -387,10 +397,13 @@ export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck, O
       this.stompClient.subscribe('/topic/notification', notifications => {
         this.notifications = JSON.parse(notifications.body);
         if (this.notifications.msg === "createTruck") {
-          this.updateTruck(this.notifications.count);
+          this.updateTruck(this.notifications.count, false);
         }
         if (this.notifications.msg === "deleteTruck") {
           this.deleteTruck(this.notifications.count);
+        }
+        if (this.notifications.msg === "updateTruck") {
+          this.putTruck(this.notifications.count);
         }
         this.notifications.count =0;
         this.notifications.msg = '';
@@ -559,6 +572,35 @@ getScreenSize(event?) {
         }
       });
   }
+  showEditedToast() {
+    const toastrLatitude = this.newTruck.latitude;
+    const toastrLongitude = this.newTruck.longitude;
+    const markerId = this.newTruck.id;
+    this.toastr.warning(
+      ` ${this.newTruck.truckCompanyName} `,
+      `${this.newTruck.truckAdres} \ 
+       ${this.newTruck.truckRodzaj} ${this.newTruck.truckTyp} \ `,
+      ).onTap.pipe().subscribe(() => {
+        this.addTruckService.toastrClicked = true;
+        if(this.addTruckService.listToggle === true) {
+        this.addTruckService.listToggle = false;
+        }
+        this.listToggle = this.addTruckService.listToggle;
+        this.addTruckService.mapaToggle = true;
+        this.mapaToggle = this.addTruckService.mapaToggle;
+        this.addTruckService.changeMessageMapa('changeToggle');
+        this.addTruckService.position.latitude = toastrLatitude;
+        this.addTruckService.position.longitute = toastrLongitude;
+        this.addTruckService.position.zoom = 8;
+        this.addTruckService.changeMessageMapaPosition('set');
+        this.addTruckService.toastrClicked = false;
+        for (var index = this.markerArray.length -1; index > 0; index -= 1) {
+          if (this.markerArray[index].id === markerId) {
+            this.markerArray[index].markerOpened = true;
+          }
+        }
+      });
+  }
 
   showToastDelete(truckCompanyName: string, truckAdres: string,  truckRodzaj: string, truckTyp: string) {
     this.toastr.error(
@@ -567,7 +609,7 @@ getScreenSize(event?) {
        ${truckRodzaj} ${truckTyp} \ `,
       );
   }
-  updateTruck(id: number) {
+  updateTruck(id: number, bool: boolean) {
    this.truck = this.addTruckService.getTruckById(id)
    this.truck.subscribe(data => {
    this.newTruck = data as Truck;
@@ -745,7 +787,12 @@ getScreenSize(event?) {
          this.circleColor = '#0081ba';
        }
      }
+     if (bool === false) {
      this.showToast();
+     }
+     if (bool === true) {
+       this.showEditedToast();
+     }
      this.addTruckService.pojazdy = this.markerArray.length;
      for(var colorIndex = this.markerArray.length -2; colorIndex > -1; colorIndex -= 1) {
       if(this.markerArray[colorIndex + 1].color === "white") {
@@ -860,6 +907,49 @@ getScreenSize(event?) {
       }
    }
 
+   editTruck(truck) {
+        this.addTruckService.editTruckLongitude = truck.lng;
+        this.addTruckService.editTruckLatitude = truck.lat;
+        this.addTruckService.editTruckEmail = truck.email;
+        this.addTruckService.editTruckId = truck.id;
+        this.addTruckService.editTruckFirstName = truck.firstName;
+        this.addTruckService.editTruckLastName = truck.lastName;
+        this.addTruckService.editTruckTel = truck.tel;
+        this.addTruckService.editTruckTransId = truck.transId;
+        this.addTruckService.editTruckCompanyName = truck.companyName;
+        this.addTruckService.editTruckWolnyOd = truck.wolnyOd;
+        this.addTruckService.editTruckWolnyDo = truck.wolnyDo;
+        this.addTruckService.editTruckAdres = truck.adres;
+        this.addTruckService.editTruckTyp = truck.typ;
+        this.addTruckService.editTruckRodzaj = truck.rodzaj;
+        this.addTruckService.editTruckAdr = truck.adr;
+        this.addTruckService.editTruckWinda = truck.winda;
+        this.addTruckService.editTruckEdscha = truck.edscha;
+        this.addTruckService.editTruckCerXl = truck.cerXl;
+        this.addTruckService.editTruckUwagi = truck.uwagi;
+        this.addTruckService.editTruckKraj = truck.kraj;
+     
+        this.addTruckService.changeMessageEditTruck('edit'); 
+   }
+
+   putTruck(id) {
+     for(var updateIndex = this.markerArray.length -1; updateIndex > -1; updateIndex -= 1) {
+       if(this.markerArray[updateIndex].id === id) {
+         this.markerArray.splice(updateIndex, 1);
+       }
+     }
+     for(var updateSavedIndex = this.savedMarkers.length -1; updateSavedIndex > -1; updateSavedIndex -= 1) {
+      if(this.savedMarkers[updateSavedIndex].id === id) {
+        this.savedMarkers.splice(updateIndex, 1);
+      }
+    }
+    this.updateTruck(id, true);
+   }
+   
+   
+
   }
+
+  
 
 
