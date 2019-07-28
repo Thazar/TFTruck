@@ -70,7 +70,7 @@
                   <mat-divider style="margin-top: 5px; margin-bottom: 12.5px; width: 94.5%; margin-left: 4%;"></mat-divider>
                   <div></div>
                   <div class="marker-header">
-                      <mat-icon style=" margin-left: 10px; font-size: 135%; color: #0081ba;">phone_android</mat-icon>
+                      <mat-icon style=" margin-left: 10px; font-size: 120%; color: #0081ba;">phone_android</mat-icon>
                       <h6>{{mark.tel}}</h6>
                   </div>
                   <mat-divider style="margin-top: 5px; margin-bottom: 12.5px; width: 94.5%; margin-left: 4%;"></mat-divider>
@@ -130,24 +130,7 @@
             <h6 style="margin-top: 10px;  margin-top: -8px; margin-left: 3px;">{{element.companyName}}</h6> 
             </div>     
             </div>
-
-            
-
-                <div style=" border-right: 1px solid  #e4e5e5; margin-bottom: 15px; margin-top: 15px; margin-left: 15px; min-height: 75px ; padding-top: 5px; padding-right: 35px;">
-                    <img src="assets/images/trans2.png" style=" margin-left: -10px; width: 17%; margin-top: -10px; ">
-                    <div style="display: inline-flex;  vertical-align: middle !important; ">
-                        <h6 style=" margin-top: -1px; margin-left: 5px;">{{element.transId}}</h6>
-                        </div>
-        
-                    <div></div>
-        
-                    <mat-icon style="color: #0081ba; margin-top: 8px; margin-left: px;">build</mat-icon>   
-                    <div style="display: inline-flex;  vertical-align: middle !important; ">
-                    <h6 style="margin-top: 10px;  margin-top: -8px; margin-left: 7px;">Specyfikacje: {{element.adr}} {{element.edscha}} {{element.winda}} {{element.cerXl}}</h6> 
-                    </div>
-                    </div>
-
-                    
+       
                     
               <div style=" border-right: 1px solid  #e4e5e5; margin-bottom: 15px; margin-top: 15px; margin-left: 15px; min-height: 75px ; padding-top: 5px; padding-right: 35px;">
                     <mat-icon style="color: #0081ba;">email</mat-icon>
@@ -164,16 +147,32 @@
 
                     </div>
 
-                    <div style=" margin-bottom: 15px; margin-top: 15px; margin-left: 15px; min-height: 75px ; padding-top: 5px; padding-right: 35px;">
-                       
+                    <div style="  margin-bottom: 15px; margin-top: 15px; margin-left: 15px; min-height: 75px ; padding-top: 5px;">
+                      <img src="assets/images/trans2.png" style=" margin-left: -10px; width: 17%; margin-top: -10px; ">
+                      <div style="display: inline-flex;  vertical-align: middle !important; ">
+                          <h6 style=" margin-top: -1px; margin-left: 5px;">{{element.transId}}</h6>
+                          </div>
+          
+                      <div></div>
+          
+                     
+                      </div>
+
+                    <div *ngIf="element.adr || element.edscha || element.winda || element.cerXl || element.uwagi" style=" margin-bottom: 15px; margin-top: 15px; margin-left: 15px; min-height: 75px ; padding-top: 5px; padding-right: 35px; border-left: 1px solid  #e4e5e5; padding-left: 15px;">
+                       <div  *ngIf="element.uwagi" style="margin-bottom: 7px;">
                         <mat-icon style="color: #0081ba; margin-left: -3px;">info</mat-icon>
                         <div style="display: inline-flex;  vertical-align: middle !important; ">
-                            <h6 style="margin-right: 15px; margin-top: -7px; margin-left: 9px; max-width: 255px;" >Uwagi: {{element.uwagi}}</h6>
+                            <h6 style="margin-right: 15px;  margin-left: 9px; max-width: 255px;" >Uwagi: {{element.uwagi}}</h6>
                             </div>
+                          </div>
                         <div></div>
                         
-                     
-                 
+                        <div *ngIf="element.adr || element.edscha || element.winda || element.cerXl"  style="margin-bottom: 7px;">
+                        <mat-icon style="color: #0081ba;">build</mat-icon>   
+                        <div style="display: inline-flex;  vertical-align: middle !important; ">
+                        <h6 style="margin-top: 10px;  margin-top: -8px; margin-left: 7px;">Specyfikacje: {{element.adr}} {{element.edscha}} {{element.winda}} {{element.cerXl}}</h6> 
+                        </div>
+                      </div>
     
                         </div>
                         <div style="clear:both;"></div> 
