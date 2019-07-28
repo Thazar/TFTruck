@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { UserInfo } from '../../../../models/UserInfo';
 
 export interface filter {
   kraj: string;
@@ -29,6 +30,8 @@ var Stomp = require("stompjs")
   providedIn: 'root'
 })
 export class AddTruckService {
+  userinfo: UserInfo;
+
   socket: any;
   stompClient: any
   mapaToggle: boolean;
@@ -136,5 +139,8 @@ export class AddTruckService {
   }
   updateTruckById(id: number, truck: Object): Observable<Object> {
     return this.http.put(`${this.baseUrl}/update/${id}`, truck)
+  }
+  getUserInfoByEmail(email: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/user/${email}`);
   }
 }

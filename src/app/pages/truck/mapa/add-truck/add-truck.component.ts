@@ -183,6 +183,12 @@ export class AddTruckComponent  {
     this.value = '';
     this.countryShortSelected = false;
     this.countryNotSelected = true;
+    this.value = '';
+    this.countryShortSelected = false;
+    this.countryNotSelected = true;
+    this.truck.latitude = null;
+    this.truck.latitude = null;
+    this.clearAdres();
   }
   clearAdres() {
     this.adresValue = '';

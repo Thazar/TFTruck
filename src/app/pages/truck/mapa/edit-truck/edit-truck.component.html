@@ -3,7 +3,7 @@
     
       <div class="second-input" style="margin-left: 40px; ">
         <mat-form-field style="font-size: 14px; width: 200px !important;">
-            <input style="display: inline-block;" matInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value">
+            <input style="display: inline-block;" matInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value" [(ngModel)]="dateOdValue">
             <mat-datepicker-toggle style="font-size: 150%" matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>

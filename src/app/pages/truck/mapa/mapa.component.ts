@@ -290,7 +290,7 @@ export class MapaComponent implements OnInit, OnDestroy {
     this.typValue = '';
     this.rodzajValue = '';
     this.specSelected = [];
-
+    this.search();
   }
   search() {
     if (this.panelOpened === true) {
@@ -330,5 +330,12 @@ export class MapaComponent implements OnInit, OnDestroy {
     }
   }
 
- 
+ showMyTrucks() {
+  if (this.panelOpened === true) {
+    this.panelOpened = false;
+    this.addationalPanelOpened = false;
+  }
+  this.addTruckService.changeMessageMapaPosition('setMyTrucks');
+  this.pojazdy = this.addTruckService.pojazdy;
+ }
 }

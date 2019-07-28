@@ -48,7 +48,7 @@ export class EditTruckComponent implements OnInit {
   typValue='';
   rodzajValue='';
   countryShort;
-  dateOd = new FormControl(new Date());
+  dateOd = new FormControl(new Date().getTime());
   dateDo = new FormControl(new Date((new Date).getTime()+ 86400000));
   dateOdValue;
   dateDoValue;
@@ -173,7 +173,7 @@ export class EditTruckComponent implements OnInit {
     this.truck.id = this.addTruckService.editTruckId;
  
     
-    console.log("adresValue to :" + this.adresValue);
+    console.log("datevalue to :" + this.dateOdValue);
     this.addTruckService.updateTruckById(this.truck.id, this.truck)
     .subscribe(data => console.log(data), error => console.log(error));
   }
@@ -203,7 +203,7 @@ export class EditTruckComponent implements OnInit {
 
   onAutocompleteSelected(result: PlaceResult) {
     console.log('onAutocompleteSelected: ', result);
-    this.truck.truckAdres = result.formatted_address;
+    this.adresValue = result.formatted_address;
   }
 
   countrySelected(event: MatAutocompleteSelectedEvent) {
@@ -230,6 +230,9 @@ export class EditTruckComponent implements OnInit {
     this.value = '';
     this.countryShortSelected = false;
     this.countryNotSelected = true;
+    this.truck.latitude = null;
+    this.truck.latitude = null;
+    this.clearAdres();
   }
   clearAdres() {
     this.adresValue = '';
