@@ -1,0 +1,125 @@
+<div class="window">
+    <h5 style="padding-bottom: 10px">Adres i Termin:</h5>
+    
+      <div class="second-input" style="margin-left: 40px; ">
+        <mat-form-field style="font-size: 14px; width: 200px !important;">
+            <input style="display: inline-block;" matInput [matDatepicker]="picker1" placeholder="Wolny od" [value]="dateOd.value" [(ngModel)]="dateOdValue">
+            <mat-datepicker-toggle style="font-size: 150%" matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          </div>
+    
+      <div  class="second-input" style=" margin-bottom: 15px; margin-right: 40px; ">
+        <mat-form-field style="font-size: 14px; width: 200px !important;">
+          <input matInput style="display: inline-block" [matDatepicker]="picker2" placeholder="Wolny do" [value]="dateDo.value" [(ngModel)]="dateDoValue">
+          <mat-datepicker-toggle style="font-size: 150%" matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+    
+    <div></div>
+    
+    <div class="input" style="">
+        <mat-form-field style=" width: 200px">
+        <input  [(ngModel)]="value" matInput placeholder="Kraj" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl" (click)="clear()"  type="text" name="somethingAutofillDoesntKnow"  >
+        <mat-autocomplete (optionSelected)="countrySelected($event)" #auto="matAutocomplete">
+          <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+            <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
+            <span>{{state.name}}</span>
+          </mat-option>
+        </mat-autocomplete>
+        </mat-form-field>
+      </div> 
+    
+    <div class="second-input" *ngIf="countryShortSelected; else falseInput" >
+        <mat-form-field style="font-size: 14px; width: 200px !important;">
+            <input type="text" name="somethingAutofillDoesntKnow" autocomplete="off" matInput    (click)="clearAdres()"
+            placeholder="Adres"
+            [(ngModel)]="adresValue"
+            id="adres"
+            matGoogleMapsAutocomplete
+            country="{{countryShort}}"
+            type="cities"
+            (onLocationSelected)="onLocationSelected($event)"
+            (onAutocompleteSelected)="onAutocompleteSelected($event)"
+            >
+            </mat-form-field>
+                        </div>  
+        <ng-template #falseInput>
+          <div class="second-input">
+              <mat-form-field style="font-size: 14px; width: 200px !important;">
+            <input placeholder="Wybierz Kraj"  matInput [disabled]="countryNotSelected" >
+            </mat-form-field>
+          </div>
+        </ng-template>
+    
+    
+    <h5 class="h5" style="padding-bottom: 10px; margin-top: -5px;">Opis Pojazdu:</h5>
+    <div class="div"> 
+    <div class="second-input" style="margin-left: 40px;"> 
+        <mat-form-field style="font-size: 14px; width: 200px !important;">
+       <mat-select [(ngModel)]="typValue">  
+        <mat-option  *ngFor="let type of types" [value]="type.value" >
+          {{type.viewValue}}
+        </mat-option>
+      </mat-select>
+      <mat-label>Nadwozie</mat-label>
+        </mat-form-field>
+    </div>
+    
+    
+    
+    <div class="second-input">
+        <mat-form-field style="font-size: 14px; width: 200px !important;">
+    <mat-select [(ngModel)]="rodzajValue">
+    <mat-option *ngFor="let spec of specs" [value]="spec.value">
+      {{spec.viewValue}} 
+    </mat-option>
+    </mat-select>
+    <mat-label>Typ Pojazdu</mat-label>
+        </mat-form-field>
+    </div>
+    <mat-expansion-panel style=
+    "margin-left: 22px;
+     margin-bottom: 20px;
+     margin-right: 20px;
+     max-width: 457px;"
+     class="mat-elevation-z0">
+        <mat-expansion-panel-header style="margin-left: -5px;">
+          <mat-panel-title style="display: flex;
+          align-items: center; width: 200px;">
+            Specyfikacje
+            <mat-icon style="margin-left:8px;">info</mat-icon>
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div >
+        <div >
+        <mat-checkbox [(ngModel)]="truckAdr">Adr</mat-checkbox>
+        <textarea [(ngModel)]="truckUwagi" style="display: inline-block; float: right; margin-right: 17px; " nbinput placeholder="Uwagi dodatkowe"></textarea>
+        </div>
+        <div>
+        <mat-checkbox [(ngModel)]="truckWinda" >Winda</mat-checkbox>
+        </div>
+        <div>
+        <mat-checkbox [(ngModel)]="truckEdscha">Edscha</mat-checkbox>
+        </div>
+        <div>
+        <mat-checkbox [(ngModel)]="truckCerXl">Cer. XL</mat-checkbox>
+        </div>
+      </div> 
+      </mat-expansion-panel>  
+    </div>
+    <div class="dodaj-button">
+      <button style="display: flex;
+      align-items: center; "  mat-stroked-button  color="blue" (click)="onSubmit()"><mat-icon style="margin-left: -10px; margin-right: 3px;">check</mat-icon>Zapisz</button>
+      <button  style="margin-left: 10px; display: flex; width: 89px;
+      align-items: center; " mat-stroked-button  color="warn" (click)="windowClose()"><mat-icon style="margin-left: -10px;">close</mat-icon>Anuluj</button>
+    </div>
+    <div class="dodaj-button">
+    
+    </div>
+    
+    </div>
+    
