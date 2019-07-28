@@ -49,6 +49,7 @@ export class AddTruckComponent  {
   countryShort;
   dateOd = new FormControl(new Date());
   dateDo = new FormControl(new Date((new Date).getTime()+ 86400000));
+  created = new FormControl(new Date());
   dateOdValue;
   dateDoValue;
   truckAdr: false;
@@ -56,6 +57,7 @@ export class AddTruckComponent  {
   truckEdscha: false;
   truckCerXl: false;
   truckUwagi: '';
+
  
   
 
@@ -125,6 +127,7 @@ export class AddTruckComponent  {
     this.truck.truckCerXl = this.truckCerXl;
     this.truck.truckUwagi = this.truckUwagi;
     this.truck.truckKraj = this.value;
+    this.truck.created = this.created.value;
     
     console.log("adresValue to :" + this.adresValue);
     this.addTruckService.createTruck(this.truck)
@@ -132,6 +135,7 @@ export class AddTruckComponent  {
   }
 
   onSubmit() {
+    
     if (!this.truck.latitude  || !this.truck.longitude || !this.adresValue || !this.typValue || !this.rodzajValue || !this.dateOd.value || !this.dateDo.value ) {
       return
     }

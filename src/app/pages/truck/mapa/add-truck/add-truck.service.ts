@@ -74,6 +74,7 @@ export class AddTruckService {
   editTruckCerXl: string;
   editTruckUwagi: '';
   editTruckKraj: string;
+  editTruckCreated: string;
 
   
   trucksCount: number;

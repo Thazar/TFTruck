@@ -41,6 +41,7 @@ interface Marker {
   }
   markerOpened: boolean;
   color: string;
+  created: string;
 }
 
 @Component({
@@ -80,6 +81,8 @@ export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck, O
   zoom: number = 6;
   public map_Class= 'high';
   colorNumber: number = 0;
+  created = new FormControl(new Date());
+  
  
   differ: any;
   
@@ -109,13 +112,14 @@ export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck, O
   circleShowed: boolean = false;
   stompClient: any;
   matRow: boolean = true;
-  columnsValue = ['tel',  'rodzaj', 'typ',  'wolnyOd', 'wolnyDo','kraj', 'adres'];
-  displayedColumns = {tel: 'Dodano',  rodzaj: 'Pojazd', typ: 'Nadwozie', wolnyOd: 'Wolny od', wolnyDo: 'Wolny do', kraj:'', adres: 'Adres',}
-  icons = {tel: 'fas fa-history fa-2x', rodzaj: 'fas fa-truck fa-2x', wolnyOd: 'fas fa-calendar fa-2x', wolnyDo: 'far fa-calendar fa-2x', typ: 'fas fa-truck-loading fa-2x', kraj:'fas fa-flag fa-2x', adres: 'fas fa-map-marker-alt fa-2x'}
+  columnsValue = ['created',  'rodzaj', 'typ',  'wolnyOd', 'wolnyDo','kraj', 'adres'];
+  displayedColumns = {created: 'Dodano',  rodzaj: 'Pojazd', typ: 'Nadwozie', wolnyOd: 'Wolny od', wolnyDo: 'Wolny do', kraj:'', adres: 'Adres',}
+  icons = { created: 'fas fa-history fa-2x', rodzaj: 'fas fa-truck fa-2x', wolnyOd: 'fas fa-calendar fa-2x', wolnyDo: 'far fa-calendar fa-2x', typ: 'fas fa-truck-loading fa-2x', kraj:'fas fa-flag fa-2x', adres: 'fas fa-map-marker-alt fa-2x'}
   dataSource = new MatTableDataSource<Marker>(this.markerArray);
   paginator: MatPaginator;
   sort: MatSort;
   expandedElement: Marker | null;
+ 
 
 
 
@@ -136,6 +140,7 @@ export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck, O
   }
 
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
+  
 
   constructor(private addTruckService: AddTruckService, private toastr: ToastrService, differs: IterableDiffers){  
     this.differ = differs.find([]).create(null);
@@ -417,6 +422,8 @@ export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck, O
 
 
   ngAfterContentInit() {
+    
+    
     this.reloadData();
     
     
@@ -432,10 +439,12 @@ export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck, O
   }
 
   ngDoCheck() {
-    const change = this.differ.diff(this.markerArray);
+    var change = this.differ.diff(this.markerArray);
     if(change) {
-      this.dataSource = new MatTableDataSource<Marker>(this.markerArray);
-      this.expandedElement = this.expandedElement;
+      var data = this.dataSource.data;
+      data = [...this.markerArray]
+      this.dataSource.data  = data
+   
     }
   }
 
@@ -453,9 +462,10 @@ getScreenSize(event?) {
 
 
   reloadData() {
+    
     this.addTruckService.getAllTrucks().subscribe(snapshots=>{
-      snapshots.forEach(snapshot => {
-        this.newTruck = snapshot as Truck
+      snapshots.forEach(snapshot => {      
+        this.newTruck = snapshot as Truck  
         var adrString = "";
         var edschaString = "";
         var windaString = "";
@@ -490,6 +500,10 @@ getScreenSize(event?) {
      
         
         this.showMarkers = false;
+        if (this.newTruck.created) {
+        var realTimeSplited = this.newTruck.created.split(" ")
+        var realTime = realTimeSplited[0] + ' godz. ' + realTimeSplited[1]
+        }
         this.markerArray.push({
           lat: this.newTruck.latitude,
           lng: this.newTruck.longitude,
@@ -514,6 +528,7 @@ getScreenSize(event?) {
           kraj: this.newTruck.truckKraj,
           markerOpened: false,
           color: 'white',
+          created: realTime
         });
 
        
@@ -651,7 +666,8 @@ getScreenSize(event?) {
   }
 
 
-
+  var realTimeSplited = this.newTruck.created.split(" ")
+  var realTime = realTimeSplited[0] + ' godz. ' + realTimeSplited[1]
   this.savedMarkers.push({
     lat: this.newTruck.latitude,
     lng: this.newTruck.longitude,
@@ -675,7 +691,8 @@ getScreenSize(event?) {
     icon: this.icon,
     kraj: this.newTruck.truckKraj,
     markerOpened: false,
-    color: 'white'
+    color: 'white',
+    created: realTime
   });
 
 
@@ -753,8 +770,9 @@ getScreenSize(event?) {
   }
 }  
 
-
-     this.markerArray.push({
+        var realTimeSplited = this.newTruck.created.split(" ")
+        var realTime = realTimeSplited[0] + ' godz. ' + realTimeSplited[1]
+       this.markerArray.push({
        lat: this.newTruck.latitude,
        lng: this.newTruck.longitude,
        firstName: this.newTruck.truckFirstName,
@@ -778,6 +796,7 @@ getScreenSize(event?) {
        kraj: this.newTruck.truckKraj,
        markerOpened: false,
        color: 'white',
+       created: realTime
      });
 
   
@@ -928,7 +947,8 @@ getScreenSize(event?) {
         this.addTruckService.editTruckCerXl = truck.cerXl;
         this.addTruckService.editTruckUwagi = truck.uwagi;
         this.addTruckService.editTruckKraj = truck.kraj;
-     
+        this.addTruckService.editTruckCreated = truck.created;
+        var counting = 0;
         this.addTruckService.changeMessageEditTruck('edit'); 
    }
 

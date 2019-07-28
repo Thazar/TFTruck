@@ -19,5 +19,6 @@ export class Truck {
   truckEdscha: boolean;
   truckCerXl: boolean;
   truckUwagi: string;
-  truckKraj: string
+  truckKraj: string;
+  created: string;
 }
