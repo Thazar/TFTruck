@@ -194,6 +194,7 @@ export class MapaComponent implements OnInit, OnDestroy {
   }
 
   openEdytujWindow() {
+   
     if(this.mapaService.edytujWindowOpened === true) {
       return;
     }

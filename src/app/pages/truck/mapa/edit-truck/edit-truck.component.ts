@@ -50,6 +50,7 @@ export class EditTruckComponent implements OnInit {
   countryShort;
   dateOd = new FormControl(new Date().getTime());
   dateDo = new FormControl(new Date((new Date).getTime()+ 86400000));
+  created = new FormControl(new Date());
   dateOdValue;
   dateDoValue;
   truckAdr: boolean = false;
@@ -113,6 +114,7 @@ export class EditTruckComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log( this.addTruckService.editTruckCreated)
     this.dateOd.setValue(moment(this.addTruckService.editTruckWolnyOd, 'DD.MM.YYYY').toDate());
     this.dateOdValue = this.dateOd.value;
     this.dateDo.setValue(moment(this.addTruckService.editTruckWolnyDo, 'DD.MM.YYYY').toDate());
@@ -158,6 +160,7 @@ export class EditTruckComponent implements OnInit {
 
   save() {
     console.log("truck adr bla bla bla to : " + this.truckAdr)
+    this.truck.created = this.created.value;
     this.truck.truckEmail = this.addTruckService.email;
     this.truck.truckWolnyOd = this.dateOdValue;
     this.truck.truckWolnyDo = this.dateDoValue;
@@ -207,6 +210,7 @@ export class EditTruckComponent implements OnInit {
   }
 
   countrySelected(event: MatAutocompleteSelectedEvent) {
+    this.adresValue = ''
     console.log(event.option.value)
     if (event.option.value=="Polska") {
       this.countryShort='pl';
