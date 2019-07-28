@@ -210,6 +210,7 @@ export class EditTruckComponent implements OnInit {
   }
 
   countrySelected(event: MatAutocompleteSelectedEvent) {
+    this.adresValue = ''
     console.log(event.option.value)
     if (event.option.value=="Polska") {
       this.countryShort='pl';
