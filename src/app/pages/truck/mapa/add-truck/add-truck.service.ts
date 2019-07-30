@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { UserInfo } from '../../../../models/UserInfo';
+
+import { User } from '../../../../Models/User';
 
 export interface filter {
   kraj: string;
@@ -30,7 +31,8 @@ var Stomp = require("stompjs")
   providedIn: 'root'
 })
 export class AddTruckService {
-  userinfo: UserInfo;
+ 
+  user: User;
 
   socket: any;
   stompClient: any
@@ -107,6 +109,7 @@ export class AddTruckService {
 
 
   private baseUrl = 'http://localhost:8888/nebular/api/trucks';
+  private userUrl = 'http://localhost:8888/nebular/api';
 
   constructor(private http: HttpClient) { }
 
@@ -141,7 +144,8 @@ export class AddTruckService {
   updateTruckById(id: number, truck: Object): Observable<Object> {
     return this.http.put(`${this.baseUrl}/update/${id}`, truck)
   }
-  getUserInfoByEmail(email: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/user/${email}`);
+
+  getUserByEmail(email: string): Observable<any> {
+    return this.http.get(`${this.userUrl}/user/${email}`)
   }
 }

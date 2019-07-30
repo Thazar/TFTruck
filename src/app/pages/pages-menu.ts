@@ -17,7 +17,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
     data: {
       permission: 'view',
-      resource: 'admin'
+      resource: 'admin', 
     },
   },
   {
@@ -26,7 +26,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/truck/mapa',
     data: {
       permission: 'view',
-      resource: 'admin'
+      resource: 'admin',
     },
   },
   {

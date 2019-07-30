@@ -57,7 +57,7 @@ import { AgmCoreModule } from '@agm/core';
     CoreModule.forRoot(),
   ],
   entryComponents: [EditTruckComponent, AddTruckComponent,],
-  declarations: [AppComponent, EditTruckComponent, AddTruckComponent ],
+  declarations: [AppComponent, EditTruckComponent, AddTruckComponent, ],
   bootstrap: [AppComponent],
   providers: [
     NbWindowService,
