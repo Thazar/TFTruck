@@ -106,7 +106,7 @@ export class AddTruckService {
     return this.stompClient;
   }
   
-
+g
 
   private baseUrl = 'http://localhost:8888/nebular/api/trucks';
   private userUrl = 'http://localhost:8888/nebular/api';
