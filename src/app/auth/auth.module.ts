@@ -15,6 +15,7 @@ import {
   NbInputModule
 } from '@nebular/theme';
 import { RegisterComponent } from './register/register.component';
+import { RegComponent } from './register/reg/reg.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { RegisterComponent } from './register/register.component';
   ],
   declarations: [
     NgxLoginComponent,
-    RegisterComponent, 
+    RegisterComponent,
+    RegComponent, 
   ],
 })
 export class NgxAuthModule {

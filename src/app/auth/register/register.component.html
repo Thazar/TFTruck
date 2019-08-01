@@ -1,3 +1,5 @@
+<ngx-reg [user]=user [count]=count></ngx-reg>
+
 <h1 id="title" class="title">Register</h1>
 
 <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
@@ -15,30 +17,32 @@
 </nb-alert>
 
 <form (ngSubmit)="register()" #form="ngForm" aria-labelledby="title">
+    
+
 
   <div class="form-control-group">
     <label class="label" for="input-name">Full name:</label>
     <input nbInput
-           [(ngModel)]="user.fullName"
-           #fullName="ngModel"
+           [(ngModel)]="user.userFullName"
+           #firstName="ngModel"
            id="input-name"
-           name="fullName"
+           name="firstName"
            placeholder="Full name"
            autofocus
            fullWidth
            [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
-           [required]="getConfigValue('forms.validation.fullName.required')"
-           [minlength]="getConfigValue('forms.validation.fullName.minLength')"
-           [maxlength]="getConfigValue('forms.validation.fullName.maxLength')"
-           [attr.aria-invalid]="fullName.invalid && fullName.touched ? true : null">
-    <ng-container *ngIf="fullName.invalid && fullName.touched">
-      <p class="error-message" *ngIf="fullName.errors?.required">
+           [required]="getConfigValue('forms.validation.firstName.required')"
+           [minlength]="getConfigValue('forms.validation.firstName.minLength')"
+           [maxlength]="getConfigValue('forms.validation.firstName.maxLength')"
+           [attr.aria-invalid]="firstName.invalid && firstName.touched ? true : null">
+    <ng-container *ngIf="firstName.invalid && firstName.touched">
+      <p class="error-message" *ngIf="firstName.errors?.required">
         Full name is required!
       </p>
-      <p class="error-message" *ngIf="fullName.errors?.minlength || fullName.errors?.maxlength">
+      <p class="error-message" *ngIf="firstName.errors?.minlength || firstName.errors?.maxlength">
         Full name should contains
-        from {{getConfigValue('forms.validation.fullName.minLength')}}
-        to {{getConfigValue('forms.validation.fullName.maxLength')}}
+        from {{getConfigValue('forms.validation.firstName.minLength')}}
+        to {{getConfigValue('forms.validation.firstName.maxLength')}}
         characters
       </p>
     </ng-container>
@@ -47,7 +51,7 @@
   <div class="form-control-group">
     <label class="label" for="input-email">Email address:</label>
     <input nbInput
-           [(ngModel)]="user.email"
+           [(ngModel)]="user.username"
            #email="ngModel"
            id="input-email"
            name="email"

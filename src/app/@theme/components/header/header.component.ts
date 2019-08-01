@@ -10,7 +10,7 @@ import { AddTruckService } from '../../../pages/truck/mapa/add-truck/add-truck.s
 import { MapaService } from '../../../pages/truck/mapa/mapa.service';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { UserInfo } from '../../../models/UserInfo';
+
 
 @Component({
   selector: 'ngx-header',
@@ -22,9 +22,9 @@ export class HeaderComponent implements OnInit {
   @Input() position = 'normal';
 
   user: User;
-  tempUserInfo: Observable<UserInfo>;
-  userInfo: UserInfo;
-
+  tempUser: Observable<User>;
+  trueUser: User;
+  
   userMenu = [{ title: 'Profil' }, { title: 'Wyloguj', link : '/auth/logout'}];
   tag = 'my-context-menu'
 
@@ -58,19 +58,22 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
    
     this.tokenService.get().subscribe((token: NbAuthJWTToken) => {
-      this.userInfo = new UserInfo;
+
+      this.trueUser = new User;
       if (token.isValid()) {
-          this.user = token.getPayload();
-          this.user.displayName = this.user.firstName + " " + this.user.lastName;
-          this.truckService.email = this.user.email;
-          this.tempUserInfo = this.truckService.getUserInfoByEmail(this.user.email);
-          this.tempUserInfo.subscribe(data => {
-         this.userInfo = data as UserInfo;
-         this.truckService.userinfo = this.userInfo;
-          });
+        this.user = token.getPayload()
        
+        this.tempUser = this.truckService.getUserByEmail(this.user.username)
+        this.tempUser.subscribe(data => {
+          this.trueUser = data as User;
+          this.truckService.user = this.trueUser;
+          this.truckService.user.roles = this.user.roles;
+          })
+         
       }
    });
+
+   
   }
 
   toggleSidebar(): boolean {

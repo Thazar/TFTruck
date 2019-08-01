@@ -168,7 +168,7 @@ export const NB_CORE_PROVIDERS = [
     NbSecurityModule.forRoot({
       accessControl: {
         guest: {
-          view: ['dashboard','home', 'userprofile'],
+          view: ['dashboard','home', 'userprofile', 'mapa',],
         },
         normal: {
           parent: 'guest',

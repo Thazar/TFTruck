@@ -114,6 +114,7 @@ export class EditTruckComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("no a role to: " + this.addTruckService.user.roles)
     console.log( this.addTruckService.editTruckCreated)
     this.dateOd.setValue(moment(this.addTruckService.editTruckWolnyOd, 'DD.MM.YYYY').toDate());
     this.dateOdValue = this.dateOd.value;
@@ -161,7 +162,7 @@ export class EditTruckComponent implements OnInit {
   save() {
     console.log("truck adr bla bla bla to : " + this.truckAdr)
     this.truck.created = this.created.value;
-    this.truck.truckEmail = this.addTruckService.email;
+    this.truck.truckEmail = this.addTruckService.user.username;
     this.truck.truckWolnyOd = this.dateOdValue;
     this.truck.truckWolnyDo = this.dateDoValue;
     this.truck.truckTyp = this.typValue;
