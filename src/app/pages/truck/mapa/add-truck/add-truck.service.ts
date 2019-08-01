@@ -108,12 +108,8 @@ export class AddTruckService {
   
 
 
-<<<<<<< HEAD
   private baseUrl = 'https://tftruck.herokuapp.com/nebular/api/trucks';
-=======
-  private baseUrl = 'http://localhost:8888/nebular/api/trucks';
-  private userUrl = 'http://localhost:8888/nebular/api';
->>>>>>> feature
+  private userUrl = 'https://tftruck.herokuapp.com/nebular/api';
 
   constructor(private http: HttpClient) { }
 
