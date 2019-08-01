@@ -148,8 +148,8 @@ export class MarkersComponent implements AfterContentInit ,OnDestroy, DoCheck, O
       if (message === 'setMyTrucks') {
         for(var myTrucksIndex = this.markerArray.length -1; myTrucksIndex > -1; myTrucksIndex -= 1) {
           const tempTruck = this.markerArray[myTrucksIndex];
-          if(!(tempTruck.companyName === addTruckService.userinfo.userCompanyName && tempTruck.firstName === addTruckService.userinfo.userFirstName && tempTruck.lastName === this.addTruckService.userinfo.userLastName
-             && tempTruck.email === this.addTruckService.userinfo.userEmail)) {
+          if(!(tempTruck.companyName === addTruckService.user.userCompanyName && tempTruck.firstName === addTruckService.user.userFirstName && tempTruck.lastName === this.addTruckService.user.userLastName
+             && tempTruck.email === this.addTruckService.user.username)) {
                this.markerArray.splice(myTrucksIndex, 1);
              } 
         }

@@ -116,7 +116,7 @@ export class AddTruckComponent  {
 
   save() {
     console.log("truck adr bla bla bla to : " + this.truckAdr)
-    this.truck.truckEmail = this.addTruckService.email;
+    this.truck.truckEmail = this.addTruckService.user.username;
     this.truck.truckWolnyOd = this.dateOdValue;
     this.truck.truckWolnyDo = this.dateDoValue;
     this.truck.truckTyp = this.typValue;
