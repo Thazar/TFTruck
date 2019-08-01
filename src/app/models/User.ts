@@ -13,5 +13,5 @@ export class User {
     userCompanyId: number;
     roles : string[];
     displayName : string;
-
+    confirmPassword: string;
 }
