@@ -101,15 +101,15 @@ export class AddTruckService {
   
 
   public connect() {
-    this.socket = new SockJs(`http://localhost:8888/nebular/socket`)
+    this.socket = new SockJs(`https://tftruck.herokuapp.com/nebular/socket`)
     this.stompClient = Stomp.over(this.socket);
     return this.stompClient;
   }
   
 g
 
-  private baseUrl = 'http://localhost:8888/nebular/api/trucks';
-  private userUrl = 'http://localhost:8888/nebular/api';
+  private baseUrl = 'https://tftruck.herokuapp.com/nebular/api/trucks';
+  private userUrl = 'https://tftruck.herokuapp.com/nebular/api'; 
 
   constructor(private http: HttpClient) { }
 
