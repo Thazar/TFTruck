@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class RegisterService {
 
-  private baseUrl = 'http://localhost:8888/nebular';
+  private baseUrl = 'https://tftruck.herokuapp.com/nebular';
 
   constructor( private http: HttpClient ) { }
 
