@@ -109,7 +109,7 @@ export class AddTruckService {
 g
 
   private baseUrl = 'https://tftruck.herokuapp.com/nebular/api/trucks';
-  private userUrl = 'https://tftruck.herokuapp.com/nebular/api';
+  private userUrl = 'https://tftruck.herokuapp.com/nebular/api'; 
 
   constructor(private http: HttpClient) { }
 
