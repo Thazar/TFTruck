@@ -1,8 +1,0 @@
-{
-    "typescript.tsdk": "./node_modules/typescript/lib",
-    "tslint.enable": false,
-    "search.exclude": {
-        "**/bower_components": false,
-        "**/node_modules": false
-    }
-}
